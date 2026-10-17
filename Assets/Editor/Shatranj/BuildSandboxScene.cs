@@ -90,6 +90,24 @@ namespace Shatranj.EditorTools
 
             SceneBuildUtil.CreateGlobalLight("Global Light 2D", Color.white, 1f);
 
+            // --- Game HUD prefab (Prompt 5) ---
+            GameObject hudPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(BuildUIPrefabs.HudPrefabPath);
+            if (hudPrefab == null && BuildUIPrefabs.TmpEssentialsPresent())
+            {
+                BuildUIPrefabs.Run();
+                hudPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(BuildUIPrefabs.HudPrefabPath);
+            }
+            if (hudPrefab != null)
+            {
+                var hudInstance = (GameObject)PrefabUtility.InstantiatePrefab(hudPrefab, scene);
+                hudInstance.name = "HUD";
+                report.AppendLine("HUD: instantiated from " + BuildUIPrefabs.HudPrefabPath + " (F10 = HUD debug panel).");
+            }
+            else
+            {
+                report.AppendLine("HUD: skipped — no HUD prefab (import TMP Essentials, run Shatranj → Build UI Prefabs, then rebuild the sandbox).");
+            }
+
             // --- Bootstrap + debug HUD ---
             new GameObject("[SceneBootstrap]").AddComponent<SceneBootstrap>();
 

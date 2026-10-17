@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Shatranj.Core
 {
@@ -20,8 +21,8 @@ namespace Shatranj.Core
         // --- Enemies / bosses ---
         /// <summary>Stable enemy id (roomId_glyph_index) used by the kill-save.</summary>
         public static event Action<string> OnEnemyKilled;
-        /// <summary>(bossId, displayName)</summary>
-        public static event Action<string, string> OnBossStarted;
+        /// <summary>(bossId, displayName, stageThresholds as HP fractions, e.g. {0.67, 0.34}; empty for single-stage bosses)</summary>
+        public static event Action<string, string, float[]> OnBossStarted;
         /// <summary>(bossId, currentHp, maxHp)</summary>
         public static event Action<string, int, int> OnBossHealthChanged;
         public static event Action<string> OnBossDefeated;
@@ -38,6 +39,18 @@ namespace Shatranj.Core
         public static event Action<string> OnCutsceneStart;
         public static event Action<string> OnCutsceneEnd;
 
+        // --- Visuals / HUD ---
+        /// <summary>Flame arc progress t in [0,1] (Docs/07 §3). Raised by the FlameController, shown by the HUD.</summary>
+        public static event Action<float> OnFlameProgressChanged;
+        /// <summary>An ability was unlocked during play ("dash" / "fireball"); the HUD shows the popup (Docs/08 §6).</summary>
+        public static event Action<string> OnAbilityUnlocked;
+        /// <summary>(text, world position) — show "W — Rest" style prompt above an interactable.</summary>
+        public static event Action<string, Vector2> OnInteractPromptShown;
+        public static event Action OnInteractPromptHidden;
+
+        public const string AbilityDash = "dash";
+        public const string AbilityFireball = "fireball";
+
         // --- Raise helpers ---
         public static void RaisePlayerDamaged(DamageInfo info) => OnPlayerDamaged?.Invoke(info);
         public static void RaisePlayerDied() => OnPlayerDied?.Invoke();
@@ -46,7 +59,8 @@ namespace Shatranj.Core
         public static void RaiseAbilitiesChanged(PlayerAbilities abilities) => OnAbilitiesChanged?.Invoke(abilities);
 
         public static void RaiseEnemyKilled(string enemyId) => OnEnemyKilled?.Invoke(enemyId);
-        public static void RaiseBossStarted(string bossId, string displayName) => OnBossStarted?.Invoke(bossId, displayName);
+        public static void RaiseBossStarted(string bossId, string displayName, float[] stageThresholds = null)
+            => OnBossStarted?.Invoke(bossId, displayName, stageThresholds ?? System.Array.Empty<float>());
         public static void RaiseBossHealthChanged(string bossId, int current, int max) => OnBossHealthChanged?.Invoke(bossId, current, max);
         public static void RaiseBossDefeated(string bossId) => OnBossDefeated?.Invoke(bossId);
         public static void RaiseFinalBossDefeated() => OnFinalBossDefeated?.Invoke();
@@ -59,6 +73,11 @@ namespace Shatranj.Core
         public static void RaiseGameStateChanged(GameState previous, GameState next) => OnGameStateChanged?.Invoke(previous, next);
         public static void RaiseCutsceneStart(string id) => OnCutsceneStart?.Invoke(id);
         public static void RaiseCutsceneEnd(string id) => OnCutsceneEnd?.Invoke(id);
+
+        public static void RaiseFlameProgressChanged(float t) => OnFlameProgressChanged?.Invoke(Mathf.Clamp01(t));
+        public static void RaiseAbilityUnlocked(string abilityId) => OnAbilityUnlocked?.Invoke(abilityId);
+        public static void RaiseInteractPromptShown(string text, Vector2 worldPosition) => OnInteractPromptShown?.Invoke(text, worldPosition);
+        public static void RaiseInteractPromptHidden() => OnInteractPromptHidden?.Invoke();
 
         /// <summary>Drops every subscriber. Tests and full-game resets only; never call during normal play.</summary>
         public static void ClearAllSubscribers()
@@ -81,6 +100,10 @@ namespace Shatranj.Core
             OnGameStateChanged = null;
             OnCutsceneStart = null;
             OnCutsceneEnd = null;
+            OnFlameProgressChanged = null;
+            OnAbilityUnlocked = null;
+            OnInteractPromptShown = null;
+            OnInteractPromptHidden = null;
         }
     }
 }
