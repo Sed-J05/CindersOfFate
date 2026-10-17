@@ -5,7 +5,7 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 | # | Prompt | Status | Notes |
 |---|---|---|---|
 | 0 | Kickoff & project setup | ✅ done (2026-10-17) | Folders + `.gitkeep`, `.gitignore`, `GameLayers.cs`, `Shatranj/Setup Project`, `README_DEV.md`, DECISIONS D-001…D-013. Human must run the menu item once (see below). |
-| 1 | Core framework | ⬜ not started | GameManager, GameEvents, SaveSystem, SceneFlow, HitStop, ObjectPool, Tween, AudioManager, DebugHotkeys, Health/DamageInfo, all configs + `Generate Config Assets`, EditMode tests |
+| 1 | Core framework | ✅ done (2026-10-17) | `Scripts/Core`: GameManager, GameEvents, SaveSystem, SceneFlow, HitStop, ScreenShake, ObjectPool, Tween, AudioManager, DebugHotkeys/DebugCommands, Health/DamageInfo/DamageType/IDamageable. `Scripts/Data`: Player/Enemy/Boss/Theme/Flame/ArtStyle configs. `Shatranj/Generate Config Assets` + ConfigDefaults. 3 asmdefs. EditMode tests (Health 16, DamageInfo 10, SaveSystem 9). All compiled offline against Unity 6000.0.32f1. |
 | 2 | Player movement, input, camera, sandbox | ⬜ not started | |
 | 3 | Player combat, soul, heal, dash, fireball | ⬜ not started | |
 | 4 | Placeholder art + animation pipeline | ⬜ not started | |
@@ -30,7 +30,8 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 - Project folder/product name is `cinders of fate` (D-002). Git repo initialised on branch `main`, first commit 2026-10-17.
 
 ## Pending human steps (carry forward until done)
-1. Run **Shatranj → Setup Project** once more after the timestep fix; the summary must show no `FAILED` line and `Validation: PASS`. (Layers, tags, sorting layers, matrix and gravity are already verified on disk.)
+1. Run **Shatranj → Generate Config Assets** once (creates 19 assets under `Assets/Data/Configs`).
+2. Run the EditMode tests: Window → General → Test Runner → EditMode → Run All (35 tests expected green).
 
 ## Next up
-Prompt 1 — Core framework (`Docs/09_BUILD_PROMPTS.md`).
+Prompt 2 — Player movement, input, camera, sandbox (`Docs/09_BUILD_PROMPTS.md`).

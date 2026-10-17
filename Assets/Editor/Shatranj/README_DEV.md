@@ -9,7 +9,7 @@ Menu order (top → bottom) mirrors the build order. `Build Everything` runs the
 | Menu item | Status | Script | What it does |
 |---|---|---|---|
 | `Shatranj/Setup Project` | **done** (Prompt 0) | `SetupProject.cs` | Creates the Docs/02 §2 folder structure (+ `.gitkeep`), the 12 physics layers (slots 8–19) and 4 tags, the 11 sorting layers back→front, the Physics2D collision matrix, `Fixed Timestep = 0.01666`, gravity `(0, −9.81)`, and checks/creates the standard Unity `.gitignore`. Reports Active Input Handling. Prints a summary. |
-| `Shatranj/Generate Config Assets` | planned (Prompt 1) | `GenerateConfigs.cs` | Creates every ScriptableObject config under `Assets/Data/Configs` with doc defaults: PlayerConfig, 7 EnemyConfigs, 4 BossConfigs, 4 ThemeConfigs, FlameConfig P1/P2, ArtStyleConfig. Skips existing. |
+| `Shatranj/Generate Config Assets` | **done** (Prompt 1) | `GenerateConfigs.cs` + `ConfigDefaults.cs` | Creates every ScriptableObject config under `Assets/Data/Configs` with doc defaults: `PlayerConfig`, `ArtStyleConfig`, `Enemies/Enemy_*` ×7, `Bosses/Boss_*` ×4, `Themes/Theme_*` ×4, `Flame/Flame_Phase1/2`. Skips existing assets, so delete one to regenerate it. |
 | `Shatranj/Build Sandbox Scene` | planned (Prompt 2) | `BuildSandboxScene.cs` | Builds `Sandbox.unity`: floor, one-way platforms, steps, walls, camera rig, code-built player, debug readout; later adds dummy, spikes, HUD, enemy-spawn keys 1–9 / 0. Adds to Build Settings. |
 | `Shatranj/Generate Placeholder Art` | planned (Prompt 4) | `GeneratePlaceholderArt.cs` | Writes placeholder PNGs for every sprite in Docs/06 (characters, FX, tiles, backgrounds, props, cutscene images, UI) at exact canvas size / frame count, labelled with a built-in pixel font. Never overwrites existing files. |
 | `Shatranj/Import & Rebuild Animations` | planned (Prompt 4) | `RebuildAnimations.cs` | Applies import settings by folder (PPU 100, pivot, filter, no compression, Full Rect) and builds animation clips/controllers (or SpriteAnimator data) from `Assets/Data/AnimationManifest.json`. Re-runnable, preserves GUIDs. |
@@ -24,6 +24,11 @@ Menu order (top → bottom) mirrors the build order. `Build Everything` runs the
 
 Debug-only panels (runtime hotkeys, not menu items): F1–F9 per `CLAUDE.md` §6, F10 HUD fake-events (Prompt 5),
 F11 flame/theme scrub (Prompt 10), F12 flame-scale slider (Prompt 12).
+
+## Assemblies
+- `Assets/Scripts/Shatranj.Runtime.asmdef` — all gameplay code (references Input System, TMP, UI, URP).
+- `Assets/Editor/Shatranj.Editor.asmdef` — this folder; references the runtime assembly.
+- `Assets/Tests/EditMode/Shatranj.Tests.EditMode.asmdef` — NUnit EditMode tests; run them from Window → General → Test Runner.
 
 ## Conventions
 - Namespace `Shatranj.EditorTools`; one static class per menu item; `[MenuItem("Shatranj/<Name>", false, <priority>)]`.
