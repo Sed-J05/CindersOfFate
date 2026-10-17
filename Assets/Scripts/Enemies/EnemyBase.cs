@@ -104,6 +104,48 @@ namespace Shatranj.Enemies
         protected virtual void Start()
         {
             SetFacing(-1);
+            ResolveHomeRoom();
+        }
+
+        // ------------------------------------------------------------------
+        // Home room (D-137): enemies never leave the room they belong to
+        // ------------------------------------------------------------------
+
+        private bool hasHome;
+        private Rect homeRect;
+        private const float HomeEdgeMargin = 0.1f;
+
+        /// <summary>World rect of the room this enemy is confined to (only valid when <see cref="HasHome"/>).</summary>
+        protected Rect HomeRect => homeRect;
+        protected bool HasHome => hasHome;
+
+        private void ResolveHomeRoom()
+        {
+            RoomManager rooms = RoomManager.Instance;
+            if (rooms == null) return;
+            RoomBounds home = !string.IsNullOrEmpty(roomId) ? rooms.Find(roomId) : null;
+            if (home == null) home = rooms.RoomAt(BodyCenter);
+            if (home == null) return;
+            homeRect = home.WorldRect;
+            hasHome = true;
+        }
+
+        /// <summary>True if one more step in <paramref name="dir"/> would put the body past the home room's edge.</summary>
+        protected bool LeavesHome(int dir)
+        {
+            if (!hasHome) return false;
+            float front = rb.position.x + dir * (HalfWidth + HomeEdgeMargin);
+            return front < homeRect.xMin || front > homeRect.xMax;
+        }
+
+        /// <summary>Clamps a point so a body of <paramref name="radius"/> stays inside the home room.</summary>
+        protected Vector2 ClampToHome(Vector2 point, float radius)
+        {
+            if (!hasHome) return point;
+            float r = radius + HomeEdgeMargin;
+            point.x = Mathf.Clamp(point.x, homeRect.xMin + r, homeRect.xMax - r);
+            point.y = Mathf.Clamp(point.y, homeRect.yMin + r, homeRect.yMax - r);
+            return point;
         }
 
         // ------------------------------------------------------------------
@@ -148,8 +190,12 @@ namespace Shatranj.Enemies
 
         protected abstract void TickAI(float dt);
 
-        /// <summary>Ground enemies take the horizontal push as velocity; flyers override to sweep their position.</summary>
-        protected virtual void ApplyKnockback(Vector2 velocity, float dt) => SetVelocityX(velocity.x);
+        /// <summary>Ground enemies take the horizontal push as velocity (never across the home edge); flyers override.</summary>
+        protected virtual void ApplyKnockback(Vector2 velocity, float dt)
+        {
+            int dir = velocity.x > 0f ? 1 : -1;
+            SetVelocityX(LeavesHome(dir) ? 0f : velocity.x);
+        }
 
         protected virtual void Update()
         {
@@ -245,8 +291,8 @@ namespace Shatranj.Enemies
 
         protected bool LedgeAhead(int dir) => !EnemySensors.GroundAhead(Feet, dir, HalfWidth, config.ledgeProbeDistance);
 
-        /// <summary>Wall in front, or (for ledge-aware enemies on the ground) no floor in front.</summary>
-        protected bool Blocked(int dir) => WallAhead(dir) || (config.turnsAtLedges && IsGrounded && LedgeAhead(dir));
+        /// <summary>Wall in front, the home room's edge, or (for ledge-aware enemies on the ground) no floor in front.</summary>
+        protected bool Blocked(int dir) => WallAhead(dir) || LeavesHome(dir) || (config.turnsAtLedges && IsGrounded && LedgeAhead(dir));
 
         private RoomBounds cachedRoom;
         private float nextRoomCheck;

@@ -35,7 +35,7 @@ namespace Shatranj.Enemies
         protected override void Start()
         {
             base.Start();
-            home = rb.position;
+            home = ClampToHome(rb.position, Radius + config.hoverAmplitude);
             basePos = home;
             attackTimer = config.attackInterval;
             SetAnim("Fly");
@@ -103,8 +103,11 @@ namespace Shatranj.Enemies
             if (dist < 1e-5f) return 0f;
             Vector2 dir = delta / dist;
             float allowed = EnemySensors.SweepDistance(basePos, Radius, dir, dist);
-            basePos += dir * allowed;
-            return allowed;
+            // D-137: the home room's edges are walls too (bob amplitude included so the visible body stays inside).
+            Vector2 target = ClampToHome(basePos + dir * allowed, Radius + config.hoverAmplitude);
+            float moved = (target - basePos).magnitude;
+            basePos = target;
+            return moved;
         }
 
         protected override void ApplyKnockback(Vector2 velocity, float dt) => Move(velocity * dt);
