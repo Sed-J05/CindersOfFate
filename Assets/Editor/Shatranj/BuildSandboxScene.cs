@@ -34,6 +34,10 @@ namespace Shatranj.EditorTools
             var report = new StringBuilder();
             report.AppendLine("=== Shatranj / Build Sandbox Scene ===");
 
+            // Create the scene FIRST: NewScene(Single) unloads unused assets, which would turn config
+            // objects loaded before this call into dead references (saved as null). See D-044.
+            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+
             PlayerConfig playerConfig = AssetDatabase.LoadAssetAtPath<PlayerConfig>(GenerateConfigs.PlayerPath);
             CameraConfig cameraConfig = AssetDatabase.LoadAssetAtPath<CameraConfig>(GenerateConfigs.CameraPath);
             if (playerConfig == null || cameraConfig == null)
@@ -43,8 +47,6 @@ namespace Shatranj.EditorTools
                 cameraConfig = AssetDatabase.LoadAssetAtPath<CameraConfig>(GenerateConfigs.CameraPath);
                 report.AppendLine("Configs were missing → generated.");
             }
-
-            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
             // --- Environment ---
             var env = new GameObject("Environment");
@@ -90,6 +92,11 @@ namespace Shatranj.EditorTools
 
             report.AppendLine(saved ? $"Saved {ScenePath} and added it to Build Settings." : $"FAILED to save {ScenePath}");
             report.AppendLine("Player: capsule 0.7×1.5, zero-friction, PlayerInput/Motor/Controller/Animator wired.");
+            bool playerCfgOk = new SerializedObject(controller).FindProperty("config").objectReferenceValue != null;
+            bool camCfgOk = new SerializedObject(camController).FindProperty("config").objectReferenceValue != null;
+            report.Append("Config references: PlayerConfig ").Append(playerCfgOk ? "OK" : "MISSING")
+                  .Append(", CameraConfig ").AppendLine(camCfgOk ? "OK" : "MISSING");
+            if (!playerCfgOk || !camCfgOk) saved = false;
             report.AppendLine("Press Play: A/D move, Space jump, W/S hold to look, F9 reload.");
             Selection.activeGameObject = player;
 

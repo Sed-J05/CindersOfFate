@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cc316d7e999d7e42bc4b0663784c928, type: 3}
+  m_Name: CameraConfig
+  m_EditorClassIdentifier: 
+  orthographicSize: 5.5
+  verticalOffset: 1.2
+  followSmoothTime: 0.15
+  maxFollowSpeed: 60
+  lookAheadDistance: 1.5
+  lookAheadSmoothTime: 0.35
+  verticalLookHoldTime: 0.5
+  verticalLookDistance: 3
+  verticalLookSmoothTime: 0.3
+  roomBlendTime: 0.4
+  defaultZoomTime: 0.5
+  shakeMultiplier: 1
+  shakeFrequency: 25

@@ -194,8 +194,16 @@ namespace Shatranj.EditorTools
             var so = new SerializedObject(target);
             SerializedProperty p = so.FindProperty(field);
             if (p == null) { Debug.LogWarning($"SceneBuildUtil: field '{field}' not found on {target.GetType().Name}"); return; }
+            if (value == null)
+            {
+                // Catches Unity "fake null": a C# reference to an asset that was unloaded (e.g. by NewScene).
+                Debug.LogWarning($"SceneBuildUtil: value for '{field}' on {target.GetType().Name} is null or destroyed — reference not set.");
+                return;
+            }
             p.objectReferenceValue = value;
             so.ApplyModifiedPropertiesWithoutUndo();
+            if (p.objectReferenceValue == null)
+                Debug.LogWarning($"SceneBuildUtil: '{field}' on {target.GetType().Name} rejected {value.name} ({value.GetType().Name}).");
         }
     }
 }
