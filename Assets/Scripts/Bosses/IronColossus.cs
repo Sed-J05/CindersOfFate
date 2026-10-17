@@ -57,6 +57,28 @@ namespace Shatranj.Bosses
             wallFilter.useTriggers = false;
         }
 
+        protected override void Start()
+        {
+            IgnoreOneWayPlatforms();
+            base.Start();
+        }
+
+        /// <summary>
+        /// D-161: pair-wise ignore every one-way platform collider in the scene (the layer exclusion alone was not
+        /// honoured by the platform effector). Platforms are static scene geometry, so once at spawn is enough.
+        /// </summary>
+        private void IgnoreOneWayPlatforms()
+        {
+            Collider2D[] own = GetComponentsInChildren<Collider2D>(true);
+            Collider2D[] all = FindObjectsByType<Collider2D>(FindObjectsSortMode.None);
+            for (int i = 0; i < all.Length; i++)
+            {
+                Collider2D c = all[i];
+                if (c == null || c.gameObject.layer != GameLayers.OneWay) continue;
+                for (int j = 0; j < own.Length; j++) Physics2D.IgnoreCollision(own[j], c, true);
+            }
+        }
+
         private float Telegraph(BossMoveConfig move) => Mathf.Max(MinTelegraph, move.telegraph - TelegraphReduction);
 
         private int Damage(BossMoveConfig move) => move.damage > 0 ? move.damage : config.attackDamage;
