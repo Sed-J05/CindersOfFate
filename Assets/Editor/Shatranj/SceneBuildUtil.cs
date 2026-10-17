@@ -281,6 +281,16 @@ namespace Shatranj.EditorTools
             so.ApplyModifiedPropertiesWithoutUndo();
         }
 
+        public static void SetObjectArray(Object target, string field, Object[] values)
+        {
+            var so = new SerializedObject(target);
+            SerializedProperty p = so.FindProperty(field);
+            if (p == null || !p.isArray) { Debug.LogWarning($"SceneBuildUtil: array '{field}' not found on {target.GetType().Name}"); return; }
+            p.arraySize = values.Length;
+            for (int i = 0; i < values.Length; i++) p.GetArrayElementAtIndex(i).objectReferenceValue = values[i];
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
         public static void SetString(Object target, string field, string value)
         {
             var so = new SerializedObject(target);

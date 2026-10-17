@@ -25,6 +25,9 @@ namespace Shatranj.UI
         private int cycle = 1;
         private bool visible;
 
+        /// <summary>True while the F10 panel is open; other digit-key tools (sandbox spawner) stand down.</summary>
+        public static bool IsOpen { get; private set; }
+
         private void OnEnable()
         {
             GameEvents.OnHealthChanged += HandleHealth;
@@ -57,6 +60,7 @@ namespace Shatranj.UI
             if (kb.f10Key.wasPressedThisFrame)
             {
                 visible = !visible;
+                IsOpen = visible;
                 if (group != null) group.alpha = visible ? 1f : 0f;
                 Refresh();
             }

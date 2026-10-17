@@ -93,6 +93,7 @@ namespace Shatranj.EditorTools.Level
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return false;
 
             BuildPrefabs.EnsureLevelProps(false, report);
+            BuildPrefabs.EnsureEnemyPrefabs(false, report);
 
             // D-044: create the scene before loading any asset we will reference.
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);

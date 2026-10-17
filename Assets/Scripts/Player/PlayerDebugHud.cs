@@ -68,7 +68,8 @@ namespace Shatranj.Player
                   .Append("  air ").Append(playerDash.AirDashesLeft).Append('\n');
             sb.Append("FPS      ").Append(fps.ToString("0")).Append("   timeScale ").Append(Time.timeScale.ToString("0.00")).Append('\n');
             sb.Append("A/D move  Space jump  J attack (W+J up)  K tap fireball / hold heal  L dash\n");
-            sb.Append("F1 god  F2 soul  F4 phase toggle  F7 hitbox gizmos  F9 reload");
+            sb.Append("F1 god  F2 soul  F4 phase toggle  F7 hitbox gizmos  F9 reload\n");
+            sb.Append("1 Crawler  2 Lunger  3 Kite (at cursor)  0 clear  F10 HUD debug");
             text.text = sb.ToString();
         }
     }

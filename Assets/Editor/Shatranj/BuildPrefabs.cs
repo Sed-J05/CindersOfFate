@@ -31,9 +31,45 @@ namespace Shatranj.EditorTools
             var report = new StringBuilder();
             report.AppendLine("=== Shatranj / Build Prefabs ===");
             EnsureLevelProps(force: true, report);
+            EnsureEnemyPrefabs(force: true, report);
             AssetDatabase.SaveAssets();
-            report.AppendLine("Enemy / boss prefabs: not built yet (Prompt 7+).");
+            report.AppendLine("Boss prefabs: Prompt 8+.");
             Debug.Log(report.ToString());
+        }
+
+        /// <summary>(prefab / set name, config name, behaviour) for every regular enemy built so far.</summary>
+        public static readonly (string name, string config, System.Type behaviour)[] EnemyTypes =
+        {
+            ("Crawler", "Crawler", typeof(Shatranj.Enemies.Crawler)),
+            ("Lunger", "Lunger", typeof(Shatranj.Enemies.Lunger)),
+            ("ShadowKite", "ShadowKite", typeof(Shatranj.Enemies.ShadowKite)),
+        };
+
+        /// <summary>Builds the enemy prefabs if any is missing (or always when <paramref name="force"/>). Call before NewScene (D-044).</summary>
+        public static void EnsureEnemyPrefabs(bool force = false, StringBuilder report = null)
+        {
+            bool allExist = true;
+            foreach (var e in EnemyTypes)
+                if (AssetDatabase.LoadAssetAtPath<GameObject>(EnemyPrefabPath(e.name)) == null) { allExist = false; break; }
+            if (allExist && !force) return;
+
+            GenerateConfigs.EnsureFolder(EnemiesFolder);
+            foreach (var e in EnemyTypes)
+            {
+                var cfg = AssetDatabase.LoadAssetAtPath<EnemyConfig>(GenerateConfigs.EnemyPath(e.config));
+                if (cfg == null)
+                {
+                    GenerateConfigs.Run();
+                    cfg = AssetDatabase.LoadAssetAtPath<EnemyConfig>(GenerateConfigs.EnemyPath(e.config));
+                }
+                if (cfg == null) { report?.AppendLine($"  FAILED {e.name}: no EnemyConfig at {GenerateConfigs.EnemyPath(e.config)}"); continue; }
+
+                GameObject root = EnemyPrefabFactory.Build(e.name, cfg, e.behaviour);
+                string path = EnemyPrefabPath(e.name);
+                PrefabUtility.SaveAsPrefabAsset(root, path, out bool ok);
+                Object.DestroyImmediate(root);
+                report?.AppendLine((ok ? "  saved  " : "  FAILED ") + path + $"  (HP {cfg.maxHp}, {cfg.HitsToKill(1)} nail hits)");
+            }
         }
 
         /// <summary>Builds the level props if any is missing (or always when <paramref name="force"/>).</summary>

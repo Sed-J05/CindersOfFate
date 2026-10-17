@@ -70,8 +70,12 @@ namespace Shatranj.Player
             airJumpsLeft = config.airJumps;
         }
 
+        /// <summary>The live player, for enemy AI (set in OnEnable, so no Find calls in Update).</summary>
+        public static PlayerController Active { get; private set; }
+
         private void OnEnable()
         {
+            Active = this;
             GameEvents.OnAbilitiesChanged += HandleAbilitiesChanged;
             input.OnPausePressed += HandlePausePressed;
             if (GameManager.HasInstance) HandleAbilitiesChanged(GameManager.Instance.Abilities);
@@ -79,6 +83,7 @@ namespace Shatranj.Player
 
         private void OnDisable()
         {
+            if (Active == this) Active = null;
             GameEvents.OnAbilitiesChanged -= HandleAbilitiesChanged;
             input.OnPausePressed -= HandlePausePressed;
         }

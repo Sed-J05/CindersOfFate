@@ -37,6 +37,17 @@ namespace Shatranj.Data
         public float knockbackDuration = 0.15f;
         public bool knockbackImmuneDuringAttack = false;
         public float deathAnimTime = 0.5f;
+        [Tooltip("Hurt clip override length after a hit (2 frames @ 12 fps).")]
+        public float hurtAnimTime = 0.17f;
+        [Tooltip("Gravity scale for ground enemies (Physics2D gravity is −9.81).")]
+        public float gravityScale = 3f;
+        [Tooltip("How far below the front foot the ledge probe looks for ground.")]
+        public float ledgeProbeDistance = 0.6f;
+
+        [Header("Telegraph (Docs/04 global rules)")]
+        [Tooltip("Flash shown when an attack telegraph starts.")]
+        public float telegraphFlashTime = 0.1f;
+        public Color telegraphFlashColor = new Color(1f, 0.35f, 0.3f, 1f);
 
         [Header("Perception")]
         public float detectRange = 6f;
@@ -113,5 +124,10 @@ namespace Shatranj.Data
         public bool scalePivotCenter = false;
         [Tooltip("Projectile size × (1 + this × (scale − 1)).")]
         public float projectileScaleFactor = 0.5f;
+
+        /// <summary>Hits needed to kill with a given damage per hit (player nail = 1, fireball = 3).</summary>
+        public int HitsToKill(int damagePerHit) => damagePerHit <= 0 ? int.MaxValue : Mathf.CeilToInt(maxHp / (float)damagePerHit);
+
+        public bool HasAttack => !string.IsNullOrEmpty(attackName);
     }
 }

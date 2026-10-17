@@ -11,7 +11,7 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 | 4 | Placeholder art + animation pipeline | ✅ done (2026-10-17) | `Data`: ArtManifest classes, SpriteAnimationSet. `Visuals`: SpriteAnimator (no Unity Animator, D-057). Editor `Art/`: manifest tables + IO, PixelFont, PixelCanvas, PlaceholderPainter, `Generate Animation Manifest`, `Generate Placeholder Art`, `Import & Rebuild Animations`, ShatranjSpriteImporter postprocessor. PlayerAnimator plays Docs/06 clips per state with tint fallback; PlayerFactory wires SpriteAnimator. |
 | 5 | HUD | ✅ done (2026-10-17) | `Scripts/UI`: HUDController, HeartsUI, SoulVesselUI, BossBarUI, FlameArcIndicator, AbilityPopupUI, CycleLabelUI, InteractPromptUI, HudDebugPanel (F10). GameEvents: OnBossStarted now carries stage thresholds; new OnFlameProgressChanged, OnAbilityUnlocked, OnInteractPromptShown/Hidden. Editor: `Shatranj/Build UI Prefabs` → `Assets/Prefabs/UI/HUD.prefab`; Sandbox builder instantiates it. Needs TMP Essentials. |
 | 6 | Level pipeline | ✅ done (2026-10-17) | `Scripts/Level`: LevelData (glyphs, RoomData, manifest), LevelParser, RoomBounds (extended), RoomManager (current + adjacent activation, F3/F5/F6, safe points), EnemySpawner (stable ids, kill-save), InteractableBase, Bench (rest + checkpoint), Orb, TutorialSign, Door (flag-locked), BossGate, BossArena, SafeGroundPoint/PlayerSpawnPoint, LevelSceneSetup (respawn at bench on load). Core: GameManager.SetFlag + OnFlagChanged, LastFlameProgress. Editor: `Build Prefabs` (level props), `Build Levels`, `Build LevelTest Scene`, `Validate Project`, TileAssets, LEVEL_OVERVIEW writer. Data: TEST_A/B/C rooms, `LevelManifest.json` skeleton (sections + expected counts), `LevelManifest_Test.json`. Tests: LevelParserTests (13). |
-| 7 | Enemy framework + Phase 1 enemies | ⬜ not started | |
+| 7 | Enemy framework + Phase 1 enemies | ✅ done (2026-10-17) | `Scripts/Enemies`: EnemyBase (Health, white flash via silhouette shader, knockback, Hurt/Death clips, Death_Smoke, contact DamageDealer, room activation, spawner kill-save, telegraph flash + '!', flame-scale hook), EnemySensors (ground/ledge/wall/LOS/separation/sweep), Crawler, Lunger, ShadowKite, SandboxEnemySpawner (1/2/3 at cursor, 0 clear). `Visuals`: FxPool + PooledFx. Shader `Shatranj/SpriteSilhouette`. Editor: EnemyPrefabFactory, Build Prefabs builds the 3 enemies; Sandbox + Level builders ensure them. Tests: EnemyAcceptanceTests (6). |
 | 8 | Phase 1 Section A + MB1 | ⬜ not started | |
 | 9 | Phase 1 Section B + MB2 + orb | ⬜ not started | |
 | 10 | Shadow puppetry visuals | ⬜ not started | also picks up URP/quality tweaks deferred from Prompt 0 (D-011) |
@@ -30,10 +30,9 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 - Project folder/product name is `cinders of fate` (D-002). Git repo initialised on branch `main`, first commit 2026-10-17.
 
 ## Pending human steps (carry forward until done)
-1. **Shatranj → Build Prefabs** (level props), then **Shatranj → Build LevelTest Scene**, press Play (see Prompt 6 checklist).
-2. **Shatranj → Validate Project** and read the report (Phase sections show PENDING until rooms exist).
-3. Test Runner → EditMode → Run All (48 tests: 35 + 13 parser).
-4. Art-swap test from Prompt 4 is still unverified.
+1. **Shatranj → Build Prefabs**, then **Build Sandbox Scene** and **Build LevelTest Scene** (both pick up the enemy prefabs).
+2. Test Runner → EditMode → Run All (54 tests).
+3. Art-swap test from Prompt 4 is still unverified.
 
 ## Next up
-Prompt 7 — Enemy framework + Phase 1 regular enemies (`Docs/09_BUILD_PROMPTS.md`).
+Prompt 8 — Phase 1 Section A rooms + Mini-boss 1 Kage Warden (`Docs/09_BUILD_PROMPTS.md`).

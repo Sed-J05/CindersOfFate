@@ -37,6 +37,9 @@ namespace Shatranj.EditorTools
             var report = new StringBuilder();
             report.AppendLine("=== Shatranj / Build Sandbox Scene ===");
 
+            // Prefab building uses temporary objects, so it happens before the new scene exists.
+            BuildPrefabs.EnsureEnemyPrefabs(false, report);
+
             // Create the scene FIRST: NewScene(Single) unloads unused assets, which would turn config
             // objects loaded before this call into dead references (saved as null). See D-044.
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -80,6 +83,15 @@ namespace Shatranj.EditorTools
             SceneBuildUtil.CreateSpikes("Spikes_Floor", env.transform, new Vector2(5f, 0.2f), new Vector2(2f, 0.4f), SpikeColor);
             SceneBuildUtil.CreateSpikes("Spikes_Pit", env.transform, new Vector2(32.5f, -2.8f), new Vector2(3f, 0.4f), SpikeColor);
             report.AppendLine("Targets: 4 dummies (10/10/10/20 HP). Hazards: floor spikes at x≈5, pit spikes at x≈32.5.");
+
+            // --- Enemy spawn keys (Prompt 7): 1 Crawler, 2 Lunger, 3 Kite, 0 clear — at the mouse cursor ---
+            var enemyPrefabs = new Object[BuildPrefabs.EnemyTypes.Length];
+            for (int i = 0; i < enemyPrefabs.Length; i++)
+                enemyPrefabs[i] = AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.EnemyPrefabPath(BuildPrefabs.EnemyTypes[i].name));
+            var spawnerGo = new GameObject("[SandboxEnemySpawner]");
+            var sandboxSpawner = spawnerGo.AddComponent<Shatranj.Enemies.SandboxEnemySpawner>();
+            SceneBuildUtil.SetObjectArray(sandboxSpawner, "prefabs", enemyPrefabs);
+            report.AppendLine("Enemy keys: 1 Crawler, 2 Lunger, 3 Shadow Kite (at the mouse cursor), 0 clear.");
 
             // --- Camera rig ---
             Camera cam = SceneBuildUtil.CreateMainCamera(new Vector3(0f, cameraConfig.verticalOffset, -10f), cameraConfig.orthographicSize, ParchmentColor);
