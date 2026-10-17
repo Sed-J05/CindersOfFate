@@ -41,6 +41,7 @@ namespace Shatranj.EditorTools
         public static readonly (string name, string config, string bossId, System.Type behaviour)[] BossTypes =
         {
             ("KageWarden", "KageWarden", "kage_warden", typeof(Shatranj.Bosses.KageWarden)),
+            ("KageCaller", "KageCaller", "kage_caller", typeof(Shatranj.Bosses.KageCaller)),
         };
 
         /// <summary>Prefab path for a boss id ("kage_warden" → Assets/Prefabs/Bosses/KageWarden.prefab), or null if not built yet.</summary>
@@ -70,6 +71,16 @@ namespace Shatranj.EditorTools
                 if (cfg == null) { report?.AppendLine($"  FAILED {b.name}: no BossConfig at {GenerateConfigs.BossPath(b.config)}"); continue; }
 
                 GameObject root = BossPrefabFactory.Build(b.name, cfg, b.behaviour);
+                if (b.behaviour == typeof(Shatranj.Bosses.KageCaller))
+                {
+                    // Docs/04 §B2 minions: Crawler / Lunger (enemy prefabs are built before bosses).
+                    var minions = new Object[]
+                    {
+                        AssetDatabase.LoadAssetAtPath<GameObject>(EnemyPrefabPath("Crawler")),
+                        AssetDatabase.LoadAssetAtPath<GameObject>(EnemyPrefabPath("Lunger")),
+                    };
+                    SceneBuildUtil.SetObjectArray(root.GetComponent<Shatranj.Bosses.KageCaller>(), "minionPrefabs", minions);
+                }
                 string path = BossPrefabPath(b.name);
                 PrefabUtility.SaveAsPrefabAsset(root, path, out bool ok);
                 Object.DestroyImmediate(root);

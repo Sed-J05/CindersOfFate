@@ -95,7 +95,7 @@ namespace Shatranj.EditorTools
             var spawnerGo = new GameObject("[SandboxEnemySpawner]");
             var sandboxSpawner = spawnerGo.AddComponent<Shatranj.Enemies.SandboxEnemySpawner>();
             SceneBuildUtil.SetObjectArray(sandboxSpawner, "prefabs", enemyPrefabs);
-            report.AppendLine("Enemy keys: 1 Crawler, 2 Lunger, 3 Shadow Kite, 4 Kage Warden (at the mouse cursor), 0 clear.");
+            report.AppendLine("Enemy keys: 1 Crawler, 2 Lunger, 3 Shadow Kite, 4 Kage Warden, 5 Kage Caller (at the mouse cursor), 0 clear.");
 
             // --- Camera rig ---
             Camera cam = SceneBuildUtil.CreateMainCamera(new Vector3(0f, cameraConfig.verticalOffset, -10f), cameraConfig.orthographicSize, ParchmentColor);

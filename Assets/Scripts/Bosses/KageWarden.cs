@@ -15,24 +15,19 @@ namespace Shatranj.Bosses
     /// ending in a counter-slash (telegraph 0.3) if the player is within 2.5 u.
     /// Block never twice in a row; only after ≥ 2 player attacks in 2 s, or a 20 % roll.
     /// </summary>
-    public class KageWarden : BossBase
+    public class KageWarden : SwordsmanBoss
     {
         private enum Move { None, Advance, SlashCombo, BackStep, Block }
 
         private Move last = Move.None;
         private bool blocking;
-        private BossMoveConfig advance, slash, backStep, block, counter;
+        private BossMoveConfig block, counter;
 
-        private const float StopDistance = 1.3f;
-        private const float BackStepHopSpeed = 4f;
         private const float BlockStartTime = 3f / 16f;   // Block_Start: 3 frames @ 16 fps
 
         protected override void Awake()
         {
             base.Awake();
-            advance = config.FindMove("Advance") ?? new BossMoveConfig("Advance", 0f, 0f, 0f, 0f, 0) { duration = 1.1f, speed = 3f };
-            slash = config.FindMove("SlashCombo") ?? new BossMoveConfig("SlashCombo", 0.45f, 0.1f, 0.6f, 2.2f, 1, 2f) { hits = 2, hitGap = 0.25f };
-            backStep = config.FindMove("BackStep") ?? new BossMoveConfig("BackStep", 0f, 0f, 0f, 3f, 0) { duration = 0.35f };
             block = config.FindMove("Block") ?? new BossMoveConfig("Block", 0f, 1.5f, 0f, 0f, 0) { duration = 1.5f };
             counter = config.FindMove("CounterSlash") ?? new BossMoveConfig("CounterSlash", 0.3f, 0.1f, 0.5f, 2.5f, 1, 0f);
         }
@@ -45,7 +40,7 @@ namespace Shatranj.Bosses
                 switch (next)
                 {
                     case Move.Advance: yield return DoAdvance(); break;
-                    case Move.SlashCombo: yield return DoSlashCombo(); break;
+                    case Move.SlashCombo: yield return DoSlashCombo(slash); break;
                     case Move.BackStep: yield return DoBackStep(); yield return DoAdvance(); break;
                     case Move.Block: yield return DoBlock(); break;
                 }
@@ -79,63 +74,6 @@ namespace Shatranj.Bosses
             return Move.BackStep;
         }
 
-        private IEnumerator DoAdvance()
-        {
-            float duration = Random.Range(config.advanceTimeMin, config.advanceTimeMax);
-            float speed = (advance.speed > 0f ? advance.speed : config.moveSpeed) * SpeedMultiplier;
-            Play("Walk", false);
-            float t = 0f;
-            while (t < duration)
-            {
-                FacePlayer();
-                if (DistanceToPlayer <= StopDistance) { Stop(); break; }
-                SetVelocityX(facing * speed);
-                t += Time.deltaTime;
-                yield return null;
-            }
-            Stop();
-        }
-
-        private IEnumerator DoSlashCombo()
-        {
-            FacePlayer();
-            Stop();
-            Play("Slash_Telegraph");
-            TelegraphFlash();
-            AudioManager.Play("warden_telegraph");
-            yield return Wait(Mathf.Max(0.05f, slash.telegraph - TelegraphReduction));
-
-            Play("Slash_A");
-            AudioManager.Play("warden_slash");
-            yield return HitWindow(slash.reach, slash.active, slash.damage);
-
-            yield return Wait(slash.hitGap);
-            if (PlayerIsBehind) SetFacing(-facing); // Docs/04: second slash goes the other way if the player is behind
-            Play("Slash_B");
-            AudioManager.Play("warden_slash");
-            yield return HitWindow(slash.reach, slash.active, slash.damage);
-
-            Play("Idle", false);
-            yield return Wait(slash.recovery);
-        }
-
-        private IEnumerator DoBackStep()
-        {
-            FacePlayer();
-            float duration = Mathf.Max(0.05f, backStep.duration);
-            float speed = backStep.reach / duration;
-            Play("Walk", false);
-            rb.linearVelocity = new Vector2(-facing * speed, BackStepHopSpeed);
-            float t = 0f;
-            while (t < duration)
-            {
-                SetVelocityX(-facing * speed);
-                t += Time.deltaTime;
-                yield return null;
-            }
-            Stop();
-        }
-
         private IEnumerator DoBlock()
         {
             FacePlayer();
@@ -161,7 +99,7 @@ namespace Shatranj.Bosses
                 FacePlayer();
                 Play("Slash_Telegraph");
                 TelegraphFlash();
-                yield return Wait(Mathf.Max(0.05f, counter.telegraph - TelegraphReduction));
+                yield return Wait(Telegraph(counter));
                 Play("Slash_A");
                 AudioManager.Play("warden_slash");
                 yield return HitWindow(counter.reach, counter.active, counter.damage);

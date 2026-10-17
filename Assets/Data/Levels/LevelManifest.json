@@ -69,6 +69,78 @@
           "useManifestOrigin": false,
           "originX": 0,
           "originY": 0
+        },
+        {
+          "id": "P1_B1",
+          "file": "P1_B1.txt",
+          "section": "B",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_B2",
+          "file": "P1_B2.txt",
+          "section": "B",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_B3",
+          "file": "P1_B3.txt",
+          "section": "B",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_B4",
+          "file": "P1_B4.txt",
+          "section": "B",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_B5",
+          "file": "P1_B5.txt",
+          "section": "B",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_B6",
+          "file": "P1_B6.txt",
+          "section": "B",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_MB2",
+          "file": "P1_MB2.txt",
+          "section": "B",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_ORB",
+          "file": "P1_ORB.txt",
+          "section": "B",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
         }
       ],
       "sections": [

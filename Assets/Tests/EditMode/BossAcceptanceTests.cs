@@ -50,14 +50,54 @@ namespace Shatranj.Tests
             Object.DestroyImmediate(b);
         }
 
+        private static BossConfig Caller()
+        {
+            var b = ScriptableObject.CreateInstance<BossConfig>();
+            ConfigDefaults.KageCaller(b);
+            return b;
+        }
+
+        [Test]
+        public void KageCaller_MatchesDocs04()
+        {
+            BossConfig b = Caller();
+            Assert.AreEqual(30, b.maxHp);
+            Assert.AreEqual(3.5f, b.moveSpeed);
+            Assert.AreEqual(50, b.arenaWidthTiles);
+            Assert.AreEqual(0.35f, b.FindMove("SlashCombo").telegraph, "faster than MB1");
+            Assert.AreEqual(2, b.FindMove("SlashCombo").hits);
+
+            BossMoveConfig shot = b.FindMove("BlackSlash");
+            Assert.AreEqual(0.5f, shot.telegraph);
+            Assert.AreEqual(11f, b.projectileSpeed);
+            Assert.AreEqual(new Vector2(1.4f, 0.6f), b.projectileSize);
+            Assert.AreEqual(2f, b.projectileLifetime);
+            Assert.AreEqual(0.66f, b.projectileSecondBelowFraction, 1e-5f);
+            Assert.AreEqual(0.5f, b.projectileSecondDelay);
+
+            Assert.AreEqual(0.8f, b.FindMove("Summon").telegraph);
+            Assert.AreEqual(2, b.summonCount);
+            Assert.AreEqual(3, b.summonCountEnraged);
+            Assert.AreEqual(3, b.summonCap);
+            Assert.AreEqual(12f, b.summonCooldown);
+            Assert.AreEqual(8f, b.summonCooldownEnraged);
+
+            Assert.AreEqual(0.5f, b.enrageBelowFraction);
+            Assert.AreEqual(1.25f, b.enrageSpeedMultiplier);
+            Assert.AreEqual(0.1f, b.enrageTelegraphReduction, 1e-5f);
+            Object.DestroyImmediate(b);
+        }
+
         [Test]
         public void EveryDamagingBossMove_HasATelegraph()
         {
-            BossConfig b = Warden();
-            foreach (BossMoveConfig m in b.moves)
-                if (m.damage > 0) Assert.Greater(m.telegraph, 0f, $"{b.id}/{m.name}");
-            Assert.Greater(b.telegraphFlashTime, 0f);
-            Object.DestroyImmediate(b);
+            foreach (BossConfig b in new[] { Warden(), Caller() })
+            {
+                foreach (BossMoveConfig m in b.moves)
+                    if (m.damage > 0) Assert.Greater(m.telegraph - b.enrageTelegraphReduction, 0f, $"{b.id}/{m.name} (enraged)");
+                Assert.Greater(b.telegraphFlashTime, 0f);
+                Object.DestroyImmediate(b);
+            }
         }
     }
 }

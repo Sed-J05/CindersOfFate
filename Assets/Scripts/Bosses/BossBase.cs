@@ -102,7 +102,7 @@ namespace Shatranj.Bosses
             if (!started && arena == null && autoStartWithoutArena) Begin();
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             // Removed mid-fight (player death, sandbox clear): hide the bar without counting a victory.
             if (started && !dead) GameEvents.RaiseBossReset(BossId);
