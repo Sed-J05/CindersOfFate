@@ -73,12 +73,22 @@ namespace Shatranj.Player
         private void OnEnable()
         {
             GameEvents.OnAbilitiesChanged += HandleAbilitiesChanged;
+            input.OnPausePressed += HandlePausePressed;
             if (GameManager.HasInstance) HandleAbilitiesChanged(GameManager.Instance.Abilities);
         }
 
         private void OnDisable()
         {
             GameEvents.OnAbilitiesChanged -= HandleAbilitiesChanged;
+            input.OnPausePressed -= HandlePausePressed;
+        }
+
+        /// <summary>Esc / Start: freeze or resume (Docs/08 §7). The pause menu itself arrives in Prompt 11.</summary>
+        private void HandlePausePressed()
+        {
+            if (!GameManager.HasInstance) return;
+            GameManager gm = GameManager.Instance;
+            if (gm.State == GameState.Playing || gm.State == GameState.Paused) gm.TogglePause();
         }
 
         private void HandleAbilitiesChanged(PlayerAbilities abilities)
