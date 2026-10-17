@@ -314,11 +314,13 @@ MonoBehaviour:
   contact: {fileID: 2377639195164233639}
   autoStartWithoutArena: 1
   minionPrefabs:
-  - {fileID: 770387439664270949, guid: 1666876d337a6c04f93361287bfbcfce, type: 3}
-  - {fileID: 7221569283066060966, guid: e23eaaed91a1ffa44abb91dab19d8f7a, type: 3}
+  - {fileID: 6036301961661364553, guid: 54d9df1ce3d8f48459a1c7ece71e65d2, type: 3}
   unlockFlag: door_orb
-  firstSummonDelay: 6
   dropHeightFallback: 8
+  rangedMinDistance: 5
+  postAttackGap: 0.8
+  platformHeight: 1.2
+  platformCampTime: 3
 --- !u!1 &8091562189651914219
 GameObject:
   m_ObjectHideFlags: 0
