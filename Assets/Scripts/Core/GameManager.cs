@@ -62,6 +62,17 @@ namespace Shatranj.Core
             if (Instance == this) Instance = null;
         }
 
+        /// <summary>
+        /// QA (Prompt 18): alt-tab / losing focus in a build pauses gameplay (the pause menu opens with it) so nothing
+        /// happens while the player is away. Not in the Editor, where clicking the Console would pause every time.
+        /// </summary>
+        private void OnApplicationFocus(bool focus)
+        {
+            if (focus || Application.isEditor) return;
+            if (State == GameState.Playing) Pause();
+            Rumble.Stop();
+        }
+
         private void OnEnable() => GameEvents.OnFinalBossDefeated += HandleFinalBossDefeated;
         private void OnDisable() => GameEvents.OnFinalBossDefeated -= HandleFinalBossDefeated;
 
@@ -133,8 +144,8 @@ namespace Shatranj.Core
             }
             else if (previous == GameState.Paused || (next == GameState.Playing && !HitStop.IsActive))
             {
-                // Safety: never leave the game frozen when returning to play / menus.
-                Time.timeScale = 1f;
+                // Safety: never leave the game frozen when returning to play / menus (a running slow-mo keeps its speed).
+                Time.timeScale = TimeScaleGuard.ResumeScale;
             }
 
             GameEvents.RaiseGameStateChanged(previous, next);

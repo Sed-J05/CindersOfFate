@@ -174,7 +174,7 @@ namespace Shatranj.EditorTools.Art
                 case "ui_bar_fill": c.FillRoundRect(0, 0, w, h, 8, EnemyRed); c.FillRect(0, h - 10, w, 6, PixelCanvas.WithAlpha(EnemyRedGlow, 180)); break;
                 case "ui_button": c.FillRoundRect(0, 0, w, h, 14, ParchBeige); c.FillRoundRect(4, 4, w - 8, h - 8, 12, PixelCanvas.WithAlpha(ParchEdge, 60)); break;
                 case "ui_button_hover": c.FillRoundRect(0, 0, w, h, 14, ParchEdge); c.FillRoundRect(4, 4, w - 8, h - 8, 12, ParchBeige); break;
-                case "ui_logo": { int sc = 12; string title = "SHATRANJ"; int tw = PixelFont.MeasureWidth(title, sc); c.DrawText(title, cx - tw / 2, cy + (PixelFont.GlyphHeight * sc) / 2, sc, EnvDark, false); c.FillRect(cx - tw / 2, cy - PixelFont.GlyphHeight * sc / 2 - 24, tw, 8, EnemyRed); break; }
+                case "ui_logo": { int sc = 10; string title = "CINDERS OF FATE"; int tw = PixelFont.MeasureWidth(title, sc); c.DrawText(title, cx - tw / 2, cy + (PixelFont.GlyphHeight * sc) / 2, sc, EnvDark, false); c.FillRect(cx - tw / 2, cy - PixelFont.GlyphHeight * sc / 2 - 24, tw, 8, EnemyRed); break; }
                 case "ui_cursor": c.FillTriangle(new Vector2Int(10, 10), new Vector2Int(10, h - 10), new Vector2Int(w - 10, cy), ParchBeige); break;
                 case "ui_icon_dash": c.FillRoundRect(6, 6, w - 12, h - 12, 12, EnvDark); for (int i = 0; i < 3; i++) c.FillRect(16 + i * 10, cy - 12 + i * 4, 40, 8, PixelCanvas.WithAlpha(ProtBlue, (byte)(120 + i * 60))); break;
                 case "ui_icon_fireball": c.FillRoundRect(6, 6, w - 12, h - 12, 12, EnvDark); c.FillSoftCircle(cx, cy, w / 3, ProtBlue, 0.5f); c.FillSoftCircle(cx + 6, cy, w / 6, ProtWhite, 0.5f); break;

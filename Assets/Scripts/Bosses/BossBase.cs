@@ -110,6 +110,7 @@ namespace Shatranj.Bosses
             // Removed mid-fight (player death, sandbox clear): hide the bar without counting a victory.
             if (started && !dead) GameEvents.RaiseBossReset(BossId);
             if (started && CameraController.Main != null) CameraController.Main.ResetZoom(0.3f);
+            TimeScaleGuard.EndSlowMo(this);   // destroyed mid slow-mo (player died, scene change): never leave 0.25×
         }
 
         // ------------------------------------------------------------------
@@ -314,14 +315,14 @@ namespace Shatranj.Bosses
             // Docs/04: slow-mo death. Real-time wait so the slow-mo length is exact; paused time doesn't count.
             HitStop.Cancel();
             ZoomCamera(config.outroZoom, config.introZoomTime);   // outro push-in during the slow-mo
-            Time.timeScale = config.deathSlowmoScale;
+            TimeScaleGuard.BeginSlowMo(this, config.deathSlowmoScale);   // released below, or on destroy (QA)
             float t = 0f;
             while (t < config.deathSlowmoTime)
             {
                 if (!(GameManager.HasInstance && GameManager.Instance.IsPaused)) t += Time.unscaledDeltaTime;
                 yield return null;
             }
-            if (!(GameManager.HasInstance && GameManager.Instance.IsPaused)) Time.timeScale = 1f;
+            TimeScaleGuard.EndSlowMo(this);
 
             FxPool.Play("Death_Smoke", rb.position + new Vector2(0f, config.colliderSize.y * 0.5f), 1, 2f);
             ZoomCamera(1f, config.introZoomTime * 2f);

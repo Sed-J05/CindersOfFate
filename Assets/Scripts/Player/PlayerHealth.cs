@@ -222,12 +222,14 @@ namespace Shatranj.Player
             StartCoroutine(DeathFlow());
         }
 
+        private void OnDestroy() => TimeScaleGuard.EndSlowMo(this);   // scene change mid death slow-mo
+
         private IEnumerator DeathFlow()
         {
             HitStop.Cancel();
-            Time.timeScale = config.deathSlowmoScale;
+            TimeScaleGuard.BeginSlowMo(this, config.deathSlowmoScale);
             yield return new WaitForSecondsRealtime(config.deathSlowmoDuration);
-            Time.timeScale = 1f;
+            TimeScaleGuard.EndSlowMo(this);
 
             // Docs/07 §6: death uses the burn wipe (orange-rimmed circle closing on the puppet); plain fade as fallback.
             ScreenWipe wipe = ScreenWipe.Instance;

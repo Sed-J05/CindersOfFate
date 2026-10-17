@@ -17,6 +17,20 @@ namespace Shatranj.Enemies
         private static readonly Dictionary<string, Action<EnemyProjectile>> releases = new Dictionary<string, Action<EnemyProjectile>>();
         private static Transform root;
 
+        // QA (Prompt 18): knives / slashes in flight when a scene unloads are recalled instead of flying through the next scene.
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void HookSceneLoads()
+        {
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded -= ReleaseOnLoad;
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += ReleaseOnLoad;
+        }
+
+        private static void ReleaseOnLoad(UnityEngine.SceneManagement.Scene s, UnityEngine.SceneManagement.LoadSceneMode m)
+        {
+            if (root == null) return;
+            foreach (ObjectPool<EnemyProjectile> p in pools.Values) p.ReleaseAll();
+        }
+
         public static EnemyProjectile Fire(string setName, Vector2 position, EnemyProjectile.Spec spec, string clip = FxPool.DefaultClip)
         {
             if (!Application.isPlaying) return null;

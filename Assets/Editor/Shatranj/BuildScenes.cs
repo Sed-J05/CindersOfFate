@@ -17,6 +17,7 @@ namespace Shatranj.EditorTools
         [MenuItem("Shatranj/Build All Scenes", false, 80)]
         public static void Run()
         {
+            if (!PlayModeMenuGuards.NotPlaying) { Debug.LogWarning("Build All Scenes: stop Play mode first."); return; }
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
 
             var report = new StringBuilder();

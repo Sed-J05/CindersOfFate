@@ -19,6 +19,19 @@ namespace Shatranj.Visuals
         private static Transform root;
         private static Action<PooledFx> release;
 
+        // QA (Prompt 18): effects still playing when a scene unloads return to the pool instead of drifting into the next scene.
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void HookSceneLoads()
+        {
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded -= ReleaseOnLoad;
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += ReleaseOnLoad;
+        }
+
+        private static void ReleaseOnLoad(UnityEngine.SceneManagement.Scene s, UnityEngine.SceneManagement.LoadSceneMode m)
+        {
+            if (pool != null && root != null) pool.ReleaseAll();
+        }
+
         private static void Ensure()
         {
             if (pool != null && root != null) return;

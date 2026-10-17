@@ -62,6 +62,7 @@ namespace Shatranj.Level
             TimedFx.Spawn("Heal_Aura", player.Position + new Vector2(0f, 0.85f), restTime, 0.8f, GameLayers.Sorting.FX);
 
             yield return new WaitForSeconds(restTime);
+            if (player == null || player.State == PlayerState.Dead) { resting = false; yield break; }   // QA: no heal/save for a dead player
 
             if (FlameController.Instance != null) FlameController.Instance.Spike();
             Feel.Play(Data.FeelEvent.BenchRest);

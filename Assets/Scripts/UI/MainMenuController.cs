@@ -44,7 +44,7 @@ namespace Shatranj.UI
             }
             else
             {
-                TextMeshProUGUI t = UIFactory.Text("Logo", canvas, "SHATRANJ", 140, TextAlignmentOptions.Top, UIFactory.Ink);
+                TextMeshProUGUI t = UIFactory.Text("Logo", canvas, "CINDERS OF FATE", 120, TextAlignmentOptions.Top, UIFactory.Ink);
                 t.rectTransform.offsetMax = new Vector2(0f, -120f);
                 t.fontStyle = FontStyles.Bold;
             }

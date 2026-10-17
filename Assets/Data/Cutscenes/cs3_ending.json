@@ -108,7 +108,7 @@
     { "type": "remove", "id": "split" },
 
     // Credits (editable): shown before the loop
-    { "type": "card", "text": "Thanks for playing", "sub": "— Team Shatranj —", "time": 4.0, "colour": "#E8D9B5" },
+    { "type": "card", "text": "Thanks for playing", "sub": "— Cinders of Fate —", "time": 4.0, "colour": "#E8D9B5" },
 
     // 8. Pan back: the stage pulls away, the paper rewinds, the flame runs back (purple → orange, t = 0), the village returns
     { "type": "parallel", "beats": [
