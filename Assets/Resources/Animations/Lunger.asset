@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: Lunger
+  m_EditorClassIdentifier: 
+  setName: Lunger
+  clips:
+  - name: Idle
+    frames:
+    - {fileID: 21300000, guid: 475b1156f16af5f4f8d87fbe742855f6, type: 3}
+    - {fileID: 21300000, guid: f74b619eb17a2cd46b104364d195a298, type: 3}
+    - {fileID: 21300000, guid: 4cf25f4a551241b4594e044714df23cb, type: 3}
+    - {fileID: 21300000, guid: efefc1ccf82ba29479694ef15beb3767, type: 3}
+    fps: 6
+    loop: 1
+    holdLast: 1
+  - name: Walk
+    frames:
+    - {fileID: 21300000, guid: 9c00d6c728ab8db4ea0c68d32453172f, type: 3}
+    - {fileID: 21300000, guid: e94bfc011bcd43f449c00a2ef16a288c, type: 3}
+    - {fileID: 21300000, guid: d3721b623df56fe40aa578f3a7405420, type: 3}
+    - {fileID: 21300000, guid: c7546d1fbb300ad46913cc27e0673f4f, type: 3}
+    - {fileID: 21300000, guid: bdfe4a67bd294e24ba1a336764b6db1f, type: 3}
+    - {fileID: 21300000, guid: ce915c4196196db46b4d13dd523d3c46, type: 3}
+    fps: 10
+    loop: 1
+    holdLast: 1
+  - name: Telegraph
+    frames:
+    - {fileID: 21300000, guid: a1e045520e6f74640af360c9b719147e, type: 3}
+    - {fileID: 21300000, guid: fb43bcc7ed2249d4abff9083f666c033, type: 3}
+    - {fileID: 21300000, guid: 9578b571e7ed38446a0d4f1d3801af74, type: 3}
+    fps: 10
+    loop: 0
+    holdLast: 1
+  - name: Lunge
+    frames:
+    - {fileID: 21300000, guid: efff7f5df7c50c442aa59b4cedcc0ce2, type: 3}
+    - {fileID: 21300000, guid: d8a6f14ab53b9094ba262e30d296da46, type: 3}
+    - {fileID: 21300000, guid: 0d90ba96cc9d28146999324d72cc8cc0, type: 3}
+    fps: 16
+    loop: 0
+    holdLast: 1
+  - name: Recover
+    frames:
+    - {fileID: 21300000, guid: 0f1acba3c604d924992e6f4904f0c13e, type: 3}
+    - {fileID: 21300000, guid: de1525951d9075847acb87f34b430e80, type: 3}
+    - {fileID: 21300000, guid: 003405ce16fe48841b77e9c586722a67, type: 3}
+    fps: 8
+    loop: 0
+    holdLast: 1
+  - name: Hurt
+    frames:
+    - {fileID: 21300000, guid: 29c91dfd0f3394f42bd30a1f5289c7dc, type: 3}
+    - {fileID: 21300000, guid: ff2291ed342d38143b013c42972f5fc6, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1
+  - name: Death
+    frames:
+    - {fileID: 21300000, guid: 695f72c48a094764bb61b3cd177ac1cf, type: 3}
+    - {fileID: 21300000, guid: 4eae6608699fe6d4cb94dd6fde749268, type: 3}
+    - {fileID: 21300000, guid: 36722f976850652429affe2f442cd371, type: 3}
+    - {fileID: 21300000, guid: 5550b7c94d0cd8b45afe2d57ccf3405d, type: 3}
+    - {fileID: 21300000, guid: 2c9a1baa5bbae74439418532e1645321, type: 3}
+    - {fileID: 21300000, guid: ca8d93212fbfb314ca866763cdd83e17, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1

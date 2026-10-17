@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: Giant_Swipe
+  m_EditorClassIdentifier: 
+  setName: Giant_Swipe
+  clips:
+  - name: Default
+    frames:
+    - {fileID: 21300000, guid: 5fc32c36ba130964398597b2862524e0, type: 3}
+    - {fileID: 21300000, guid: 230397e8f6fff664ebaad48693a92a59, type: 3}
+    - {fileID: 21300000, guid: 0d95c702d9aa7314fb588463fbc4ddff, type: 3}
+    - {fileID: 21300000, guid: 29da900639b29bb4d89d9e8a692c06ac, type: 3}
+    - {fileID: 21300000, guid: e6d1fbb6e898c8d46bea51f32c385895, type: 3}
+    fps: 16
+    loop: 0
+    holdLast: 1

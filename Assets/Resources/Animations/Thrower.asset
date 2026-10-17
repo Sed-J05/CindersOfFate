@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: Thrower
+  m_EditorClassIdentifier: 
+  setName: Thrower
+  clips:
+  - name: Idle
+    frames:
+    - {fileID: 21300000, guid: ebbe3b240d6da204a826dee73ddd8817, type: 3}
+    - {fileID: 21300000, guid: 324a4e1d486d884428bdb41f3e8b1b11, type: 3}
+    - {fileID: 21300000, guid: aefd966dfd168e94a835f37d6ee7189b, type: 3}
+    - {fileID: 21300000, guid: 4f67dd5e48f7b584bb085c6db1e19208, type: 3}
+    fps: 6
+    loop: 1
+    holdLast: 1
+  - name: Walk
+    frames:
+    - {fileID: 21300000, guid: 7028bd801b0864e43b194c10eab56a4f, type: 3}
+    - {fileID: 21300000, guid: 253ef13dd958d924e94540b47a0d904b, type: 3}
+    - {fileID: 21300000, guid: f181aabb953346c43a51723d48cfcd79, type: 3}
+    - {fileID: 21300000, guid: b62552b8dd122e845bed46a82d60defe, type: 3}
+    - {fileID: 21300000, guid: 7829b5197cbbca74495a0d759c18438a, type: 3}
+    - {fileID: 21300000, guid: 6a193debbc1077344ac7dc8f95aa9cc0, type: 3}
+    fps: 10
+    loop: 1
+    holdLast: 1
+  - name: Throw_Telegraph
+    frames:
+    - {fileID: 21300000, guid: e83eedd56bc22c54d8906bfc010249ec, type: 3}
+    - {fileID: 21300000, guid: 4653b23e12b46874c9ddf2cc82861be3, type: 3}
+    - {fileID: 21300000, guid: 0d495d3334ffee64f8f21a689650098b, type: 3}
+    fps: 10
+    loop: 0
+    holdLast: 1
+  - name: Throw
+    frames:
+    - {fileID: 21300000, guid: 02a5d028b605c74489f365ab0b80139c, type: 3}
+    - {fileID: 21300000, guid: c504de571e5e4ea41bc6295c93558a28, type: 3}
+    - {fileID: 21300000, guid: f19501c1b17f19544a3d9bd4c0a9e48b, type: 3}
+    fps: 16
+    loop: 0
+    holdLast: 1
+  - name: Hurt
+    frames:
+    - {fileID: 21300000, guid: 106198fa47f1d934c94517d6322512bf, type: 3}
+    - {fileID: 21300000, guid: cc3f33a6a75433e49ab6045596ba190c, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1
+  - name: Death
+    frames:
+    - {fileID: 21300000, guid: efb4c36cdc5aa7e48a3aebf6eda0b0a1, type: 3}
+    - {fileID: 21300000, guid: e6b02d76eae4473449ca8dcd4ee932a0, type: 3}
+    - {fileID: 21300000, guid: cc1b98ae385620540b83bc2377bb5eca, type: 3}
+    - {fileID: 21300000, guid: c5ffce50a6ffb2442a58471327826fe2, type: 3}
+    - {fileID: 21300000, guid: ba5d5458477f85f438b2e29d8d182ec2, type: 3}
+    - {fileID: 21300000, guid: 4d466e3cfc40a7d4098f55f1621925f2, type: 3}
+    - {fileID: 21300000, guid: 20914174c7467d442b47eab063a8ae07, type: 3}
+    - {fileID: 21300000, guid: 16d31de8770e2bb4d89dd47c3c092682, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: Dust_Puff
+  m_EditorClassIdentifier: 
+  setName: Dust_Puff
+  clips:
+  - name: Default
+    frames:
+    - {fileID: 21300000, guid: 88f0799bec9332b4aa29103dea6343d6, type: 3}
+    - {fileID: 21300000, guid: c78947904c1d9ba4ea0a6cfb5b1c0fdc, type: 3}
+    - {fileID: 21300000, guid: 89727b7aca074b744971e41774de9be0, type: 3}
+    - {fileID: 21300000, guid: 110a1bfd9d2ceff4694c0870b89ab1e1, type: 3}
+    fps: 14
+    loop: 0
+    holdLast: 1

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: Orb
+  m_EditorClassIdentifier: 
+  setName: Orb
+  clips:
+  - name: Idle
+    frames:
+    - {fileID: 21300000, guid: 5e093f65b4f7d1a47a9e83bad935eff5, type: 3}
+    - {fileID: 21300000, guid: 0417b458fbc29d44eac1fc562f131dfd, type: 3}
+    - {fileID: 21300000, guid: 4de6603474ebf9f4e94ce7c54c0b5ddb, type: 3}
+    - {fileID: 21300000, guid: e31e3c04b700571499c57cbd00534a49, type: 3}
+    - {fileID: 21300000, guid: 513e16fa2b160f8469beb601c36bd93c, type: 3}
+    - {fileID: 21300000, guid: 48a9d0f7748847649a9c06e1ac2deb19, type: 3}
+    fps: 8
+    loop: 1
+    holdLast: 1
+  - name: Touch
+    frames:
+    - {fileID: 21300000, guid: a532d1fed391e86428651548003ce8b9, type: 3}
+    - {fileID: 21300000, guid: 1086744910eeadc46981a098a22c3686, type: 3}
+    - {fileID: 21300000, guid: a8d70b45573246249a53bdce9c26928b, type: 3}
+    - {fileID: 21300000, guid: 7e9e36b67ee532d4ea3660d1da167d20, type: 3}
+    - {fileID: 21300000, guid: b0aef4f2dbc83e049b5d0ea63eb30e5b, type: 3}
+    - {fileID: 21300000, guid: fb3cc6dee2d281c4b85a6e6e7908654c, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1

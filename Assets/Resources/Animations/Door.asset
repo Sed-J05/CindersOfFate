@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: Door
+  m_EditorClassIdentifier: 
+  setName: Door
+  clips:
+  - name: Closed
+    frames:
+    - {fileID: 21300000, guid: 70fc5052a1f439146a7a388518490a87, type: 3}
+    fps: 1
+    loop: 0
+    holdLast: 1
+  - name: Open
+    frames:
+    - {fileID: 21300000, guid: 74996d616f513de4eb1feb996bdc9866, type: 3}
+    - {fileID: 21300000, guid: 1db27059fa279bc4eb3a8fc7c243f95a, type: 3}
+    - {fileID: 21300000, guid: 9b021cac4424dfd43a36127bce69cdbb, type: 3}
+    - {fileID: 21300000, guid: 5ef9c065e41ebfb4f86b976fbe695f60, type: 3}
+    - {fileID: 21300000, guid: 9855865486a14c849a73ae6a7de9e406, type: 3}
+    - {fileID: 21300000, guid: 5cf41e03aed317c48a8ff7431aaa6262, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1

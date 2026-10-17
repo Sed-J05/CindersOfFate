@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: BlackSlash_Break
+  m_EditorClassIdentifier: 
+  setName: BlackSlash_Break
+  clips:
+  - name: Default
+    frames:
+    - {fileID: 21300000, guid: b2aab8990062332428c355335e348ca1, type: 3}
+    - {fileID: 21300000, guid: 245fccbfd82255c439e10740b561ec38, type: 3}
+    - {fileID: 21300000, guid: ec99bdbb3fafcab4d854067587ea321f, type: 3}
+    - {fileID: 21300000, guid: 82ca151ea32ab044b81d9b9752271399, type: 3}
+    fps: 16
+    loop: 0
+    holdLast: 1

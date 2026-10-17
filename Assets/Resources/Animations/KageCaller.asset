@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: KageCaller
+  m_EditorClassIdentifier: 
+  setName: KageCaller
+  clips:
+  - name: Intro
+    frames:
+    - {fileID: 21300000, guid: 7b9e287143496a346b9c1effc895da50, type: 3}
+    - {fileID: 21300000, guid: 2bc763a04f7830846b6369ced8a904a1, type: 3}
+    - {fileID: 21300000, guid: 4c0074c747a31104795c18310e151112, type: 3}
+    - {fileID: 21300000, guid: 08123d44244ef9b499b76bbf473e6019, type: 3}
+    - {fileID: 21300000, guid: 0c59364f3318acf4d9928e4c391e8971, type: 3}
+    - {fileID: 21300000, guid: 9209e9b45b06a87499fb03e9dcac62f6, type: 3}
+    fps: 8
+    loop: 0
+    holdLast: 1
+  - name: Idle
+    frames:
+    - {fileID: 21300000, guid: 1074ef6179ce9a74c9cb5873dddbde69, type: 3}
+    - {fileID: 21300000, guid: c689dfa8569d0a447b7acd8014651a3b, type: 3}
+    - {fileID: 21300000, guid: d95846f79f4fea34592e68c71da861cb, type: 3}
+    - {fileID: 21300000, guid: c2f3e7d54645c40449b276e6a9f70d4b, type: 3}
+    - {fileID: 21300000, guid: 3367c7b894afd2c45a804cbfc7b763e9, type: 3}
+    - {fileID: 21300000, guid: 388dbeae243241e4db1a06c612e3d4b4, type: 3}
+    fps: 8
+    loop: 1
+    holdLast: 1
+  - name: Walk
+    frames:
+    - {fileID: 21300000, guid: 987ebb3d8ce3bc64797a2f67f2905941, type: 3}
+    - {fileID: 21300000, guid: 1f43d76f5d403b34b9fa2eb88047670d, type: 3}
+    - {fileID: 21300000, guid: d5b2b2fb32ca3bb42a79bfb6ecbecc5f, type: 3}
+    - {fileID: 21300000, guid: 74e8505ff03012e48be0d902bd47a6c6, type: 3}
+    - {fileID: 21300000, guid: 56ba60b267c32864da6daaf5c90808cd, type: 3}
+    - {fileID: 21300000, guid: 0121398b2329706438b8dfc2d6ec7edc, type: 3}
+    - {fileID: 21300000, guid: e28ccbf9d58b7604ba14aeb3dafe5229, type: 3}
+    - {fileID: 21300000, guid: 4d0a0c5e5925f5f449f15a507e4370a9, type: 3}
+    fps: 10
+    loop: 1
+    holdLast: 1
+  - name: Slash_Telegraph
+    frames:
+    - {fileID: 21300000, guid: 55a6c602d413cc445a17a0b14b368ddc, type: 3}
+    - {fileID: 21300000, guid: 8050ef1e6e1b88245aa02234f3407426, type: 3}
+    - {fileID: 21300000, guid: 427eac3da286c444ebce0748086476c9, type: 3}
+    fps: 8
+    loop: 0
+    holdLast: 1
+  - name: Slash_A
+    frames:
+    - {fileID: 21300000, guid: 5d7dc1f7ef3fecc42a124f3bbc7cc623, type: 3}
+    - {fileID: 21300000, guid: b7bb6df181abdbd47959d7b174727c46, type: 3}
+    - {fileID: 21300000, guid: 247d46dbd5cf8924a959859a17d4f670, type: 3}
+    - {fileID: 21300000, guid: 0fb217a049878d945881395f47a2cb60, type: 3}
+    fps: 18
+    loop: 0
+    holdLast: 1
+  - name: Slash_B
+    frames:
+    - {fileID: 21300000, guid: 585ba8e792bc156438a91c0bf2f50268, type: 3}
+    - {fileID: 21300000, guid: 76662f1ec585d754387ffe69079e33cb, type: 3}
+    - {fileID: 21300000, guid: fade6459a7028ec4c93e807f5ff5ff6b, type: 3}
+    - {fileID: 21300000, guid: 06c96244d205941458e0f86eaad1acf4, type: 3}
+    fps: 18
+    loop: 0
+    holdLast: 1
+  - name: Cast_Telegraph
+    frames:
+    - {fileID: 21300000, guid: 9654f15e17b6ab94b88904d6caa105c4, type: 3}
+    - {fileID: 21300000, guid: e02e8d913682fd543bb565d8fea3b63a, type: 3}
+    - {fileID: 21300000, guid: c8033d49cf68a154c97c29d4cbdf52b5, type: 3}
+    - {fileID: 21300000, guid: c556ddc6276ccaf4da2bb416a6ba86cc, type: 3}
+    fps: 10
+    loop: 0
+    holdLast: 1
+  - name: Cast_Fire
+    frames:
+    - {fileID: 21300000, guid: 710126201bb9a3b47844b0f9ccde568a, type: 3}
+    - {fileID: 21300000, guid: 1af8cfd6ad8256a4aa7982b077e3500f, type: 3}
+    - {fileID: 21300000, guid: 114df2a19b03b5447a980cf5f3cda897, type: 3}
+    - {fileID: 21300000, guid: 83da6fc945d779240b1f1737a1c131df, type: 3}
+    fps: 16
+    loop: 0
+    holdLast: 1
+  - name: Summon_Raise
+    frames:
+    - {fileID: 21300000, guid: 0a16666989083314bb053719cfd8734d, type: 3}
+    - {fileID: 21300000, guid: ef1370f977541d24984427408d8ecfb1, type: 3}
+    - {fileID: 21300000, guid: dfb7474f7846eb94a93267a5f2d35d3e, type: 3}
+    - {fileID: 21300000, guid: 95626be96fb68d64dab57685bbc04445, type: 3}
+    - {fileID: 21300000, guid: b444a977fde9ebf4ebefd1526412285f, type: 3}
+    - {fileID: 21300000, guid: 179e59542ba35b2468df2049a55dbbff, type: 3}
+    fps: 10
+    loop: 0
+    holdLast: 1
+  - name: Summon_Hold
+    frames:
+    - {fileID: 21300000, guid: 36f119e1023c59045b115798a4b934d4, type: 3}
+    - {fileID: 21300000, guid: e0ff2d54505b369409e9a3faa925847e, type: 3}
+    fps: 6
+    loop: 1
+    holdLast: 1
+  - name: Death
+    frames:
+    - {fileID: 21300000, guid: 5727626ff48219043ae4ab055541ca64, type: 3}
+    - {fileID: 21300000, guid: 27f134151e193484cb07d85e50316d23, type: 3}
+    - {fileID: 21300000, guid: d431566ec6877a74e8a85d2ef66f84b9, type: 3}
+    - {fileID: 21300000, guid: 964b7f549e6f4584c82b01e40c47480e, type: 3}
+    - {fileID: 21300000, guid: 6c35a1b33ae690e4691640c193b84590, type: 3}
+    - {fileID: 21300000, guid: bf5afb876675f50448b886e5b64dec6e, type: 3}
+    - {fileID: 21300000, guid: 34a10b0f4ef76384eba6a52929d6f6e0, type: 3}
+    - {fileID: 21300000, guid: 76a3552e14ff643458551b942ff406c9, type: 3}
+    - {fileID: 21300000, guid: c96f94384bb72244998b3a9e076a740b, type: 3}
+    - {fileID: 21300000, guid: 24a94341dd9ba9a4498ce3747539afe4, type: 3}
+    fps: 10
+    loop: 0
+    holdLast: 1

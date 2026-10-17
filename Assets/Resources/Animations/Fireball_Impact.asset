@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: Fireball_Impact
+  m_EditorClassIdentifier: 
+  setName: Fireball_Impact
+  clips:
+  - name: Default
+    frames:
+    - {fileID: 21300000, guid: bf6446f00982f6641a34e9aa835b7199, type: 3}
+    - {fileID: 21300000, guid: 836fd6e14faeaa040be30f84cea1cd44, type: 3}
+    - {fileID: 21300000, guid: 70914fb39cc004448aa8fa5ed8a3df83, type: 3}
+    - {fileID: 21300000, guid: 8d01ca11d26a64241832573b1bc64189, type: 3}
+    - {fileID: 21300000, guid: 06163cfe78cfadc4b8419b11cdc29eee, type: 3}
+    fps: 16
+    loop: 0
+    holdLast: 1

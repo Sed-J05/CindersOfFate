@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: ShadowKite
+  m_EditorClassIdentifier: 
+  setName: ShadowKite
+  clips:
+  - name: Fly
+    frames:
+    - {fileID: 21300000, guid: 095ac9bd6735515459ca44cf6a50c2bb, type: 3}
+    - {fileID: 21300000, guid: 7678264099e919b48931c4934cffaff0, type: 3}
+    - {fileID: 21300000, guid: cd26eb0ae93b8044c99f13ce409a48e3, type: 3}
+    - {fileID: 21300000, guid: 74f85cb77a68358428b44f5896694ee0, type: 3}
+    - {fileID: 21300000, guid: 54bd478dc5ba016459f01f46580fd0d9, type: 3}
+    - {fileID: 21300000, guid: a093ab550c625524b942863503ed3cf5, type: 3}
+    fps: 12
+    loop: 1
+    holdLast: 1
+  - name: Telegraph
+    frames:
+    - {fileID: 21300000, guid: 6a154532b0d8f0f41afb86461827098c, type: 3}
+    - {fileID: 21300000, guid: f054411c0fdfddb4da25ff80734ddcfb, type: 3}
+    - {fileID: 21300000, guid: 65d86a4901f3fa1468cfef26bd0ff056, type: 3}
+    fps: 10
+    loop: 0
+    holdLast: 1
+  - name: Dive
+    frames:
+    - {fileID: 21300000, guid: bc1a143ee06048448b287d7cf4f00e3c, type: 3}
+    - {fileID: 21300000, guid: 23b2bab7478abaf469f32616e8a414de, type: 3}
+    fps: 12
+    loop: 1
+    holdLast: 1
+  - name: Hurt
+    frames:
+    - {fileID: 21300000, guid: 7b0f83d43b198524592447ce14f69ab1, type: 3}
+    - {fileID: 21300000, guid: 1a5e387f401d1ab4c846a3a7b6c683e2, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1
+  - name: Death
+    frames:
+    - {fileID: 21300000, guid: 128c7222958c33a4f8bdcc210bdb6f5f, type: 3}
+    - {fileID: 21300000, guid: 33a2d84d1a223ab42bd41bda55f61509, type: 3}
+    - {fileID: 21300000, guid: b2b69a6257f0be747b0116b3bc28ee26, type: 3}
+    - {fileID: 21300000, guid: 730b814f5ac8c844cb61f6a340671e20, type: 3}
+    - {fileID: 21300000, guid: c1bbf39a2b37aad49bc2edec03590ff2, type: 3}
+    - {fileID: 21300000, guid: 584407bf094925f42b3a7e5e4cf17e73, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1

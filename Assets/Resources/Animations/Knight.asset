@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: Knight
+  m_EditorClassIdentifier: 
+  setName: Knight
+  clips:
+  - name: Idle
+    frames:
+    - {fileID: 21300000, guid: b88d83d35d8464341a738b625bb67b2e, type: 3}
+    - {fileID: 21300000, guid: 0b7a1401fa0a8464b8a29e40fe87d611, type: 3}
+    - {fileID: 21300000, guid: 33fdc170621acf94dbc4551479e6bd83, type: 3}
+    - {fileID: 21300000, guid: e9fddcb7f1c14694085fadf5e89b3646, type: 3}
+    fps: 6
+    loop: 1
+    holdLast: 1
+  - name: Walk
+    frames:
+    - {fileID: 21300000, guid: b51fa8d7347e29144b5c91a56c7e8a55, type: 3}
+    - {fileID: 21300000, guid: b6c5acce8baf4bc4480ef723ed6ebea0, type: 3}
+    - {fileID: 21300000, guid: d0deac19dce05a942b1a9224637991b3, type: 3}
+    - {fileID: 21300000, guid: 09692d5a5fae1164c875b109fda5e4e3, type: 3}
+    - {fileID: 21300000, guid: 7e88b668c0d73644d9247882608da4db, type: 3}
+    - {fileID: 21300000, guid: cf114cc1ede2bc04cb923aafa9364a0c, type: 3}
+    - {fileID: 21300000, guid: f7398b7dad38323459a78f4159ec4346, type: 3}
+    - {fileID: 21300000, guid: c9438fe59b84b8743a272f81d0193afd, type: 3}
+    fps: 10
+    loop: 1
+    holdLast: 1
+  - name: Telegraph
+    frames:
+    - {fileID: 21300000, guid: bddf3f14e86a50d4291eaf7a562a3b61, type: 3}
+    - {fileID: 21300000, guid: a4b65ab2713e45045baaf3653a9331c1, type: 3}
+    - {fileID: 21300000, guid: 0e6641cbc70249649bdb70f89f9055d4, type: 3}
+    fps: 10
+    loop: 0
+    holdLast: 1
+  - name: Attack_A
+    frames:
+    - {fileID: 21300000, guid: 6bbd3aefe693c69479e5b8e3fc8f5afe, type: 3}
+    - {fileID: 21300000, guid: fe2ac8ddf3b3b0a42abe143354e17496, type: 3}
+    - {fileID: 21300000, guid: 4c899b550f2b8c24f9343ed61efde718, type: 3}
+    - {fileID: 21300000, guid: a0a4e19f9c8b3fe4a9cc1b5d7fa32100, type: 3}
+    fps: 18
+    loop: 0
+    holdLast: 1
+  - name: Attack_B
+    frames:
+    - {fileID: 21300000, guid: f7bb714508ab7f5439e77c74cfc37943, type: 3}
+    - {fileID: 21300000, guid: 9eb96926e87347349b2982d310f570c2, type: 3}
+    - {fileID: 21300000, guid: dea684eec42568843bb797b9790d9d7e, type: 3}
+    - {fileID: 21300000, guid: 57f5e5c2983e34742b10a577ff3eb730, type: 3}
+    fps: 18
+    loop: 0
+    holdLast: 1
+  - name: Hurt
+    frames:
+    - {fileID: 21300000, guid: 98598368788414d4e91d00bd3d15fc2c, type: 3}
+    - {fileID: 21300000, guid: 0c7212f92df1c5347a5b213c2159e4bd, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1
+  - name: Death
+    frames:
+    - {fileID: 21300000, guid: b5c0087e7ef4ae244921b5dd24795a2e, type: 3}
+    - {fileID: 21300000, guid: df642adb27e00b54397c29ee7da86872, type: 3}
+    - {fileID: 21300000, guid: dd4cea4f073089d4eb3966c9c96c45b4, type: 3}
+    - {fileID: 21300000, guid: 650911ab1419a934c8347843847ec7dd, type: 3}
+    - {fileID: 21300000, guid: cbd86f1a8accdbe4a9bbf631e2c62b2d, type: 3}
+    - {fileID: 21300000, guid: ebce587cdb75b484fb59969cdb628e76, type: 3}
+    - {fileID: 21300000, guid: 667adb8e383b95c4f8a6f69bcc107258, type: 3}
+    - {fileID: 21300000, guid: 338dcad80eac49c41b3188f9e0a495a5, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1

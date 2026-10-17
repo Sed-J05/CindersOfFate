@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: Bench
+  m_EditorClassIdentifier: 
+  setName: Bench
+  clips:
+  - name: Unlit
+    frames:
+    - {fileID: 21300000, guid: bff9da4174e70ac429742d3e8345810e, type: 3}
+    fps: 1
+    loop: 0
+    holdLast: 1
+  - name: Lit
+    frames:
+    - {fileID: 21300000, guid: c8e0c2fb2580f2e4b9918d4ea31eb0ae, type: 3}
+    - {fileID: 21300000, guid: 91cb4f6039011304b815c4d189008fa7, type: 3}
+    - {fileID: 21300000, guid: 4e8166d6ebb2699449d77a4960b09f80, type: 3}
+    - {fileID: 21300000, guid: e0ea066ab4bd3a549a76810828cb9b6b, type: 3}
+    fps: 8
+    loop: 1
+    holdLast: 1
+  - name: Activate
+    frames:
+    - {fileID: 21300000, guid: d3aba83fb4401db41a01080bd596727f, type: 3}
+    - {fileID: 21300000, guid: 5c9789c664122ea4e8fa84526d749082, type: 3}
+    - {fileID: 21300000, guid: 43cc5aefb93a7db43834df2c16b8f044, type: 3}
+    - {fileID: 21300000, guid: 653d56698fd59cd41aeed3bd6f9f1b2e, type: 3}
+    fps: 10
+    loop: 0
+    holdLast: 1

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: SoulOrb
+  m_EditorClassIdentifier: 
+  setName: SoulOrb
+  clips:
+  - name: Default
+    frames:
+    - {fileID: 21300000, guid: 07ecae9730b660a4bacc3a4e688071d8, type: 3}
+    - {fileID: 21300000, guid: f57b7b121e5eae042b888a6c1170a8e3, type: 3}
+    - {fileID: 21300000, guid: 1058c1c4b6f76df4db84db32fff782f9, type: 3}
+    - {fileID: 21300000, guid: caa4138eb554a0e498caedc464b2d4ee, type: 3}
+    fps: 10
+    loop: 1
+    holdLast: 1

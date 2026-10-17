@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: Crawler
+  m_EditorClassIdentifier: 
+  setName: Crawler
+  clips:
+  - name: Idle
+    frames:
+    - {fileID: 21300000, guid: cc0d589af59e9114e8b586da8c700bc8, type: 3}
+    - {fileID: 21300000, guid: 26062e612d513574b9e941fddfe81204, type: 3}
+    - {fileID: 21300000, guid: dc0c2d62b6f12f54ba1a8c023ca177af, type: 3}
+    - {fileID: 21300000, guid: 876d83533731f014da28ea47d3f72476, type: 3}
+    fps: 6
+    loop: 1
+    holdLast: 1
+  - name: Walk
+    frames:
+    - {fileID: 21300000, guid: bf08380238cc7234fb7433d8c3a4022c, type: 3}
+    - {fileID: 21300000, guid: f3b808601277b4e4f920028423e0671a, type: 3}
+    - {fileID: 21300000, guid: 23a9c8c39e2d3e344a6fdf1f5af4f166, type: 3}
+    - {fileID: 21300000, guid: ecb28e28749e6d04bbbf8e102f95c64b, type: 3}
+    - {fileID: 21300000, guid: 79f40439b2f51bc458ab0c462187b550, type: 3}
+    - {fileID: 21300000, guid: a6f71fd124c935c43866963986318fee, type: 3}
+    fps: 10
+    loop: 1
+    holdLast: 1
+  - name: Hurt
+    frames:
+    - {fileID: 21300000, guid: cb369009fdeb3c049956ebd7367cb3af, type: 3}
+    - {fileID: 21300000, guid: 16008c8c9d9989a4da1a0f7940beca9a, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1
+  - name: Death
+    frames:
+    - {fileID: 21300000, guid: dcbb694999d19294a8925a65210abbed, type: 3}
+    - {fileID: 21300000, guid: 3b0a1aabbc50e8c46b50520276445167, type: 3}
+    - {fileID: 21300000, guid: 4f66e3ad93eb31844812d70c356906d2, type: 3}
+    - {fileID: 21300000, guid: ad03728145e5d9a44a5a35cb353a0a26, type: 3}
+    - {fileID: 21300000, guid: 52e53302aa7b14f4389f56f1053f1eed, type: 3}
+    - {fileID: 21300000, guid: 293fdca23bfc1d74890d660d5f10938f, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1

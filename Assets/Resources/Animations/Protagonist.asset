@@ -1,0 +1,168 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384121f9e5e0f21439981a741a996b03, type: 3}
+  m_Name: Protagonist
+  m_EditorClassIdentifier: 
+  setName: Protagonist
+  clips:
+  - name: Idle
+    frames:
+    - {fileID: 21300000, guid: 26fb0f21927a0e244a5fbf1c26dbd86e, type: 3}
+    - {fileID: 21300000, guid: 1f341485642c7d540a620a89642da5cf, type: 3}
+    - {fileID: 21300000, guid: c01bc0eb998bc2e44be131a3badb77da, type: 3}
+    - {fileID: 21300000, guid: 89dc0dbb354c14e4e810c25ad51561df, type: 3}
+    - {fileID: 21300000, guid: 738ee1196da97a342bbbbbfda761668d, type: 3}
+    - {fileID: 21300000, guid: 155e805329c49874a99d9fb4a0e3cf61, type: 3}
+    fps: 8
+    loop: 1
+    holdLast: 1
+  - name: Run
+    frames:
+    - {fileID: 21300000, guid: 058d5fc1a16cafa4187a959901c2fe26, type: 3}
+    - {fileID: 21300000, guid: b595b24e476cb1f4bae4765d87717e3d, type: 3}
+    - {fileID: 21300000, guid: 02f022a3d6987734b89b7d6bf8997659, type: 3}
+    - {fileID: 21300000, guid: c88d3872d2f784242ad3bd5c0f76d3da, type: 3}
+    - {fileID: 21300000, guid: 7a754b044464697469194f366059a74d, type: 3}
+    - {fileID: 21300000, guid: 7a5735af224a1ca46a54710c8e7cfd02, type: 3}
+    - {fileID: 21300000, guid: a6caeef7257bc7a44a118b53e58cbe20, type: 3}
+    - {fileID: 21300000, guid: a09151c3689c1bc49b216f64ff335688, type: 3}
+    fps: 14
+    loop: 1
+    holdLast: 1
+  - name: Jump_Rise
+    frames:
+    - {fileID: 21300000, guid: 1c2e7eacd4c7a1847b2acaea453611df, type: 3}
+    - {fileID: 21300000, guid: ed0d53aeba35d544b95a39c46cda1ca8, type: 3}
+    fps: 10
+    loop: 0
+    holdLast: 1
+  - name: Jump_Fall
+    frames:
+    - {fileID: 21300000, guid: 2b5175683e24b1043af027b36dfff1a7, type: 3}
+    - {fileID: 21300000, guid: 68d450a3ee9279c4d9cddb8165977c92, type: 3}
+    fps: 10
+    loop: 1
+    holdLast: 1
+  - name: Land
+    frames:
+    - {fileID: 21300000, guid: 315e98a590d2e2541b89367c1bba6a02, type: 3}
+    - {fileID: 21300000, guid: 455d5536dc7863940938dba4ec881411, type: 3}
+    - {fileID: 21300000, guid: da5b436ed44648241b36a194ce9bafa7, type: 3}
+    fps: 16
+    loop: 0
+    holdLast: 1
+  - name: Attack_Side_A
+    frames:
+    - {fileID: 21300000, guid: 14e574850d185fa46ae43e856af1a49b, type: 3}
+    - {fileID: 21300000, guid: 34082870a6684c14a8272a02ac2a27c6, type: 3}
+    - {fileID: 21300000, guid: 93d8aaab8aa1ad549898d13e1ea4ec26, type: 3}
+    - {fileID: 21300000, guid: fb489bf1686436c4cb01565a3ca3d75a, type: 3}
+    fps: 20
+    loop: 0
+    holdLast: 1
+  - name: Attack_Side_B
+    frames:
+    - {fileID: 21300000, guid: 6116aa33a9a8a0542aba37a5c8d7fba8, type: 3}
+    - {fileID: 21300000, guid: 9b2e8c417cc4bbe45a68675d45b59a17, type: 3}
+    - {fileID: 21300000, guid: aa6f68f25e5b68542a512c8bcd3ef0a7, type: 3}
+    - {fileID: 21300000, guid: 02b0279193bd04f40a515f3f6870aa73, type: 3}
+    fps: 20
+    loop: 0
+    holdLast: 1
+  - name: Attack_Up
+    frames:
+    - {fileID: 21300000, guid: 97e9f00b5ade81a438b4d67f328b7f53, type: 3}
+    - {fileID: 21300000, guid: d90debce509c9414ab72c3c6ca6232d0, type: 3}
+    - {fileID: 21300000, guid: 60b4360301d241940a43fa14626f7301, type: 3}
+    - {fileID: 21300000, guid: fee52848cae4b6b43ac20a8d7a6200f6, type: 3}
+    fps: 20
+    loop: 0
+    holdLast: 1
+  - name: Cast
+    frames:
+    - {fileID: 21300000, guid: 096f365e42ff42544b7babbf6623c10c, type: 3}
+    - {fileID: 21300000, guid: 805499993734d3241b4858e9fc15ebb4, type: 3}
+    - {fileID: 21300000, guid: d6e4524a448a4614fa322cd2cd081c8c, type: 3}
+    - {fileID: 21300000, guid: 1ab1c90ff44ead840aaca4234a06b1c1, type: 3}
+    - {fileID: 21300000, guid: cda660f9b4aff7f4c9f32ded3f860f97, type: 3}
+    fps: 14
+    loop: 0
+    holdLast: 1
+  - name: Heal_Charge
+    frames:
+    - {fileID: 21300000, guid: 780849fddca99274dafc2beb572d9e47, type: 3}
+    - {fileID: 21300000, guid: f15ebf3749d86724c8836650729226d6, type: 3}
+    - {fileID: 21300000, guid: 4244d8ab976eeaf4291dd8f782d6e4f4, type: 3}
+    - {fileID: 21300000, guid: 90a2c3fbe5bb28045b47cca563348392, type: 3}
+    - {fileID: 21300000, guid: e205d57865fe14545bcc0dabf708f7da, type: 3}
+    - {fileID: 21300000, guid: 087152a077e92ee47938ddeffe65f84d, type: 3}
+    fps: 10
+    loop: 1
+    holdLast: 1
+  - name: Heal_Release
+    frames:
+    - {fileID: 21300000, guid: dec250efdb33b194a872798882798caa, type: 3}
+    - {fileID: 21300000, guid: c7514f18e99aedf4288e753729076318, type: 3}
+    - {fileID: 21300000, guid: 75b675488bbb4fd49b23518e5adba3f3, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1
+  - name: Hurt
+    frames:
+    - {fileID: 21300000, guid: b7847ec1facafbf4687bd5c478b59f5b, type: 3}
+    - {fileID: 21300000, guid: 82538ecb52525404b8a7938275662b9e, type: 3}
+    fps: 12
+    loop: 0
+    holdLast: 1
+  - name: Death
+    frames:
+    - {fileID: 21300000, guid: 5fa715adf14e6a441b0454af7fc23e0d, type: 3}
+    - {fileID: 21300000, guid: c52e310e297a87044ace638b10c4462d, type: 3}
+    - {fileID: 21300000, guid: c23a94d1375079f48b72db6b9bf4a5dd, type: 3}
+    - {fileID: 21300000, guid: 85a387c2bbeb31e42b35a9424cbc9780, type: 3}
+    - {fileID: 21300000, guid: 2761271e34fbe064693abd1c19632ee3, type: 3}
+    - {fileID: 21300000, guid: 2390cf11564daae41865a294c4cce9df, type: 3}
+    - {fileID: 21300000, guid: 064e02ed1ee4391428a424c8a57ba58b, type: 3}
+    - {fileID: 21300000, guid: 4a0be757057c6df499b5d77715a8c860, type: 3}
+    fps: 10
+    loop: 0
+    holdLast: 1
+  - name: Dash
+    frames:
+    - {fileID: 21300000, guid: 26634025a6ce91a47bec79946868c476, type: 3}
+    - {fileID: 21300000, guid: c2cd3de0df894ea45bf66ea6ea5fad93, type: 3}
+    - {fileID: 21300000, guid: 5d9ecc8f27b0f9743a9a09009d60c4fe, type: 3}
+    - {fileID: 21300000, guid: fad283e647ed7ee4c9c32569ca4233c4, type: 3}
+    fps: 20
+    loop: 0
+    holdLast: 1
+  - name: Rest
+    frames:
+    - {fileID: 21300000, guid: d67f62854efd00b4db0e81a0ff275f80, type: 3}
+    - {fileID: 21300000, guid: 96a82ac885f7a694eb8c6e1614610540, type: 3}
+    - {fileID: 21300000, guid: cfbdcc72c762afe4aad074116bc376af, type: 3}
+    - {fileID: 21300000, guid: bfb7e3d5415190d458f7fc9468f7a35d, type: 3}
+    fps: 6
+    loop: 1
+    holdLast: 1
+  - name: Look_Up
+    frames:
+    - {fileID: 21300000, guid: 7f800f4d7a8e0f74d8db1932937fadc6, type: 3}
+    fps: 1
+    loop: 0
+    holdLast: 1
+  - name: Look_Down
+    frames:
+    - {fileID: 21300000, guid: 3f0c776b169b3a545ac90febc87f820a, type: 3}
+    fps: 1
+    loop: 0
+    holdLast: 1

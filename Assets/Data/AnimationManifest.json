@@ -1,0 +1,3113 @@
+{
+    "version": 1,
+    "pixelsPerUnit": 100,
+    "sets": [
+        {
+            "name": "Protagonist",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "bottom",
+            "style": "protagonist",
+            "width": 256,
+            "height": 256,
+            "anims": [
+                {
+                    "name": "Idle",
+                    "frames": 6,
+                    "fps": 8.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Run",
+                    "frames": 8,
+                    "fps": 14.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Jump_Rise",
+                    "frames": 2,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": true
+                },
+                {
+                    "name": "Jump_Fall",
+                    "frames": 2,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Land",
+                    "frames": 3,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Attack_Side_A",
+                    "frames": 4,
+                    "fps": 20.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Attack_Side_B",
+                    "frames": 4,
+                    "fps": 20.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Attack_Up",
+                    "frames": 4,
+                    "fps": 20.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Cast",
+                    "frames": 5,
+                    "fps": 14.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Heal_Charge",
+                    "frames": 6,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Heal_Release",
+                    "frames": 3,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Hurt",
+                    "frames": 2,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 8,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Dash",
+                    "frames": 4,
+                    "fps": 20.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Rest",
+                    "frames": 4,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Look_Up",
+                    "frames": 1,
+                    "fps": 1.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Look_Down",
+                    "frames": 1,
+                    "fps": 1.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Crawler",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "bottom",
+            "style": "crawler",
+            "width": 128,
+            "height": 128,
+            "anims": [
+                {
+                    "name": "Idle",
+                    "frames": 4,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Walk",
+                    "frames": 6,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Hurt",
+                    "frames": 2,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 6,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Lunger",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "bottom",
+            "style": "enemy_p1",
+            "width": 160,
+            "height": 160,
+            "anims": [
+                {
+                    "name": "Idle",
+                    "frames": 4,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Walk",
+                    "frames": 6,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Telegraph",
+                    "frames": 3,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Lunge",
+                    "frames": 3,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": true
+                },
+                {
+                    "name": "Recover",
+                    "frames": 3,
+                    "fps": 8.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Hurt",
+                    "frames": 2,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 6,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "ShadowKite",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "center",
+            "style": "flyer_p1",
+            "width": 128,
+            "height": 128,
+            "anims": [
+                {
+                    "name": "Fly",
+                    "frames": 6,
+                    "fps": 12.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Telegraph",
+                    "frames": 3,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Dive",
+                    "frames": 2,
+                    "fps": 12.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Hurt",
+                    "frames": 2,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 6,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "KageWarden",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "bottom",
+            "style": "boss_p1",
+            "width": 384,
+            "height": 384,
+            "anims": [
+                {
+                    "name": "Intro",
+                    "frames": 6,
+                    "fps": 8.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Idle",
+                    "frames": 6,
+                    "fps": 8.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Walk",
+                    "frames": 8,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Slash_Telegraph",
+                    "frames": 3,
+                    "fps": 8.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Slash_A",
+                    "frames": 4,
+                    "fps": 18.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Slash_B",
+                    "frames": 4,
+                    "fps": 18.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Block_Start",
+                    "frames": 3,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Block_Hold",
+                    "frames": 2,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Block_Impact",
+                    "frames": 2,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 10,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "KageCaller",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "bottom",
+            "style": "boss_p1",
+            "width": 384,
+            "height": 384,
+            "anims": [
+                {
+                    "name": "Intro",
+                    "frames": 6,
+                    "fps": 8.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Idle",
+                    "frames": 6,
+                    "fps": 8.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Walk",
+                    "frames": 8,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Slash_Telegraph",
+                    "frames": 3,
+                    "fps": 8.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Slash_A",
+                    "frames": 4,
+                    "fps": 18.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Slash_B",
+                    "frames": 4,
+                    "fps": 18.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Cast_Telegraph",
+                    "frames": 4,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Cast_Fire",
+                    "frames": 4,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Summon_Raise",
+                    "frames": 6,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Summon_Hold",
+                    "frames": 2,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 10,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Knight",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "bottom",
+            "style": "enemy_p2",
+            "width": 256,
+            "height": 256,
+            "anims": [
+                {
+                    "name": "Idle",
+                    "frames": 4,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Walk",
+                    "frames": 8,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Telegraph",
+                    "frames": 3,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Attack_A",
+                    "frames": 4,
+                    "fps": 18.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Attack_B",
+                    "frames": 4,
+                    "fps": 18.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Hurt",
+                    "frames": 2,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 8,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Bat",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "center",
+            "style": "flyer_p2",
+            "width": 128,
+            "height": 128,
+            "anims": [
+                {
+                    "name": "Sleep",
+                    "frames": 2,
+                    "fps": 4.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Wake",
+                    "frames": 3,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Fly",
+                    "frames": 6,
+                    "fps": 14.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Telegraph",
+                    "frames": 3,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Dive",
+                    "frames": 2,
+                    "fps": 12.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Hurt",
+                    "frames": 2,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 6,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Charger",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "bottom",
+            "style": "charger_p2",
+            "width": 320,
+            "height": 256,
+            "anims": [
+                {
+                    "name": "Idle",
+                    "frames": 4,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Walk",
+                    "frames": 6,
+                    "fps": 8.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Telegraph",
+                    "frames": 4,
+                    "fps": 8.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Charge",
+                    "frames": 4,
+                    "fps": 14.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Stunned",
+                    "frames": 4,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Hurt",
+                    "frames": 2,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 8,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Thrower",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "bottom",
+            "style": "enemy_p2",
+            "width": 256,
+            "height": 256,
+            "anims": [
+                {
+                    "name": "Idle",
+                    "frames": 4,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Walk",
+                    "frames": 6,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Throw_Telegraph",
+                    "frames": 3,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Throw",
+                    "frames": 3,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Hurt",
+                    "frames": 2,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 8,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "IronColossus",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "bottom",
+            "style": "boss_p2",
+            "width": 512,
+            "height": 512,
+            "anims": [
+                {
+                    "name": "Intro",
+                    "frames": 6,
+                    "fps": 8.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Idle",
+                    "frames": 6,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Walk",
+                    "frames": 8,
+                    "fps": 8.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Slash_Telegraph",
+                    "frames": 4,
+                    "fps": 8.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Slash",
+                    "frames": 5,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Block_Start",
+                    "frames": 3,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Block_Hold",
+                    "frames": 2,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Block_Impact",
+                    "frames": 2,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Bash",
+                    "frames": 3,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Jump_Telegraph",
+                    "frames": 3,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Jump_Air",
+                    "frames": 2,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Jump_Land",
+                    "frames": 4,
+                    "fps": 14.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Dash_Telegraph",
+                    "frames": 3,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Dash",
+                    "frames": 3,
+                    "fps": 16.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 12,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Zulmat",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "bottom",
+            "style": "zulmat",
+            "width": 512,
+            "height": 512,
+            "anims": [
+                {
+                    "name": "Intro",
+                    "frames": 8,
+                    "fps": 8.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Idle",
+                    "frames": 8,
+                    "fps": 8.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Walk",
+                    "frames": 8,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Slash_Telegraph",
+                    "frames": 3,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Slash_A",
+                    "frames": 4,
+                    "fps": 18.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Slash_B",
+                    "frames": 4,
+                    "fps": 18.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Vine_Cast",
+                    "frames": 6,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Summon_Cast",
+                    "frames": 6,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Shrink",
+                    "frames": 4,
+                    "fps": 14.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Grow",
+                    "frames": 4,
+                    "fps": 14.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Lunge_Telegraph",
+                    "frames": 3,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Lunge",
+                    "frames": 3,
+                    "fps": 16.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Swipe_Telegraph",
+                    "frames": 4,
+                    "fps": 8.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Swipe",
+                    "frames": 5,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Lava_Cast",
+                    "frames": 6,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Roar",
+                    "frames": 6,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 14,
+                    "fps": 8.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Slash_Side",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "leftCenter",
+            "style": "slash",
+            "width": 320,
+            "height": 256,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 3,
+                    "fps": 24.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Slash_Up",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "bottom",
+            "style": "slash_up",
+            "width": 256,
+            "height": 320,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 3,
+                    "fps": 24.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Fireball_Fly",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "fireball",
+            "width": 192,
+            "height": 128,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 14.0,
+                    "loop": true,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Fireball_Impact",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "fireball_impact",
+            "width": 192,
+            "height": 192,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 5,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "SoulOrb",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "soul_orb",
+            "width": 48,
+            "height": 48,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Heal_Aura",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "aura",
+            "width": 256,
+            "height": 256,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 6,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Hit_Spark",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "spark",
+            "width": 128,
+            "height": 128,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 20.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Block_Clink",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "clink",
+            "width": 128,
+            "height": 128,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 3,
+                    "fps": 20.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "BlackSlash_Fly",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "black_slash",
+            "width": 192,
+            "height": 96,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 3,
+                    "fps": 12.0,
+                    "loop": true,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "BlackSlash_Break",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "black_slash_break",
+            "width": 192,
+            "height": 96,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Exclamation",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "exclamation",
+            "width": 64,
+            "height": 64,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 12.0,
+                    "loop": true,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Knife_Fly",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "knife",
+            "width": 128,
+            "height": 32,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 16.0,
+                    "loop": true,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Vine_Warn",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "bottom",
+            "style": "vine_warn",
+            "width": 192,
+            "height": 64,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Vine",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "bottom",
+            "style": "vine",
+            "width": 128,
+            "height": 384,
+            "anims": [
+                {
+                    "name": "Grow",
+                    "frames": 6,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Retract",
+                    "frames": 3,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Lava_Zone",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "lava",
+            "width": 100,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Giant_Swipe",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "leftCenter",
+            "style": "giant_swipe",
+            "width": 768,
+            "height": 512,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 5,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Shockwave",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "shockwave",
+            "width": 256,
+            "height": 64,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Shield_Arc",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "shield",
+            "width": 256,
+            "height": 384,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 2,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Dust_Puff",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "dust",
+            "width": 96,
+            "height": 96,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 14.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Death_Smoke",
+            "folder": "FX",
+            "layout": "set",
+            "pivot": "center",
+            "style": "smoke",
+            "width": 192,
+            "height": 192,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 6,
+                    "fps": 14.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_00",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_01",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_02",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_03",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_04",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_05",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_06",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_07",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_08",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_09",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_10",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_11",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_12",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_13",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_14",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_15",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_cave",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_OneWay_L",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_oneway",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_OneWay_M",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_oneway",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_OneWay_R",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_oneway",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Cave_Spikes",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_spikes",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Decor_Cave_00",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "decor",
+            "width": 100,
+            "height": 100,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Decor_Cave_01",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "decor",
+            "width": 100,
+            "height": 100,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Decor_Cave_02",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "decor",
+            "width": 100,
+            "height": 100,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Decor_Cave_03",
+            "folder": "Tiles/Cave",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "decor",
+            "width": 100,
+            "height": 100,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_00",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_01",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_02",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_03",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_04",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_05",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_06",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_07",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_08",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_09",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_10",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_11",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_12",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_13",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_14",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_15",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_castle",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_OneWay_L",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_oneway",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_OneWay_M",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_oneway",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_OneWay_R",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_oneway",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_Spikes",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_spikes",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Decor_Castle_00",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "decor",
+            "width": 100,
+            "height": 100,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Decor_Castle_01",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "decor",
+            "width": 100,
+            "height": 100,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Decor_Castle_02",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "decor",
+            "width": 100,
+            "height": 100,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Decor_Castle_03",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "decor",
+            "width": 100,
+            "height": 100,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Tile_Castle_Lava",
+            "folder": "Tiles/Castle",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "tile_lava",
+            "width": 50,
+            "height": 50,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Parchment_Beige",
+            "folder": "Backgrounds",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "parchment",
+            "width": 2048,
+            "height": 2048,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Parchment_Inverted",
+            "folder": "Backgrounds",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "parchment_inv",
+            "width": 2048,
+            "height": 2048,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "ParchmentFrame",
+            "folder": "Backgrounds",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "frame",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "FlameGlow",
+            "folder": "Backgrounds",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "flame_glow",
+            "width": 1024,
+            "height": 1024,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "FlameCore",
+            "folder": "Backgrounds",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "flame_core",
+            "width": 256,
+            "height": 256,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 6,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "BG_Cave_Far",
+            "folder": "Backgrounds",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "bg_cave_far",
+            "width": 2048,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "BG_Cave_Mid",
+            "folder": "Backgrounds",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "bg_cave_mid",
+            "width": 2048,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "BG_Castle_Far",
+            "folder": "Backgrounds",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "bg_castle_far",
+            "width": 2048,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "BG_Castle_Mid",
+            "folder": "Backgrounds",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "bg_castle_mid",
+            "width": 2048,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Bench",
+            "folder": "Props",
+            "layout": "set",
+            "pivot": "bottom",
+            "style": "prop_bench",
+            "width": 192,
+            "height": 192,
+            "anims": [
+                {
+                    "name": "Unlit",
+                    "frames": 1,
+                    "fps": 1.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Lit",
+                    "frames": 4,
+                    "fps": 8.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Activate",
+                    "frames": 4,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Door",
+            "folder": "Props",
+            "layout": "set",
+            "pivot": "bottomLeft",
+            "style": "prop_door",
+            "width": 128,
+            "height": 384,
+            "anims": [
+                {
+                    "name": "Closed",
+                    "frames": 1,
+                    "fps": 1.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Open",
+                    "frames": 6,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Gate",
+            "folder": "Props",
+            "layout": "set",
+            "pivot": "bottom",
+            "style": "prop_gate",
+            "width": 100,
+            "height": 300,
+            "anims": [
+                {
+                    "name": "Open",
+                    "frames": 1,
+                    "fps": 1.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Close",
+                    "frames": 5,
+                    "fps": 14.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Orb",
+            "folder": "Props",
+            "layout": "set",
+            "pivot": "center",
+            "style": "prop_orb",
+            "width": 128,
+            "height": 128,
+            "anims": [
+                {
+                    "name": "Idle",
+                    "frames": 6,
+                    "fps": 8.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Touch",
+                    "frames": 6,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "TutorialSign",
+            "folder": "Props",
+            "layout": "set",
+            "pivot": "bottom",
+            "style": "prop_sign",
+            "width": 128,
+            "height": 128,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 1.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Torch",
+            "folder": "Props",
+            "layout": "set",
+            "pivot": "bottom",
+            "style": "prop_torch",
+            "width": 96,
+            "height": 192,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 8.0,
+                    "loop": true,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Chandelier",
+            "folder": "Props",
+            "layout": "set",
+            "pivot": "center",
+            "style": "prop_chandelier",
+            "width": 300,
+            "height": 150,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 1.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS1_Village_Far",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 2400,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS1_Village_Mid",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 2400,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS1_Village_Near",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 2400,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS1_CaveMouth",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS2_Memory_01",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS2_Memory_02",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS2_Memory_03",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS2_Memory_04",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS2_Memory_05",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS2_Memory_06",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS2_Zulmat_Eyes",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene_eyes",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS2_Castle_Silhouette",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS3_Merge_01",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS3_Merge_02",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS3_Merge_03",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS3_GodsStab",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "CS3_Split",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "cutscene",
+            "width": 1920,
+            "height": 1080,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "God_A",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "bottom",
+            "style": "god",
+            "width": 512,
+            "height": 768,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "God_B",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "bottom",
+            "style": "god",
+            "width": 512,
+            "height": 768,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "God_C",
+            "folder": "Cutscenes",
+            "layout": "flat",
+            "pivot": "bottom",
+            "style": "god",
+            "width": 512,
+            "height": 768,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Heart_Full",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_heart_full",
+            "width": 64,
+            "height": 64,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Heart_Empty",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_heart_empty",
+            "width": 64,
+            "height": 64,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Heart_Break",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_heart_break",
+            "width": 64,
+            "height": 64,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 4,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Soul_Frame",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_soul_frame",
+            "width": 192,
+            "height": 192,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Soul_Fill",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_soul_fill",
+            "width": 192,
+            "height": 192,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Soul_Glow",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_soul_glow",
+            "width": 256,
+            "height": 256,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "BossBar_Frame",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_bar_frame",
+            "width": 900,
+            "height": 48,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "BossBar_Fill",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_bar_fill",
+            "width": 900,
+            "height": 48,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Button_Normal",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_button",
+            "width": 360,
+            "height": 80,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Button_Hover",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_button_hover",
+            "width": 360,
+            "height": 80,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Title_Logo",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_logo",
+            "width": 1200,
+            "height": 400,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Cursor",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_cursor",
+            "width": 64,
+            "height": 64,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Ability_Icon_Dash",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_icon_dash",
+            "width": 96,
+            "height": 96,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
+            "name": "Ability_Icon_Fireball",
+            "folder": "UI",
+            "layout": "flat",
+            "pivot": "center",
+            "style": "ui_icon_fireball",
+            "width": 96,
+            "height": 96,
+            "anims": [
+                {
+                    "name": "",
+                    "frames": 1,
+                    "fps": 0.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        }
+    ]
+}
