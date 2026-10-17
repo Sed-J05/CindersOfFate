@@ -431,7 +431,9 @@ namespace Shatranj.EditorTools
                     writtenPath = SetFloat(p, FixedTimestep); // older layouts: plain float
                 }
             });
-            Time.fixedDeltaTime = FixedTimestep;
+            // Only fall back to the runtime setter if the serialized write failed; otherwise the
+            // float value would overwrite the exact rational we just stored.
+            if (!persisted) Time.fixedDeltaTime = 1f / FixedStepHz;
             report.Append("Time.fixedDeltaTime = 1/").Append(FixedStepHz).Append(" s")
                   .AppendLine(persisted ? $" (TimeManager.asset updated: {writtenPath})" : " (runtime only — set Project Settings > Time manually)");
         }
