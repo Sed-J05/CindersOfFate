@@ -150,7 +150,11 @@ namespace Shatranj.Player
             flow.FadeTo(1f, config.hazardRespawnFadeTime);
             yield return new WaitForSecondsRealtime(config.hazardRespawnFadeTime);
 
-            controller.Respawn(lastSafePosition);
+            // Docs/05 legend 'S': an explicit safe point in the current room wins over the last recorded ground.
+            Vector2 target = lastSafePosition;
+            if (Level.RoomManager.Instance != null && Level.RoomManager.Instance.TryNearestSafePoint(transform.position, out Vector2 safePoint))
+                target = safePoint;
+            controller.Respawn(target);
             health.GrantInvulnerability(config.hurtInvulnerabilityTime);
             if (animator != null) animator.StartBlink(config.hurtInvulnerabilityTime, config.hurtBlinkHz);
             if (CameraController.Main != null) CameraController.Main.SnapToTarget();

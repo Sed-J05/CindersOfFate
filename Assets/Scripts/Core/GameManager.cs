@@ -187,6 +187,14 @@ namespace Shatranj.Core
             return SaveSystem.Save(Save);
         }
 
+        /// <summary>Sets a save flag (e.g. "door_orb") and notifies listeners such as doors.</summary>
+        public void SetFlag(string flag, bool value)
+        {
+            if (string.IsNullOrEmpty(flag)) return;
+            Save.SetFlag(flag, value);
+            GameEvents.RaiseFlagChanged(flag, value);
+        }
+
         /// <summary>The scene the player should be in for the current phase.</summary>
         public string CurrentPhaseScene => Phase == GameConstants.Phase2 ? GameConstants.ScenePhase2 : GameConstants.ScenePhase1;
 

@@ -3,6 +3,7 @@
     "rootNamespace": "Shatranj.Tests",
     "references": [
         "Shatranj.Runtime",
+        "Shatranj.Editor",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

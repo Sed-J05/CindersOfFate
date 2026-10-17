@@ -10,7 +10,7 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 | 3 | Player combat, soul, heal, dash, fireball | ✅ done (2026-10-17) | `Scripts/Player`: PlayerCombat (side/up, A/B, timed hitbox, recoil, hit-stop, soul), PlayerHealth (hearts, hurt, blink, spikes → safe ground, death flow), PlayerHurtbox, PlayerSoul (+orb FX), PlayerSpells (heal hold / fireball tap), PlayerDash (Time Slip, ghosts), PlayerFxPools, SoulOrbFx, FireballProjectile. `Core`: DamageDealer, IBossTarget. `Visuals`: PlaceholderSprites, SpriteFx. `Enemies`: DamageableDummy. Sandbox: 4 dummies + 2 spike strips. F4 toggles phase abilities; F7 gizmos. |
 | 4 | Placeholder art + animation pipeline | ✅ done (2026-10-17) | `Data`: ArtManifest classes, SpriteAnimationSet. `Visuals`: SpriteAnimator (no Unity Animator, D-057). Editor `Art/`: manifest tables + IO, PixelFont, PixelCanvas, PlaceholderPainter, `Generate Animation Manifest`, `Generate Placeholder Art`, `Import & Rebuild Animations`, ShatranjSpriteImporter postprocessor. PlayerAnimator plays Docs/06 clips per state with tint fallback; PlayerFactory wires SpriteAnimator. |
 | 5 | HUD | ✅ done (2026-10-17) | `Scripts/UI`: HUDController, HeartsUI, SoulVesselUI, BossBarUI, FlameArcIndicator, AbilityPopupUI, CycleLabelUI, InteractPromptUI, HudDebugPanel (F10). GameEvents: OnBossStarted now carries stage thresholds; new OnFlameProgressChanged, OnAbilityUnlocked, OnInteractPromptShown/Hidden. Editor: `Shatranj/Build UI Prefabs` → `Assets/Prefabs/UI/HUD.prefab`; Sandbox builder instantiates it. Needs TMP Essentials. |
-| 6 | Level pipeline | ⬜ not started | includes `Validate Project` |
+| 6 | Level pipeline | ✅ done (2026-10-17) | `Scripts/Level`: LevelData (glyphs, RoomData, manifest), LevelParser, RoomBounds (extended), RoomManager (current + adjacent activation, F3/F5/F6, safe points), EnemySpawner (stable ids, kill-save), InteractableBase, Bench (rest + checkpoint), Orb, TutorialSign, Door (flag-locked), BossGate, BossArena, SafeGroundPoint/PlayerSpawnPoint, LevelSceneSetup (respawn at bench on load). Core: GameManager.SetFlag + OnFlagChanged, LastFlameProgress. Editor: `Build Prefabs` (level props), `Build Levels`, `Build LevelTest Scene`, `Validate Project`, TileAssets, LEVEL_OVERVIEW writer. Data: TEST_A/B/C rooms, `LevelManifest.json` skeleton (sections + expected counts), `LevelManifest_Test.json`. Tests: LevelParserTests (13). |
 | 7 | Enemy framework + Phase 1 enemies | ⬜ not started | |
 | 8 | Phase 1 Section A + MB1 | ⬜ not started | |
 | 9 | Phase 1 Section B + MB2 + orb | ⬜ not started | |
@@ -30,9 +30,10 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 - Project folder/product name is `cinders of fate` (D-002). Git repo initialised on branch `main`, first commit 2026-10-17.
 
 ## Pending human steps (carry forward until done)
-1. **Window → TextMeshPro → Import TMP Essential Resources** (one-time; creates `Assets/TextMesh Pro`).
-2. **Shatranj → Build UI Prefabs**, then **Shatranj → Build Sandbox Scene**, press Play. F10 opens the HUD debug panel.
-3. Art-swap test from Prompt 4 is still unverified (copy a PNG over `Protagonist_Idle_00.png`, expect the idle to update with no further steps).
+1. **Shatranj → Build Prefabs** (level props), then **Shatranj → Build LevelTest Scene**, press Play (see Prompt 6 checklist).
+2. **Shatranj → Validate Project** and read the report (Phase sections show PENDING until rooms exist).
+3. Test Runner → EditMode → Run All (48 tests: 35 + 13 parser).
+4. Art-swap test from Prompt 4 is still unverified.
 
 ## Next up
-Prompt 6 — Level pipeline (`Docs/09_BUILD_PROMPTS.md`).
+Prompt 7 — Enemy framework + Phase 1 regular enemies (`Docs/09_BUILD_PROMPTS.md`).

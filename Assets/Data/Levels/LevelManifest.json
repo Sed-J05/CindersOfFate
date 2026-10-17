@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "phases": [
+    {
+      "id": "P1",
+      "phase": 1,
+      "scene": "Phase1_Cave",
+      "theme": "cave",
+      "rooms": [],
+      "sections": [
+        {
+          "id": "A",
+          "expectedEnemies": 15,
+          "bossId": "kage_warden"
+        },
+        {
+          "id": "B",
+          "expectedEnemies": 20,
+          "bossId": "kage_caller"
+        }
+      ]
+    },
+    {
+      "id": "P2",
+      "phase": 2,
+      "scene": "Phase2_Castle",
+      "theme": "castle",
+      "rooms": [],
+      "sections": [
+        {
+          "id": "C",
+          "expectedEnemies": 20,
+          "bossId": "iron_colossus"
+        },
+        {
+          "id": "D",
+          "expectedEnemies": 30,
+          "bossId": "zulmat"
+        }
+      ]
+    }
+  ],
+  "signs": [
+    {
+      "room": "P1_A0",
+      "index": 0,
+      "text": "A / D — move"
+    },
+    {
+      "room": "P1_A0",
+      "index": 1,
+      "text": "Space — jump"
+    },
+    {
+      "room": "P1_A0",
+      "index": 2,
+      "text": "J — attack"
+    }
+  ],
+  "doors": [
+    {
+      "room": "P1_MB2",
+      "flag": "door_orb"
+    }
+  ]
+}

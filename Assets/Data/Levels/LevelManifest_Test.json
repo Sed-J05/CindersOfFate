@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "phases": [
+    {
+      "id": "TEST",
+      "phase": 1,
+      "scene": "LevelTest",
+      "theme": "cave",
+      "rooms": [
+        {
+          "id": "TEST_A",
+          "file": "TEST_A.txt",
+          "section": "T"
+        },
+        {
+          "id": "TEST_B",
+          "file": "TEST_B.txt",
+          "section": "T",
+          "bossId": "kage_warden"
+        },
+        {
+          "id": "TEST_C",
+          "file": "TEST_C.txt",
+          "section": "T"
+        }
+      ],
+      "sections": [
+        {
+          "id": "T",
+          "expectedEnemies": 6,
+          "bossId": "kage_warden"
+        }
+      ]
+    }
+  ],
+  "signs": [
+    {
+      "room": "TEST_A",
+      "index": 0,
+      "text": "A / D — move,  Space — jump,  J — attack"
+    },
+    {
+      "room": "TEST_B",
+      "index": 0,
+      "text": "Door ahead is locked (flag door_test). F3 skips rooms."
+    }
+  ],
+  "doors": [
+    {
+      "room": "TEST_B",
+      "flag": "door_test"
+    }
+  ]
+}

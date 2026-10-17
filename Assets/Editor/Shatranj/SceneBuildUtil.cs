@@ -281,6 +281,15 @@ namespace Shatranj.EditorTools
             so.ApplyModifiedPropertiesWithoutUndo();
         }
 
+        public static void SetString(Object target, string field, string value)
+        {
+            var so = new SerializedObject(target);
+            SerializedProperty p = so.FindProperty(field);
+            if (p == null) { Debug.LogWarning($"SceneBuildUtil: field '{field}' not found on {target.GetType().Name}"); return; }
+            p.stringValue = value;
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
         public static void SetEnum(Object target, string field, int enumValue)
         {
             var so = new SerializedObject(target);

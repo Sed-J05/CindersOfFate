@@ -51,6 +51,12 @@ namespace Shatranj.Core
         public const string AbilityDash = "dash";
         public const string AbilityFireball = "fireball";
 
+        /// <summary>(flag, value) — a save flag changed (doors listen).</summary>
+        public static event Action<string, bool> OnFlagChanged;
+
+        /// <summary>Last value passed to <see cref="RaiseFlameProgressChanged"/>; benches store it in the checkpoint.</summary>
+        public static float LastFlameProgress { get; private set; }
+
         // --- Raise helpers ---
         public static void RaisePlayerDamaged(DamageInfo info) => OnPlayerDamaged?.Invoke(info);
         public static void RaisePlayerDied() => OnPlayerDied?.Invoke();
@@ -74,7 +80,13 @@ namespace Shatranj.Core
         public static void RaiseCutsceneStart(string id) => OnCutsceneStart?.Invoke(id);
         public static void RaiseCutsceneEnd(string id) => OnCutsceneEnd?.Invoke(id);
 
-        public static void RaiseFlameProgressChanged(float t) => OnFlameProgressChanged?.Invoke(Mathf.Clamp01(t));
+        public static void RaiseFlameProgressChanged(float t)
+        {
+            LastFlameProgress = Mathf.Clamp01(t);
+            OnFlameProgressChanged?.Invoke(LastFlameProgress);
+        }
+
+        public static void RaiseFlagChanged(string flag, bool value) => OnFlagChanged?.Invoke(flag, value);
         public static void RaiseAbilityUnlocked(string abilityId) => OnAbilityUnlocked?.Invoke(abilityId);
         public static void RaiseInteractPromptShown(string text, Vector2 worldPosition) => OnInteractPromptShown?.Invoke(text, worldPosition);
         public static void RaiseInteractPromptHidden() => OnInteractPromptHidden?.Invoke();
@@ -104,6 +116,7 @@ namespace Shatranj.Core
             OnAbilityUnlocked = null;
             OnInteractPromptShown = null;
             OnInteractPromptHidden = null;
+            OnFlagChanged = null;
         }
     }
 }
