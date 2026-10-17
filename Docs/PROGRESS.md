@@ -27,11 +27,10 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 ## Environment facts (verified 2026-10-17)
 - Unity **6000.0.32f1**, URP 17.0.3 (2D Renderer, `Assets/Settings/Renderer2D.asset`), Input System 1.11.2, ugui 2.0.0 (TMP), Test Framework 1.4.5, 2D feature set 2.0.1.
 - Active Input Handling = **Both** (OK). Default screen 1920×1080.
-- Project folder/product name is `cinders of fate` (D-002). **Not a git repository yet.**
+- Project folder/product name is `cinders of fate` (D-002). Git repo initialised on branch `main`, first commit 2026-10-17.
 
 ## Pending human steps (carry forward until done)
-1. Open Unity, wait for compile, run **Shatranj → Setup Project** once; check the Console summary says `Validation: PASS`.
-2. `git init` + first commit (the `.gitignore` is in place).
+1. Run **Shatranj → Setup Project** once more after the timestep fix; the summary must show no `FAILED` line and `Validation: PASS`. (Layers, tags, sorting layers, matrix and gravity are already verified on disk.)
 
 ## Next up
 Prompt 1 — Core framework (`Docs/09_BUILD_PROMPTS.md`).
