@@ -214,6 +214,15 @@ namespace Shatranj.EditorTools
             b.summonEnemyIds = new[] { "knight", "bat" };
             b.shrinkScale = 0.5f; b.giantScale = 1.8f; b.transformTime = 0.5f;
             b.maxLavaZones = 3; b.lavaDuration = 6f;
+            // Zulmat section (Docs/04 §E): every number the fight uses, tunable in the asset.
+            b.vineCount = 3; b.vineSpacing = 3f; b.vineInterval = 0.35f; b.vineStayTime = 0.7f; b.vineSize = new Vector2(1f, 3f);
+            b.swipeHeight = 2.5f;
+            b.shrinkTime = 0.4f; b.lungeSpeed = 16f; b.lungeCount = 2; b.lungeEndSlashReach = 1.4f; b.lungeEdgeMargin = 0.6f;
+            b.summonHoverBelowCeiling = 2f; b.summonSideOffset = 6f; b.summonBatHeight = 4f;
+            b.lavaZoneWidthMin = 4f; b.lavaZoneWidthMax = 6f; b.lavaRiseTime = 0.3f; b.lavaZonesPerCast = 2;
+            b.stage3Combos = true; b.stageRoarShake = 0.35f; b.flameParkViewport = new Vector2(0.5f, 0.85f);
+            b.walkChance = 0.35f; b.farDistance = 7f; b.advanceTimeMin = 0.8f; b.advanceTimeMax = 1.4f;
+            b.noRepeatWithinLast = 2; b.repositionHideTime = 0.35f; b.repositionWallGap = 1.5f;
             b.noImmediateRepeat = true; b.maxSameMoveInRow = 1; b.fairnessGap = 0.6f;
             b.moves = new[]
             {
@@ -223,7 +232,23 @@ namespace Shatranj.EditorTools
                 new BossMoveConfig("ShrinkLunge",    0.35f, 0.4f,  0.5f, 0f,   1, 2f) { minStage = 2, speed = 16f, hits = 2, duration = 0.4f },
                 new BossMoveConfig("SummonRegulars", 0.8f,  1.0f,  0.5f, 0f,   0, 1f) { minStage = 2, cooldown = 20f },
                 new BossMoveConfig("LavaZones",      1.0f,  0.1f,  0.5f, 5f,   1, 1.5f) { minStage = 3, extra = 6f },
+                ZulmatReposition(),
             };
+        }
+
+        /// <summary>Team addition (D-168): shrink, vanish, reappear on the far side of the arena, grow back. Not an attack.</summary>
+        public static BossMoveConfig ZulmatReposition() => new BossMoveConfig("Reposition", 0.2f, 0f, 0.3f, 0f, 0, 1.2f) { minStage = 1 };
+
+        /// <summary>
+        /// Adds Zulmat moves that are missing from an existing asset (made by an older generator) without touching any
+        /// tuned value. Returns true when the asset changed.
+        /// </summary>
+        public static bool AddMissingZulmatMoves(BossConfig b)
+        {
+            if (b == null || b.id != "zulmat" || b.FindMove("Reposition") != null) return false;
+            var list = new System.Collections.Generic.List<BossMoveConfig>(b.moves) { ZulmatReposition() };
+            b.moves = list.ToArray();
+            return true;
         }
 
         // ------------------------------------------------------------------

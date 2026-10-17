@@ -86,6 +86,8 @@ namespace Shatranj.Data
         public bool noImmediateRepeat = true;
         [Tooltip("Max times the same move may be chosen in a row (Colossus 2 → never 3×).")]
         public int maxSameMoveInRow = 1;
+        [Tooltip("Zulmat variety: avoid any move used in the last N moves when another one is available (1 = only no immediate repeat).")]
+        public int noRepeatWithinLast = 2;
         [Tooltip("Minimum gap between the end of one attack and the start of the next.")]
         public float fairnessGap = 0.6f;
         public float advanceTimeMin = 0.8f;
@@ -138,6 +140,40 @@ namespace Shatranj.Data
         public float transformTime = 0f;
         public int maxLavaZones = 0;
         public float lavaDuration = 0f;
+
+        [Header("Zulmat (Docs/04 §E) — final boss tuning")]
+        [Tooltip("Vine Summon: vines per cast, spacing (u), delay between eruptions (s), how long each vine stays (s), hit box size (u).")]
+        public int vineCount = 3;
+        public float vineSpacing = 3f;
+        public float vineInterval = 0.35f;
+        public float vineStayTime = 0.7f;
+        public Vector2 vineSize = new Vector2(1f, 3f);
+        [Tooltip("Giant Swipe: hit box height above the floor (u). Jump above it or dash through it. Grow time = transformTime, size = giantScale.")]
+        public float swipeHeight = 2.5f;
+        [Tooltip("Shrink & Lunge: shrink time (s), lunge speed (u/s), lunges per move, reach of the closing slash (u), gap kept from the walls (u).")]
+        public float shrinkTime = 0.4f;
+        public float lungeSpeed = 16f;
+        public int lungeCount = 2;
+        public float lungeEndSlashReach = 1.4f;
+        public float lungeEdgeMargin = 0.6f;
+        [Tooltip("Reposition: how long he stays vanished (s) and how far from the wall he reappears (u).")]
+        public float repositionHideTime = 0.35f;
+        public float repositionWallGap = 1.5f;
+        [Tooltip("Summon Regulars: how far below the ceiling the shrunk boss hovers (u), how far left/right of centre minions appear (u), bat spawn height (u).")]
+        public float summonHoverBelowCeiling = 2f;
+        public float summonSideOffset = 6f;
+        public float summonBatHeight = 4f;
+        [Tooltip("Lava Zones: zone width range (u), rise/sink time (s), zones created per cast (max alive = maxLavaZones, lifetime = lavaDuration).")]
+        public float lavaZoneWidthMin = 4f;
+        public float lavaZoneWidthMax = 6f;
+        public float lavaRiseTime = 0.3f;
+        public int lavaZonesPerCast = 2;
+        [Tooltip("Stage 3 combos: Slash → Vine, Lunge → Giant Swipe.")]
+        public bool stage3Combos = true;
+        [Tooltip("Stage change roar: screenshake amplitude.")]
+        public float stageRoarShake = 0.35f;
+        [Tooltip("Where the flame parks during the fight (viewport 0–1).")]
+        public Vector2 flameParkViewport = new Vector2(0.5f, 0.85f);
 
         [Header("Arena (tiles)")]
         public int arenaWidthTiles = 40;

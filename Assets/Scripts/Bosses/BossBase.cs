@@ -316,11 +316,15 @@ namespace Shatranj.Bosses
             if (!(GameManager.HasInstance && GameManager.Instance.IsPaused)) Time.timeScale = 1f;
 
             FxPool.Play("Death_Smoke", rb.position + new Vector2(0f, config.colliderSize.y * 0.5f), 1, 2f);
+            OnDefeated();
             GameEvents.RaiseBossDefeated(BossId);
             Destroy(gameObject);
         }
 
         protected virtual void OnDeathStarted() { }
+
+        /// <summary>After the slow-mo death, right before OnBossDefeated and Destroy (Zulmat: white flash + final-boss event).</summary>
+        protected virtual void OnDefeated() { }
 
         // ------------------------------------------------------------------
         // Frame

@@ -22,6 +22,10 @@ namespace Shatranj.Enemies
         private static readonly Dictionary<string, int> wakeCountByRoom = new Dictionary<string, int>();
 
         private State state = State.Sleep;
+        private bool spawnAwake;
+
+        /// <summary>Call right after Instantiate (before Start) to skip the ceiling hang — summoned bats fly straight in (Zulmat).</summary>
+        public void SpawnAwake() => spawnAwake = true;
         private float timer;
         private float attackTimer;
         private float desync;
@@ -43,7 +47,7 @@ namespace Shatranj.Enemies
             noiseSeed = Random.value * 100f;
             anchor = rb.position;
             lastMoveTarget = anchor;
-            if (config.startsAsleep)
+            if (config.startsAsleep && !spawnAwake)
             {
                 HangFromCeiling();
                 state = State.Sleep;

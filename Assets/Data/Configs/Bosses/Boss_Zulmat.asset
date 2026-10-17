@@ -38,13 +38,21 @@ MonoBehaviour:
   enrageCooldownMultiplier: 0.8
   noImmediateRepeat: 1
   maxSameMoveInRow: 1
+  noRepeatWithinLast: 2
   fairnessGap: 0.6
   advanceTimeMin: 0.8
   advanceTimeMax: 1.4
   backstepDistance: 3
   backstepTime: 0.35
+  closeDistance: 3.5
+  farDistance: 7
+  walkChance: 0.35
+  telegraphFlashTime: 0.1
+  telegraphFlashColor: {r: 1, g: 0.35, b: 0.3, a: 1}
+  gravityScale: 3
   blockDuration: 0
   blockPushback: 2
+  blockPushbackTime: 0.15
   blockMinHitsToTrigger: 2
   blockHitWindow: 2
   blockRandomChance: 0.2
@@ -68,6 +76,29 @@ MonoBehaviour:
   transformTime: 0.5
   maxLavaZones: 3
   lavaDuration: 6
+  vineCount: 3
+  vineSpacing: 3
+  vineInterval: 0.35
+  vineStayTime: 0.7
+  vineSize: {x: 1, y: 3}
+  swipeHeight: 2.5
+  shrinkTime: 0.4
+  lungeSpeed: 16
+  lungeCount: 2
+  lungeEndSlashReach: 1.4
+  lungeEdgeMargin: 0.6
+  repositionHideTime: 0.35
+  repositionWallGap: 1.5
+  summonHoverBelowCeiling: 2
+  summonSideOffset: 6
+  summonBatHeight: 4
+  lavaZoneWidthMin: 4
+  lavaZoneWidthMax: 6
+  lavaRiseTime: 0.3
+  lavaZonesPerCast: 2
+  stage3Combos: 1
+  stageRoarShake: 0.35
+  flameParkViewport: {x: 0.5, y: 0.85}
   arenaWidthTiles: 60
   arenaHeightTiles: 22
   flameParksDuringFight: 1
@@ -162,3 +193,18 @@ MonoBehaviour:
     hitGap: 0
     distanceBand: 0
     extra: 6
+  - name: Reposition
+    telegraph: 0.2
+    active: 0
+    recovery: 0.3
+    reach: 0
+    speed: 0
+    duration: 0
+    damage: 0
+    cooldown: 0
+    weight: 1.2
+    minStage: 1
+    hits: 1
+    hitGap: 0
+    distanceBand: 0
+    extra: 0

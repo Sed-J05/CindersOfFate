@@ -43,6 +43,7 @@ namespace Shatranj.EditorTools
             ("KageWarden", "KageWarden", "kage_warden", typeof(Shatranj.Bosses.KageWarden)),
             ("KageCaller", "KageCaller", "kage_caller", typeof(Shatranj.Bosses.KageCaller)),
             ("IronColossus", "IronColossus", "iron_colossus", typeof(Shatranj.Bosses.IronColossus)),
+            ("Zulmat", "Zulmat", "zulmat", typeof(Shatranj.Bosses.Zulmat)),
         };
 
         /// <summary>Prefab path for a boss id ("kage_warden" → Assets/Prefabs/Bosses/KageWarden.prefab), or null if not built yet.</summary>
@@ -70,6 +71,12 @@ namespace Shatranj.EditorTools
                     cfg = AssetDatabase.LoadAssetAtPath<BossConfig>(GenerateConfigs.BossPath(b.config));
                 }
                 if (cfg == null) { report?.AppendLine($"  FAILED {b.name}: no BossConfig at {GenerateConfigs.BossPath(b.config)}"); continue; }
+                if (ConfigDefaults.AddMissingZulmatMoves(cfg))
+                {
+                    EditorUtility.SetDirty(cfg);
+                    AssetDatabase.SaveAssets();
+                    report?.AppendLine($"  config {b.config}: added missing move(s) (Reposition)");
+                }
 
                 GameObject root = BossPrefabFactory.Build(b.name, cfg, b.behaviour);
                 if (b.behaviour == typeof(Shatranj.Bosses.KageCaller))
@@ -80,6 +87,16 @@ namespace Shatranj.EditorTools
                         AssetDatabase.LoadAssetAtPath<GameObject>(EnemyPrefabPath("ShadowKite")),
                     };
                     SceneBuildUtil.SetObjectArray(root.GetComponent<Shatranj.Bosses.KageCaller>(), "minionPrefabs", minions);
+                }
+                if (b.behaviour == typeof(Shatranj.Bosses.Zulmat))
+                {
+                    // Summon Regulars (Docs/04 §E): Knight + Bat. Enemy prefabs are built first.
+                    var regulars = new Object[]
+                    {
+                        AssetDatabase.LoadAssetAtPath<GameObject>(EnemyPrefabPath("Knight")),
+                        AssetDatabase.LoadAssetAtPath<GameObject>(EnemyPrefabPath("Bat")),
+                    };
+                    SceneBuildUtil.SetObjectArray(root.GetComponent<Shatranj.Bosses.Zulmat>(), "minionPrefabs", regulars);
                 }
                 string path = BossPrefabPath(b.name);
                 PrefabUtility.SaveAsPrefabAsset(root, path, out bool ok);

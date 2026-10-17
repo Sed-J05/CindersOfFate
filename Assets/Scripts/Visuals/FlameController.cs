@@ -42,7 +42,8 @@ namespace Shatranj.Visuals
         /// <summary>Current light intensity multiplier including flicker, parking boost and spikes.</summary>
         public float Intensity { get; private set; } = 1f;
         /// <summary>Phase 2 enemy scale for the current t (1 in Phase 1).</summary>
-        public float EnemyScale => config != null ? config.EvaluateScale(t) : 1f;
+        /// <summary>Phase 2 enemy scale for the current progress. 1 while parked: no scaling during the final boss (Docs/04 §E).</summary>
+        public float EnemyScale => config != null && !parked ? config.EvaluateScale(t) : 1f;
         public Camera Camera => targetCamera;
 
         private void Awake()

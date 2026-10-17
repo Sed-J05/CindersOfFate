@@ -86,13 +86,14 @@ namespace Shatranj.EditorTools
             report.AppendLine("Targets: 4 dummies (10/10/10/20 HP). Hazards: floor spikes at x≈5, pit spikes at x≈32.5.");
 
             // --- Enemy spawn keys (Prompt 7/12) at the mouse cursor: 1 Crawler, 2 Lunger, 3 Kite, 4 Kage Warden,
-            //     5 Knight, 6 Bat, 7 Charger, 8 Thrower; Shift+1 Kage Warden, Shift+2 Kage Caller; 0 clear ---
-            string[] regularKeys = { "Crawler", "Lunger", "ShadowKite", null, "Knight", "Bat", "Charger", "Thrower" };
+            //     5 Knight, 6 Bat, 7 Charger, 8 Thrower, 9 Zulmat; Shift+1.. = bosses; 0 clear ---
+            // Key 4 = Kage Warden, key 9 = Zulmat (bosses); the rest are regular enemies.
+            string[] regularKeys = { "Crawler", "Lunger", "ShadowKite", "boss:KageWarden", "Knight", "Bat", "Charger", "Thrower", "boss:Zulmat" };
             var enemyPrefabs = new Object[regularKeys.Length];
             for (int i = 0; i < regularKeys.Length; i++)
-                enemyPrefabs[i] = regularKeys[i] != null
-                    ? AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.EnemyPrefabPath(regularKeys[i]))
-                    : AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.BossPrefabPath("KageWarden"));
+                enemyPrefabs[i] = regularKeys[i].StartsWith("boss:")
+                    ? AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.BossPrefabPath(regularKeys[i].Substring(5)))
+                    : AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.EnemyPrefabPath(regularKeys[i]));
             var bossPrefabs = new Object[BuildPrefabs.BossTypes.Length];
             for (int i = 0; i < BuildPrefabs.BossTypes.Length; i++)
                 bossPrefabs[i] = AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.BossPrefabPath(BuildPrefabs.BossTypes[i].name));
@@ -103,8 +104,8 @@ namespace Shatranj.EditorTools
             int missing = 0;
             foreach (Object o in enemyPrefabs) if (o == null) missing++;
             foreach (Object o in bossPrefabs) if (o == null) missing++;
-            report.AppendLine("Enemy keys: 1 Crawler, 2 Lunger, 3 Kite, 4 Kage Warden, 5 Knight, 6 Bat, 7 Charger, 8 Thrower; "
-                              + "Shift+1 Kage Warden, Shift+2 Kage Caller, Shift+3 Iron Colossus; 0 clear." + (missing > 0 ? $"  WARNING: {missing} prefab(s) missing" : ""));
+            report.AppendLine("Enemy keys: 1 Crawler, 2 Lunger, 3 Kite, 4 Kage Warden, 5 Knight, 6 Bat, 7 Charger, 8 Thrower, 9 Zulmat; "
+                              + "Shift+1 Kage Warden, Shift+2 Kage Caller, Shift+3 Iron Colossus, Shift+4 Zulmat; 0 clear." + (missing > 0 ? $"  WARNING: {missing} prefab(s) missing" : ""));
 
             // --- F12 flame-scale slider (Prompt 12) ---
             new GameObject("[FlameScaleDebugPanel]").AddComponent<Shatranj.Visuals.FlameScaleDebugPanel>();

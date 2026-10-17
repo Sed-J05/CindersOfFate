@@ -28,7 +28,7 @@ Menu order (top → bottom) mirrors the build order. `Build Everything` runs the
 
 Debug-only panels (runtime hotkeys, not menu items): F1–F9 per `CLAUDE.md` §6, F10 HUD fake-events (Prompt 5),
 F11 visuals: `,`/`.` scrub flame t, M freeze, P park, G spike, T next theme, Y drop-shadows (Prompt 10), F12 flame-scale slider: drag or `[`/`]` (Shift fine) to set flameT, readout of target scale and scaling enemies; F4 for Phase 2 (Prompt 12).
-Sandbox spawn keys at the cursor: 1 Crawler, 2 Lunger, 3 Kite, 4 Kage Warden, 5 Knight, 6 Bat, 7 Charger, 8 Thrower, Shift+1 Kage Warden, Shift+2 Kage Caller, Shift+3 Iron Colossus, 0 clear.
+Sandbox spawn keys at the cursor: 1 Crawler, 2 Lunger, 3 Kite, 4 Kage Warden, 5 Knight, 6 Bat, 7 Charger, 8 Thrower, 9 Zulmat, Shift+1 Kage Warden, Shift+2 Kage Caller, Shift+3 Iron Colossus, Shift+4 Zulmat, 0 clear.
 
 Scene builders (Sandbox, LevelTest, phase scenes) call `VisualRigFactory.Build` for the parchment stage, flame, lights, PostFX volume, themes and wipes.
 
