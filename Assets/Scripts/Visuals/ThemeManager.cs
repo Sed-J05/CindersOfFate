@@ -67,6 +67,7 @@ namespace Shatranj.Visuals
 
         private void Start()
         {
+            if (current != null) return;   // a cutscene script already chose the theme
             int phase = GameManager.HasInstance ? GameManager.Instance.Phase : GameConstants.Phase1;
             Apply(phase >= GameConstants.Phase2 ? Phase2Inverted : Phase1Beige, 0f);
         }
@@ -133,6 +134,37 @@ namespace Shatranj.Visuals
                 SetParchmentSprite(to);
                 if (rig != null && rig.ParchmentCrossfade != null) rig.ParchmentCrossfade.enabled = false;
             }
+        }
+
+        /// <summary>Cutscene "flame colour" beat: tints the flame light, glow and core towards <paramref name="color"/>.</summary>
+        public void TintFlame(Color color, float duration)
+        {
+            if (tintRoutine != null) StopCoroutine(tintRoutine);
+            tintRoutine = StartCoroutine(TintFlameRoutine(color, duration));
+        }
+
+        private Coroutine tintRoutine;
+
+        private System.Collections.IEnumerator TintFlameRoutine(Color color, float duration)
+        {
+            Color glowFrom = rig != null && rig.FlameGlow != null ? rig.FlameGlow.color : color;
+            Color coreFrom = rig != null && rig.FlameCore != null ? rig.FlameCore.color : color;
+            Color lightFrom = flameLight != null && flameLight.Light != null ? flameLight.Light.color : color;
+            for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+            {
+                float k = t / Mathf.Max(0.01f, duration);
+                SetFlameColours(Color.Lerp(glowFrom, color, k), Color.Lerp(coreFrom, Color.Lerp(color, Color.white, 0.6f), k), Color.Lerp(lightFrom, color, k));
+                yield return null;
+            }
+            SetFlameColours(color, Color.Lerp(color, Color.white, 0.6f), color);
+            tintRoutine = null;
+        }
+
+        private void SetFlameColours(Color glow, Color core, Color light)
+        {
+            if (rig != null && rig.FlameGlow != null) { glow.a = rig.FlameGlow.color.a; rig.FlameGlow.color = glow; }
+            if (rig != null && rig.FlameCore != null) { core.a = rig.FlameCore.color.a; rig.FlameCore.color = core; }
+            if (flameLight != null && flameLight.Light != null) flameLight.Light.color = light;
         }
 
         // ------------------------------------------------------------------

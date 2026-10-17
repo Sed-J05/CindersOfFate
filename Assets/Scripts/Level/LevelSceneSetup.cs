@@ -43,6 +43,15 @@ namespace Shatranj.Level
             if (health != null) health.RespawnPosition = spawn;
             if (CameraController.Main != null) CameraController.Main.SnapToTarget();
             if (RoomManager.Instance != null) RoomManager.Instance.LocatePlayer(instant: true);
+
+            // Docs/08 §3/§7: the phase card ("PHASE II — THE INVERTED THEATRE") shows once on arrival.
+            if (GameManager.HasInstance && !string.IsNullOrEmpty(GameManager.Instance.PendingTitleCard))
+            {
+                string card = GameManager.Instance.PendingTitleCard;
+                GameManager.Instance.PendingTitleCard = null;
+                string[] parts = card.Split('|');
+                UI.ScreenCard.Show(this, parts[0], parts.Length > 1 ? parts[1] : "", 0f, 0.6f, 2.2f);
+            }
         }
     }
 }

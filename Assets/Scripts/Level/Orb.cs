@@ -49,6 +49,15 @@ namespace Shatranj.Level
             if (GameManager.HasInstance) GameManager.Instance.SetState(GameState.Cutscene);
             yield return new WaitForSeconds(touchHoldTime);
 
+            // Prompt 11: Cutscene 2 (memories → Zulmat wakes → inversion wipe → Phase 2). It sets the phase itself.
+            if (Application.CanStreamedLevelBeLoaded(GameConstants.SceneCutscene))
+            {
+                GameManager gm = GameManager.Ensure();
+                gm.BeginCutscene(GameConstants.CutsceneOrb, GameConstants.ScenePhase2);
+                SceneFlow.Load(GameConstants.SceneCutscene, fadeTime);
+                yield break;
+            }
+
             if (Application.CanStreamedLevelBeLoaded(GameConstants.ScenePhase2))
             {
                 if (GameManager.HasInstance)

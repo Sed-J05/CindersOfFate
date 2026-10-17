@@ -15,7 +15,7 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 | 8 | Phase 1 Section A + MB1 | ✅ done (2026-10-18) | Rooms P1_A0–A5 + P1_MB1 (15 enemies, all jumps checked) in `LevelManifest.json`; `Docs/LEVEL_OVERVIEW.md`. `Scripts/Bosses`: BossBase (intro + card, bar events, stages/enrage, hit windows, guard filter, slow-mo death, reset), KageWarden (advance, combo with turn-around, back-step, block + clink + pushback, counter-slash). BossArena spawns/despawns the boss. Health.DamageFilter; GameEvents OnBossReset/OnBossIntroCard; BossIntroCardUI. Editor: BossPrefabFactory, Build Prefabs boss, Sandbox key 4, `Build All Scenes`. Validate: hazard-only pits, PENDING sections. Tests: BossAcceptanceTests (2). |
 | 9 | Phase 1 Section B + MB2 + orb | ✅ done (2026-10-18) | Rooms P1_B1–B6, P1_MB2, P1_ORB (20 enemies incl. 8 kites; Phase 1 = 35); MB1 east opened; every gate/door now in a 6-tile doorway. `Scripts/Bosses`: SwordsmanBoss (shared advance / slash combo / back-step), KageWarden refactored onto it, KageCaller (faster combo, Black Slash 1→2 shots < 66 %, summon with '!' floor markers + ceiling-slot drops, cap 3, die with boss, enrage < 50 %, sets door_orb). `Enemies`: EnemyProjectile + ProjectilePool (runtime-built pools). Orb placeholder sequence + ToBeContinuedCard. Sandbox key 5. Tests: Kage Caller numbers. |
 | 10 | Shadow puppetry visuals | ✅ done (2026-10-18) | `Scripts/Visuals`: FlameController (P1 ping-pong 480 s, P2 one-way 1200 s with save/death restore, park, flicker, hit spikes, publishes t), FlameLight (Point Light 2D), ParchmentRig (tiled parchment + cross-fade, FlameGlow, FlameCore, ParchmentFrame), ParallaxLayer (0.1 / 0.3), PuppetShadow (2 black copies offset from the flame), ThemeManager (4 themes, cross-fade, follows phase), ScreenWipe (room sweep, death burn), VisualDebugPanel (F11). Editor: VisualRigFactory (rig, lights, PostFX volume + profile, theme sprite slots) in Phase1/Sandbox/LevelTest builders; PuppetShadow on player/enemies/bosses. Tests: FlameMathTests (6). |
-| 11 | Cutscene system + CS1/CS2 + menus | ⬜ not started | |
+| 11 | Cutscene system + CS1/CS2 + menus | ✅ done (2026-10-18) | `Scripts/Cutscenes`: MiniJson, Beat/CutsceneScript, CutsceneStage (puppets + Ken Burns panels), CutsceneUI (typewriter caption, cards, flash, skip ring, inversion wipe), CutsceneRunner (all Docs/08 beats + `sequence`, `card`, async/minCycle, hold-to-skip fast-forward). `Data`: SpriteCatalog (Resources). `UI`: UIFactory, MainMenuController, PauseMenu, ScreenCard. Orb → cs2; death text; phase card. `cs1_intro.json`, `cs2_orb.json`. Editor: Build Cutscene Catalog, Build Main Menu / Cutscene Scene; Build All Scenes orders MainMenu first. Phase 2 stub room P2_C0. Tests: CutsceneTests (5). |
 | 12 | Phase 2 systems + enemies | ⬜ not started | |
 | 13 | Phase 2 Section C + MB3 | ⬜ not started | |
 | 14 | Phase 2 Section D + throne room | ⬜ not started | |
@@ -30,9 +30,9 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 - Project folder/product name is `cinders of fate` (D-002). Git repo initialised on branch `main`, first commit 2026-10-17.
 
 ## Pending human steps (carry forward until done)
-1. **Shatranj → Build Prefabs** (drop shadows on enemies/bosses), then **Shatranj → Build All Scenes**.
-2. Play Phase1_Cave; F11 opens the visuals panel. Test Runner → EditMode → Run All (63 tests).
+1. **Shatranj → Build All Scenes** (catalog, MainMenu, Cutscene, Phase1_Cave, Phase2_Castle stub, Sandbox; opens MainMenu).
+2. Press Play in MainMenu: Start → Intro → Phase 1 → … → orb → Cutscene 2 → inversion wipe → Phase2_Castle. Test Runner → EditMode → Run All (69 tests).
 3. Art-swap test from Prompt 4 is still unverified.
 
 ## Next up
-Prompt 11 — Cutscene system + Cutscenes 1 & 2 + phase transition + menus (`Docs/09_BUILD_PROMPTS.md`).
+Prompt 12 — Phase 2 systems + Phase 2 regular enemies (`Docs/09_BUILD_PROMPTS.md`).

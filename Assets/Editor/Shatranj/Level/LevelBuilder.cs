@@ -127,6 +127,7 @@ namespace Shatranj.EditorTools.Level
 
             Transform roomsRoot = new GameObject("Rooms").transform;
             var sectionCounts = new Dictionary<string, int>();
+            var sectionHasBoss = new HashSet<string>();
             RoomBounds startRoom = null;
             Transform spawnTransform = null;
             Vector2 playerStart = Vector2.zero;
@@ -268,6 +269,7 @@ namespace Shatranj.EditorTools.Level
 
                 sectionCounts.TryGetValue(room.section, out int count);
                 sectionCounts[room.section] = count + room.CountEnemies();
+                if (room.IsBossRoom) sectionHasBoss.Add(room.section);
             }
 
             // --- Collision (D-112) ---
@@ -317,9 +319,9 @@ namespace Shatranj.EditorTools.Level
             bool allPass = true;
             foreach (LevelManifestSection section in phase.sections)
             {
-                if (!sectionCounts.TryGetValue(section.id, out int found))
+                if (!sectionCounts.TryGetValue(section.id, out int found) || !sectionHasBoss.Contains(section.id))
                 {
-                    report.AppendLine($"  section {section.id}: PENDING (no rooms yet, expects {section.expectedEnemies})");
+                    report.AppendLine($"  section {section.id}: PENDING ({found}/{section.expectedEnemies} so far, no boss room yet)");
                     continue;
                 }
                 bool pass = found == section.expectedEnemies;

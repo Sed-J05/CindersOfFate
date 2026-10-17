@@ -175,6 +175,21 @@ namespace Shatranj.EditorTools
             return text;
         }
 
+        /// <summary>Puts the listed scenes first, in this order (existing files only), followed by any other registered scenes.</summary>
+        public static void OrderBuildSettings(params string[] firstPaths)
+        {
+            var result = new System.Collections.Generic.List<EditorBuildSettingsScene>();
+            var seen = new System.Collections.Generic.HashSet<string>();
+            foreach (string p in firstPaths)
+            {
+                if (!System.IO.File.Exists(p) || !seen.Add(p)) continue;
+                result.Add(new EditorBuildSettingsScene(p, true));
+            }
+            foreach (EditorBuildSettingsScene s in EditorBuildSettings.scenes)
+                if (seen.Add(s.path) && System.IO.File.Exists(s.path)) result.Add(s);
+            EditorBuildSettings.scenes = result.ToArray();
+        }
+
         public static void AddSceneToBuildSettings(string scenePath)
         {
             EditorBuildSettingsScene[] scenes = EditorBuildSettings.scenes;

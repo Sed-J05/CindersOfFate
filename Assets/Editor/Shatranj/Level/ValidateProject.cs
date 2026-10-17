@@ -65,10 +65,12 @@ namespace Shatranj.EditorTools.Level
                 foreach (LevelManifestSection s in phase.sections)
                 {
                     int found = 0, sectionRooms = 0;
-                    foreach (RoomData room in rooms) if (room.section == s.id) { found += room.CountEnemies(); sectionRooms++; }
-                    if (sectionRooms == 0)
+                    bool hasBossRoom = false;
+                    foreach (RoomData room in rooms) if (room.section == s.id) { found += room.CountEnemies(); sectionRooms++; hasBossRoom |= room.IsBossRoom; }
+                    if (sectionRooms == 0 || !hasBossRoom)
                     {
-                        r.Line($"  [PENDING] {phase.id}/{s.id}: expected {s.expectedEnemies}, no rooms authored yet");
+                        // D-139: a section is "in progress" until its boss room exists (e.g. the Phase 2 stub P2_C0).
+                        r.Line($"  [PENDING] {phase.id}/{s.id}: {found}/{s.expectedEnemies} so far, section not finished (no boss room yet)");
                         continue;
                     }
                     phaseTotal += found;

@@ -1,4 +1,5 @@
 using System.Text;
+using Shatranj.Core;
 using Shatranj.EditorTools.Level;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -7,9 +8,9 @@ using UnityEngine;
 namespace Shatranj.EditorTools
 {
     /// <summary>
-    /// Menu: <c>Shatranj/Build All Scenes</c>. Builds every scene that can be built so far and registers it in
-    /// Build Settings: the phase scenes from LevelManifest.json (Phase1_Cave now; Phase2_Castle once its rooms
-    /// exist) and the Sandbox. MainMenu and Cutscene arrive in Prompt 11. Re-run any time.
+    /// Menu: <c>Shatranj/Build All Scenes</c>. Builds every scene and registers them in Build Settings in play order:
+    /// MainMenu (first, so a build starts there), Cutscene, the phase scenes from LevelManifest.json (Phase1_Cave,
+    /// Phase2_Castle), Sandbox; then opens MainMenu. Also refreshes the SpriteCatalog used by cutscenes and menus.
     /// </summary>
     public static class BuildScenes
     {
@@ -21,23 +22,31 @@ namespace Shatranj.EditorTools
             var report = new StringBuilder();
             report.AppendLine("=== Shatranj / Build All Scenes ===");
 
-            // Prefabs first (they use temporary objects; scene builders load them after creating their scene).
+            // Assets first (prefabs use temporary objects; scene builders load them after creating their scene).
             BuildPrefabs.EnsureLevelProps(false, report);
             BuildPrefabs.EnsureEnemyPrefabs(false, report);
             BuildPrefabs.EnsureBossPrefabs(false, report);
             if (AssetDatabase.LoadAssetAtPath<GameObject>(BuildUIPrefabs.HudPrefabPath) == null && BuildUIPrefabs.TmpEssentialsPresent())
                 BuildUIPrefabs.Run();
+            CutsceneCatalogBuilder.Build(report);
 
+            MenuSceneBuilder.BuildMainMenu(report);
+            MenuSceneBuilder.BuildCutscene(report);
             LevelBuilder.BuildLevelsMenu();
             report.AppendLine("Phase scenes: see the Build Levels summary above.");
-
             BuildSandboxScene.Run();
             report.AppendLine("Sandbox: rebuilt.");
 
-            report.AppendLine("MainMenu, Cutscene: PENDING (Prompt 11).");
-            report.AppendLine("Opening Phase1_Cave.");
-            if (System.IO.File.Exists("Assets/Scenes/Phase1_Cave.unity"))
-                EditorSceneManager.OpenScene("Assets/Scenes/Phase1_Cave.unity");
+            SceneBuildUtil.OrderBuildSettings(
+                MenuSceneBuilder.MainMenuPath,
+                MenuSceneBuilder.CutscenePath,
+                $"Assets/Scenes/{GameConstants.ScenePhase1}.unity",
+                $"Assets/Scenes/{GameConstants.ScenePhase2}.unity",
+                BuildSandboxScene.ScenePath);
+            report.AppendLine("Build Settings order: MainMenu, Cutscene, Phase1_Cave, Phase2_Castle, Sandbox (+ others).");
+
+            EditorSceneManager.OpenScene(MenuSceneBuilder.MainMenuPath);
+            report.AppendLine("Opened MainMenu — press Play for New Game → Intro → Phase 1.");
             Debug.Log(report.ToString());
         }
     }

@@ -23,6 +23,9 @@ namespace Shatranj.Core
         /// <summary>Scene the Cutscene scene loads when it finishes.</summary>
         public string NextSceneAfterCutscene { get; set; }
 
+        /// <summary>Title card shown once when the next level scene starts ("PHASE II — THE INVERTED THEATRE").</summary>
+        public string PendingTitleCard { get; set; }
+
         /// <summary>Live session data. Written to disk by <see cref="WriteSave"/>.</summary>
         public SaveData Save { get; private set; } = new SaveData();
 
