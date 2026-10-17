@@ -85,8 +85,6 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: b15087028a1d9f641ae94ddda66c4ade, type: 3}
   - name: Soul_Glow
     sprite: {fileID: 21300000, guid: 73a58db74bdc1d14da73d7e420d3fae0, type: 3}
-  - name: Title_Logo
-    sprite: {fileID: 21300000, guid: 8869893f22b9cc248b775c32d5023a82, type: 3}
   - name: BG_Castle_Far
     sprite: {fileID: 21300000, guid: ce2cba4964371314d824abc0e45c3705, type: 3}
   - name: BG_Castle_Mid
