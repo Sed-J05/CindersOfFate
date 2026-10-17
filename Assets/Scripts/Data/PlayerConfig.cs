@@ -34,6 +34,20 @@ namespace Shatranj.Data
         public int airJumps = 0;
         public float landSquashTime = 0.08f;
 
+        [Header("Physics checks (Docs/02 §6)")]
+        [Tooltip("BoxCast distance below the feet that counts as grounded.")]
+        public float groundCheckDistance = 0.06f;
+        [Tooltip("How much narrower than the collider the ground check box is (keeps edges honest).")]
+        public float groundCheckInset = 0.06f;
+        [Tooltip("Sideways cast distance for wall contact (wall-stick prevention).")]
+        public float wallCheckDistance = 0.05f;
+        [Tooltip("Upward cast distance for head bumps.")]
+        public float ceilingCheckDistance = 0.05f;
+        [Tooltip("Small downward speed kept while grounded so the body stays in contact.")]
+        public float groundStickSpeed = 1f;
+        [Tooltip("Analog stick / key threshold for digital movement.")]
+        [Range(0.1f, 0.9f)] public float moveDeadzone = 0.3f;
+
         [Header("Attack (Docs/03 §4)")]
         public int attackDamage = 1;
         public float attackCooldown = 0.40f;

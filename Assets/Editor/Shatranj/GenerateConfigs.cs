@@ -21,6 +21,7 @@ namespace Shatranj.EditorTools
 
         public const string PlayerPath = Root + "/PlayerConfig.asset";
         public const string ArtStylePath = Root + "/ArtStyleConfig.asset";
+        public const string CameraPath = Root + "/CameraConfig.asset";
 
         public static string EnemyPath(string name) => $"{EnemiesFolder}/Enemy_{name}.asset";
         public static string BossPath(string name) => $"{BossesFolder}/Boss_{name}.asset";
@@ -44,6 +45,7 @@ namespace Shatranj.EditorTools
 
                 Create<PlayerConfig>(PlayerPath, null, ref created, ref skipped, report);
                 Create<ArtStyleConfig>(ArtStylePath, null, ref created, ref skipped, report);
+                Create<CameraConfig>(CameraPath, null, ref created, ref skipped, report);
 
                 Create<EnemyConfig>(EnemyPath("Crawler"),    ConfigDefaults.Crawler,    ref created, ref skipped, report);
                 Create<EnemyConfig>(EnemyPath("Lunger"),     ConfigDefaults.Lunger,     ref created, ref skipped, report);

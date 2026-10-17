@@ -6,7 +6,7 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 |---|---|---|---|
 | 0 | Kickoff & project setup | ✅ done (2026-10-17) | Folders + `.gitkeep`, `.gitignore`, `GameLayers.cs`, `Shatranj/Setup Project`, `README_DEV.md`, DECISIONS D-001…D-013. Human must run the menu item once (see below). |
 | 1 | Core framework | ✅ done (2026-10-17) | `Scripts/Core`: GameManager, GameEvents, SaveSystem, SceneFlow, HitStop, ScreenShake, ObjectPool, Tween, AudioManager, DebugHotkeys/DebugCommands, Health/DamageInfo/DamageType/IDamageable. `Scripts/Data`: Player/Enemy/Boss/Theme/Flame/ArtStyle configs. `Shatranj/Generate Config Assets` + ConfigDefaults. 3 asmdefs. EditMode tests (Health 16, DamageInfo 10, SaveSystem 9). All compiled offline against Unity 6000.0.32f1. |
-| 2 | Player movement, input, camera, sandbox | ⬜ not started | |
+| 2 | Player movement, input, camera, sandbox | ✅ done (2026-10-17) | `Scripts/Player`: PlayerState, PlayerInput (code-built actions, buffers, K tap/hold), PlayerMotor (custom gravity, checks), PlayerController (state machine, all 14 states), PlayerAnimator (tint fallback, squash/stretch), PlayerDebugHud. `Scripts/Visuals`: ICameraTarget, CameraController. `Scripts/Level`: RoomBounds. `Scripts/Core`: SceneBootstrap. `Data`: CameraConfig + check fields on PlayerConfig. Editor: `Shatranj/Build Sandbox Scene`, SceneBuildUtil, PlayerFactory. Compiled offline. |
 | 3 | Player combat, soul, heal, dash, fireball | ⬜ not started | |
 | 4 | Placeholder art + animation pipeline | ⬜ not started | |
 | 5 | HUD | ⬜ not started | |
@@ -30,8 +30,8 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 - Project folder/product name is `cinders of fate` (D-002). Git repo initialised on branch `main`, first commit 2026-10-17.
 
 ## Pending human steps (carry forward until done)
-1. Run **Shatranj → Generate Config Assets** once (creates 19 assets under `Assets/Data/Configs`).
-2. Run the EditMode tests: Window → General → Test Runner → EditMode → Run All (35 tests expected green).
+1. Run **Shatranj → Generate Config Assets** again (adds `CameraConfig.asset`; everything else is skipped).
+2. Run **Shatranj → Build Sandbox Scene**, press Play, work through the Docs/03 §11 movement checklist.
 
 ## Next up
-Prompt 2 — Player movement, input, camera, sandbox (`Docs/09_BUILD_PROMPTS.md`).
+Prompt 3 — Player combat, soul, heal, dash, fireball (`Docs/09_BUILD_PROMPTS.md`).

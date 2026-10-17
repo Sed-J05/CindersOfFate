@@ -40,3 +40,23 @@ Format: **ID · date · decision** — reason — *how to change it*.
 - **D-024 · `SaveSystem` writes atomically** (temp file then move) and `Load()` returns null on a missing or corrupt file instead of throwing; `GameManager.TryContinue()` treats null as "no save". `PathOverride` exists for tests.
 - **D-025 · `Health` has an injectable clock** (`SetClock`) so i-frames are testable in EditMode without Play mode; default is `Time.time`. `Configure()` is the explicit initialiser because `Awake` doesn't run on `AddComponent` in Edit mode.
 - **D-026 · `GameEvents` carries a few extra events beyond Docs/02 §4** (`OnBossHealthChanged`, `OnFinalBossDefeated`, `OnOrbTouched`, `OnBenchRested`, `OnCycleChanged`, `OnAbilitiesChanged`, `OnGameStateChanged`) because Prompts 5, 9, 15 and 16 name them.
+
+## Prompt 2 — Player movement, input, camera, sandbox (2026-10-17)
+
+- **D-027 · Player is split into `PlayerMotor` (physics primitives) and `PlayerController` (state machine).** Keeps both under the ~400-line limit and lets Prompt 3's combat code drive the motor without touching movement maths.
+- **D-028 · Custom gravity:** `Rigidbody2D.gravityScale = 0`; the motor applies rise gravity (2h/t² ≈ 40 u/s²) while moving up and fall gravity (×1.5 ≈ 60) while moving down, clamped to 22 u/s. Jump velocity = 2h/t ≈ 16 u/s. These are derived properties on `PlayerConfig`, so changing apex height/time retunes everything.
+- **D-029 · "Air control 90 %" is applied to the acceleration/deceleration *rates* in the air**, not to the max speed, so the player still reaches full run speed mid-jump but changes direction slightly slower. — *Flip to a max-speed multiplier in `PlayerMotor.ApplyRun` if the feel is wrong.*
+- **D-030 · Movement input is digital** (stick/keys below `moveDeadzone` 0.3 = 0, otherwise ±1), matching the "A/D move" spec and Hollow Knight. Analog walking is out.
+- **D-031 · One-way platforms use `PlatformEffector2D`** (surface arc 170°) on the `OneWay` layer; the ground check ignores one-way hits while moving up or when the surface is above the feet. No drop-through (Docs/02 §6 marks it optional).
+- **D-032 · Wall-stick prevention is two-fold:** a zero-friction `PhysicsMaterial2D` on the capsule, and the motor zeroes any horizontal velocity into a wall it is touching (thin side box-casts 70 % of the capsule height, so steps don't register as walls).
+- **D-033 · The sprite flips via the `Visual` child's `localScale.x`, not the root.** Flipping a Rigidbody2D root with negative scale re-syncs colliders every flip; keeping the body unflipped is cleaner. Prompt 3 mirrors hitbox offsets with `PlayerController.Facing`.
+- **D-034 · Ground stick:** while grounded and not rising, vy is held at −`groundStickSpeed` (1 u/s) so the body keeps a resting contact and walks down 1-tile drops without a visible hop.
+- **D-035 · Input buffers use `Time.time` timestamps** (jump 0.12 s, attack 0.15 s). Because hit-stop freezes `timeScale`, buffered presses survive hit-stop, which is what Hollow Knight does.
+- **D-036 · K tap/hold lives in `PlayerInput`:** events `OnSpellTap` (released within 0.18 s), `OnHealHoldStart` (held past it, or pressed at all when fireball is locked) and `OnHealHoldRelease`. Prompt 3 subscribes.
+- **D-037 · Camera numbers live in a new `CameraConfig` asset** (CLAUDE.md §4: no magic numbers). `CameraController` creates a default instance at runtime if none is assigned, so the camera never breaks.
+- **D-038 · Camera centres 1.2 u above the player's feet** (`verticalOffset`) so a 1.7 u-tall puppet sits slightly below screen centre, Hollow-Knight style. Look-ahead 1.5 u follows facing, not velocity.
+- **D-039 · `RoomBounds` notifies the camera directly on trigger enter** until Prompt 6's RoomManager takes over the room logic. `RoomBounds.WorldRect` is derived from transform position + size so the builder can place rooms by origin.
+- **D-040 · Sandbox debug text uses legacy `UnityEngine.UI.Text` with the built-in `LegacyRuntime.ttf`**, not TextMeshPro, so the sandbox works before TMP Essentials are imported. Game UI (Prompt 5) still uses TMP.
+- **D-041 · `SceneBootstrap` sets GameManager to Playing when a scene is opened directly in the editor**, only if the manager is still in its initial Menu state, so normal flow from the menu is untouched.
+- **D-042 · Sprite-Lit-Default + one Global Light 2D in generated scenes** (CLAUDE.md §3). The placeholder `Square_White.png` lives in `Assets/Art/Placeholders/` and is never overwritten.
+- **D-043 · Placeholder visuals use URP's built-in `Sprite-Lit-Default` material** referenced from the package path; no material assets are generated yet.

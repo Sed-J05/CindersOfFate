@@ -1,0 +1,201 @@
+using System.IO;
+using Shatranj.Core;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
+
+namespace Shatranj.EditorTools
+{
+    /// <summary>
+    /// Shared helpers for scene-building menu items: placeholder sprite, materials, boxes, camera, light,
+    /// debug canvas, Build Settings registration. Everything is idempotent and never overwrites existing art.
+    /// </summary>
+    public static class SceneBuildUtil
+    {
+        public const string PlaceholderFolder = "Assets/Art/Placeholders";
+        public const string WhiteSpritePath = PlaceholderFolder + "/Square_White.png";
+        public const string PhysicsFolder = "Assets/Data/Physics";
+        public const string ZeroFrictionPath = PhysicsFolder + "/ZeroFriction.physicsMaterial2D";
+        public const string SpriteLitMaterialPath = "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Lit-Default.mat";
+        public const string SpriteUnlitMaterialPath = "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat";
+
+        /// <summary>32×32 white square at 32 PPU, so one sprite unit = one world unit. Created once, never overwritten.</summary>
+        public static Sprite GetOrCreateWhiteSprite()
+        {
+            if (!File.Exists(WhiteSpritePath))
+            {
+                GenerateConfigs.EnsureFolder(PlaceholderFolder);
+                var tex = new Texture2D(32, 32, TextureFormat.RGBA32, false);
+                var pixels = new Color32[32 * 32];
+                for (int i = 0; i < pixels.Length; i++) pixels[i] = new Color32(255, 255, 255, 255);
+                tex.SetPixels32(pixels);
+                tex.Apply();
+                File.WriteAllBytes(WhiteSpritePath, tex.EncodeToPNG());
+                Object.DestroyImmediate(tex);
+                AssetDatabase.ImportAsset(WhiteSpritePath, ImportAssetOptions.ForceSynchronousImport);
+            }
+
+            var importer = AssetImporter.GetAtPath(WhiteSpritePath) as TextureImporter;
+            if (importer != null && (importer.textureType != TextureImporterType.Sprite || importer.spritePixelsPerUnit != 32))
+            {
+                importer.textureType = TextureImporterType.Sprite;
+                importer.spriteImportMode = SpriteImportMode.Single;
+                importer.spritePixelsPerUnit = 32;
+                importer.filterMode = FilterMode.Point;
+                importer.textureCompression = TextureImporterCompression.Uncompressed;
+                importer.mipmapEnabled = false;
+                var settings = new TextureImporterSettings();
+                importer.ReadTextureSettings(settings);
+                settings.spriteMeshType = SpriteMeshType.FullRect;
+                settings.spritePivot = new Vector2(0.5f, 0.5f);
+                importer.SetTextureSettings(settings);
+                importer.SaveAndReimport();
+            }
+
+            return AssetDatabase.LoadAssetAtPath<Sprite>(WhiteSpritePath);
+        }
+
+        public static Material SpriteLitMaterial()
+        {
+            return AssetDatabase.LoadAssetAtPath<Material>(SpriteLitMaterialPath);
+        }
+
+        public static Material SpriteUnlitMaterial()
+        {
+            return AssetDatabase.LoadAssetAtPath<Material>(SpriteUnlitMaterialPath);
+        }
+
+        public static PhysicsMaterial2D GetOrCreateZeroFrictionMaterial()
+        {
+            var mat = AssetDatabase.LoadAssetAtPath<PhysicsMaterial2D>(ZeroFrictionPath);
+            if (mat != null) return mat;
+            GenerateConfigs.EnsureFolder(PhysicsFolder);
+            mat = new PhysicsMaterial2D("ZeroFriction") { friction = 0f, bounciness = 0f };
+            AssetDatabase.CreateAsset(mat, ZeroFrictionPath);
+            return mat;
+        }
+
+        /// <summary>A solid or one-way box: sprite + collider sized by transform scale.</summary>
+        public static GameObject CreateBox(string name, Transform parent, Vector2 center, Vector2 size, Color color, int layer, string sortingLayer, bool oneWay = false)
+        {
+            var go = new GameObject(name);
+            go.transform.SetParent(parent, false);
+            go.transform.position = new Vector3(center.x, center.y, 0f);
+            go.transform.localScale = new Vector3(size.x, size.y, 1f);
+            go.layer = layer;
+
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = GetOrCreateWhiteSprite();
+            sr.color = color;
+            sr.sortingLayerName = sortingLayer;
+            Material lit = SpriteLitMaterial();
+            if (lit != null) sr.sharedMaterial = lit;
+
+            var col = go.AddComponent<BoxCollider2D>();
+            col.size = Vector2.one;
+
+            if (oneWay)
+            {
+                var effector = go.AddComponent<PlatformEffector2D>();
+                effector.useOneWay = true;
+                effector.useOneWayGrouping = false;
+                effector.surfaceArc = 170f;
+                effector.useSideFriction = false;
+                effector.useSideBounce = false;
+                col.usedByEffector = true;
+            }
+            return go;
+        }
+
+        public static Camera CreateMainCamera(Vector3 position, float orthoSize, Color background)
+        {
+            var go = new GameObject("Main Camera");
+            go.tag = "MainCamera";
+            go.transform.position = position;
+            var cam = go.AddComponent<Camera>();
+            cam.orthographic = true;
+            cam.orthographicSize = orthoSize;
+            cam.clearFlags = CameraClearFlags.SolidColor;
+            cam.backgroundColor = background;
+            cam.nearClipPlane = 0.1f;
+            cam.farClipPlane = 100f;
+            go.AddComponent<AudioListener>();
+            UniversalAdditionalCameraData data = cam.GetUniversalAdditionalCameraData();
+            data.renderType = CameraRenderType.Base;
+            return cam;
+        }
+
+        public static Light2D CreateGlobalLight(string name, Color color, float intensity)
+        {
+            var go = new GameObject(name);
+            var light = go.AddComponent<Light2D>();
+            light.lightType = Light2D.LightType.Global;
+            light.color = color;
+            light.intensity = intensity;
+            return light;
+        }
+
+        public static Font BuiltinFont()
+        {
+            Font f = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            if (f == null) f = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            return f;
+        }
+
+        /// <summary>Screen-space canvas with a top-left legacy Text block for debug readouts.</summary>
+        public static Text CreateDebugTextCanvas(string name, out Canvas canvas)
+        {
+            var canvasGo = new GameObject(name, typeof(RectTransform));
+            canvas = canvasGo.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = 500;
+            var scaler = canvasGo.AddComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920f, 1080f);
+            scaler.matchWidthOrHeight = 0.5f;
+
+            var textGo = new GameObject("DebugText", typeof(RectTransform));
+            textGo.transform.SetParent(canvasGo.transform, false);
+            var rect = (RectTransform)textGo.transform;
+            rect.anchorMin = new Vector2(0f, 1f);
+            rect.anchorMax = new Vector2(0f, 1f);
+            rect.pivot = new Vector2(0f, 1f);
+            rect.anchoredPosition = new Vector2(16f, -16f);
+            rect.sizeDelta = new Vector2(1000f, 320f);
+
+            var text = textGo.AddComponent<Text>();
+            text.font = BuiltinFont();
+            text.fontSize = 22;
+            text.color = new Color(0.1f, 0.1f, 0.12f);
+            text.raycastTarget = false;
+            text.horizontalOverflow = HorizontalWrapMode.Overflow;
+            text.verticalOverflow = VerticalWrapMode.Overflow;
+            text.text = "debug";
+            return text;
+        }
+
+        public static void AddSceneToBuildSettings(string scenePath)
+        {
+            EditorBuildSettingsScene[] scenes = EditorBuildSettings.scenes;
+            foreach (EditorBuildSettingsScene s in scenes)
+                if (s.path == scenePath) { return; }
+
+            var list = new System.Collections.Generic.List<EditorBuildSettingsScene>(scenes)
+            {
+                new EditorBuildSettingsScene(scenePath, true),
+            };
+            EditorBuildSettings.scenes = list.ToArray();
+        }
+
+        /// <summary>Assigns a serialized (possibly private) object reference field on a component.</summary>
+        public static void SetReference(Object target, string field, Object value)
+        {
+            var so = new SerializedObject(target);
+            SerializedProperty p = so.FindProperty(field);
+            if (p == null) { Debug.LogWarning($"SceneBuildUtil: field '{field}' not found on {target.GetType().Name}"); return; }
+            p.objectReferenceValue = value;
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+    }
+}
