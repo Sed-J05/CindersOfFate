@@ -14,6 +14,9 @@ namespace Shatranj.Cutscenes
     /// </summary>
     public class CutsceneStage : MonoBehaviour
     {
+        [SerializeField, Tooltip("Shatranj/SpriteProtagonistLit: the Protagonist puppet follows the theme's recolour (black/red in Phase 2 and the ending).")]
+        private Material protagonistMaterial;
+
         private const float ScreenW = 19.6f;
         private const float ScreenH = 11f;
 
@@ -34,7 +37,7 @@ namespace Shatranj.Cutscenes
         // Puppets
         // ------------------------------------------------------------------
 
-        /// <summary>spawn: id, sprite | character (+anim), pos[x,y], scale, layer, flip, alpha.</summary>
+        /// <summary>spawn: id, sprite | character (+anim), pos[x,y], scale, layer, flip, alpha, recolor (Protagonist only, default true).</summary>
         public GameObject Spawn(Beat b)
         {
             string id = b.Str("id", "puppet" + actors.Count);
@@ -56,6 +59,7 @@ namespace Shatranj.Cutscenes
             string character = b.Str("character");
             if (!string.IsNullOrEmpty(character))
             {
+                if (character == "Protagonist" && protagonistMaterial != null && b.Bool("recolor", true)) sr.sharedMaterial = protagonistMaterial;
                 var anim = go.AddComponent<SpriteAnimator>();
                 anim.Set = SpriteAnimationSet.Load(character);
                 if (anim.Set == null) Debug.LogWarning($"Cutscene: no animation set '{character}'");

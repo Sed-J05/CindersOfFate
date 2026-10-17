@@ -62,6 +62,60 @@ namespace Shatranj.Core
             if (Instance == this) Instance = null;
         }
 
+        private void OnEnable() => GameEvents.OnFinalBossDefeated += HandleFinalBossDefeated;
+        private void OnDisable() => GameEvents.OnFinalBossDefeated -= HandleFinalBossDefeated;
+
+        // ------------------------------------------------------------------
+        // Story hand-offs (Docs/02 §8–9)
+        // ------------------------------------------------------------------
+
+        /// <summary>Real-time pause after the final boss's white flash before Cutscene 3 loads.</summary>
+        public const float EndingDelay = 1.0f;
+        public const float EndingFade = 0.8f;
+
+        public bool EndingInProgress { get; private set; }
+
+        /// <summary>
+        /// Starts a story cutscene from gameplay and records it in the save, so Continue resumes it if the game is quit
+        /// halfway (orb → cs2, final boss → cs3). The caller loads the Cutscene scene.
+        /// </summary>
+        public void QueueStoryCutscene(string cutsceneId, string nextScene)
+        {
+            Save.pendingCutscene = cutsceneId ?? "";
+            Save.pendingNextScene = nextScene ?? "";
+            BeginCutscene(cutsceneId, nextScene);
+            WriteSave();
+        }
+
+        /// <summary>Called by the Cutscene scene when a script ends: the pending story beat is done.</summary>
+        public void ClearPendingCutscene(string cutsceneId)
+        {
+            if (Save.pendingCutscene == cutsceneId) { Save.pendingCutscene = ""; Save.pendingNextScene = ""; }
+        }
+
+        /// <summary>Docs/08 §4: Zulmat's death (after the white flash) → Cutscene 3 → the loop. Sandbox fights don't end the game.</summary>
+        private void HandleFinalBossDefeated()
+        {
+            if (EndingInProgress) return;
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == GameConstants.SceneSandbox)
+            {
+                Debug.Log("[Sandbox] final boss defeated — the ending only plays in Phase2_Castle.");
+                return;
+            }
+            StartCoroutine(EndingRoutine());
+        }
+
+        private System.Collections.IEnumerator EndingRoutine()
+        {
+            EndingInProgress = true;
+            QueueStoryCutscene(GameConstants.CutsceneEnding, GameConstants.ScenePhase1);
+            float t = 0f;
+            while (t < EndingDelay) { t += Time.unscaledDeltaTime; yield return null; }
+            SceneFlow.Instance.FadeColor = Color.white;   // white-out into the ending
+            SceneFlow.Load(GameConstants.SceneCutscene, EndingFade);
+            EndingInProgress = false;
+        }
+
         // ------------------------------------------------------------------
         // State
         // ------------------------------------------------------------------
@@ -135,7 +189,7 @@ namespace Shatranj.Core
         public void AdvanceCycle()
         {
             Cycle++;
-            Save.ClearProgressForNewCycle();
+            Save.ClearProgressForNewCycle();   // also drops the pending cs3: quitting after this point continues in Phase 1
             Save.cycle = Cycle;
             SetPhase(GameConstants.Phase1);
             GameEvents.RaiseCycleChanged(Cycle);

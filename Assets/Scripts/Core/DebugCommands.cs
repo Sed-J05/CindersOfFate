@@ -45,6 +45,10 @@ namespace Shatranj.Core
         public static void RequestSkipRoom() => OnSkipRoomRequested?.Invoke();
         public static void NotifyPhase2Applied() => OnPhase2Applied?.Invoke();
         public static void RequestKillAllEnemies() => OnKillAllEnemiesRequested?.Invoke();
+
+        /// <summary>Shift+F5: kill the boss fighting in the current room (loop testing, Prompt 16).</summary>
+        public static event Action OnKillBossRequested;
+        public static void RequestKillBoss() => OnKillBossRequested?.Invoke();
         public static void RequestTeleportToBoss() => OnTeleportToBossRequested?.Invoke();
         public static void RequestFlameProgress(float t) => OnFlameProgressRequested?.Invoke(t);
     }

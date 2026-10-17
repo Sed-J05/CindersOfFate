@@ -172,11 +172,15 @@ namespace Shatranj.Cutscenes
                     break;
                 case "sfx": if (!skipping) AudioManager.Play(b.Str("id")); break;
                 case "music": AudioManager.PlayMusic(b.Str("id")); break;
-                case "card": yield return ui.Card(b.Str("text", ""), b.Str("sub", ""), Dur(b, "time", 2f), b.Colour("colour", UI.UIFactory.Ink), IsSkipping); break;
+                case "card": yield return ui.Card(Expand(b.Str("text", "")), Expand(b.Str("sub", "")), Dur(b, "time", 2f), b.Colour("colour", UI.UIFactory.Ink), IsSkipping); break;
+                case "zoom": yield return DoZoom(b); break;
+                case "rewind": yield return ui.Rewind(Dur(b, "time", 2f), b.Colour("colour", new Color(0.24f, 0.18f, 0.12f, 0.55f)), IsSkipping); break;
                 case "invertwipe": yield return DoInvertWipe(b); break;
                 case "setflag": DoSetFlag(b); break;
                 case "loadscene":
-                    Finish(b.Str("scene", GameManager.Instance.NextSceneAfterCutscene), skipping ? 0.3f : b.Float("fade", 0.8f));
+                    // Optional chain: "cutscene" plays another script first (cs3 → cs1), then "next" (default: Phase 1).
+                    Finish(b.Str("scene", GameManager.Instance.NextSceneAfterCutscene), skipping ? 0.3f : b.Float("fade", 0.8f),
+                           b.Str("cutscene", ""), b.Str("next", ""));
                     break;
                 default:
                     Debug.LogWarning($"Cutscene '{CurrentId}': unknown beat type '{b.Type}'");
@@ -291,7 +295,7 @@ namespace Shatranj.Cutscenes
             foreach (string line in lines)
             {
                 if (skipping) break;
-                yield return ui.ShowLine(speaker, line, style, ConsumeAdvance, IsSkipping);
+                yield return ui.ShowLine(Expand(speaker), Expand(line), style, ConsumeAdvance, IsSkipping);
             }
             if (!b.Bool("keep", false) || skipping) ui.HideCaption();
         }
@@ -352,7 +356,7 @@ namespace Shatranj.Cutscenes
                     gm.AdvanceCycle();
                     break;
                 case "titleCard":
-                    gm.PendingTitleCard = b.Str("value", "");
+                    gm.PendingTitleCard = Expand(b.Str("value", ""));
                     break;
                 case "ability":
                     GameEvents.RaiseAbilityUnlocked(b.Str("value", ""));
@@ -365,18 +369,52 @@ namespace Shatranj.Cutscenes
 
         // ------------------------------------------------------------------
 
-        private void Finish(string scene, float fade)
+        private void Finish(string scene, float fade, string chainCutscene = null, string chainNext = null)
         {
             if (finished) return;
             finished = true;
             ui.SetSkipProgress(0f);
+            if (CameraController.Main != null) CameraController.Main.ResetZoom(0f);
             GameManager gm = GameManager.Ensure();
+            gm.ClearPendingCutscene(CurrentId);
             string next = string.IsNullOrEmpty(scene) ? fallbackNextScene : scene;
             gm.NextSceneAfterCutscene = next;
             gm.EndCutscene();
-            gm.WriteSave();
+
+            if (!string.IsNullOrEmpty(chainCutscene))
+            {
+                // Another cutscene follows (e.g. the post-loop Intro): it becomes the pending story beat.
+                string after = !string.IsNullOrEmpty(chainNext) ? chainNext : GameConstants.ScenePhase1;
+                gm.QueueStoryCutscene(chainCutscene, after);
+                next = GameConstants.SceneCutscene;
+            }
+            else gm.WriteSave();
+
             SceneFlow.Instance.FadeColor = Color.black;
             SceneFlow.Load(next, fade);
+        }
+
+        /// <summary>Text tokens: {cycle} → the current cycle number (Docs/08 §4 "Cycle 2" card).</summary>
+        public static string Expand(string text)
+        {
+            if (string.IsNullOrEmpty(text) || text.IndexOf('{') < 0) return text;
+            int cycle = GameManager.HasInstance ? GameManager.Instance.Cycle : 1;
+            return text.Replace("{cycle}", cycle.ToString());
+        }
+
+        /// <summary>zoom: value = multiple of the normal camera size (> 1 pulls back from the stage), time.</summary>
+        private IEnumerator DoZoom(Beat b)
+        {
+            CameraController cam = CameraController.Main;
+            float time = Dur(b, "time", 1f);
+            if (cam != null)
+            {
+                Camera c = Camera.main;
+                float baseSize = c != null && cam.Config != null ? cam.Config.orthographicSize : 5.5f;
+                cam.SetZoom(baseSize * Mathf.Max(0.1f, b.Float("value", 1f)), time);
+            }
+            yield return Wait(time);
+            if (skipping && cam != null && cam.Config != null) cam.SetZoom(cam.Config.orthographicSize * Mathf.Max(0.1f, b.Float("value", 1f)), 0f);
         }
     }
 }

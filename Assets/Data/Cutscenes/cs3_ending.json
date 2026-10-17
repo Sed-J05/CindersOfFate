@@ -1,0 +1,132 @@
+{
+  // Cutscene 3 — ENDING / THE LOOP (Docs/08 §4, ≈ 100 s). Triggered when Zulmat dies (after the white flash).
+  // Coordinates: world units from the screen centre (screen = 19.6 × 11 u). Edit freely; {cycle} = the cycle number.
+  "id": "cs3_ending",
+  "theme": "Phase2_Inverted",
+  "skipHoldTime": 1.0,
+  "beats": [
+    // 1. Zulmat kneels (death pose); the flame flickers and turns purple
+    { "type": "fade", "to": "clear", "time": 0.4 },
+    { "type": "spawn", "id": "zulmat", "character": "Zulmat", "anim": "Death", "pos": [2.6, -4.6], "flip": true, "layer": "Enemies" },
+    { "type": "parallel", "beats": [
+      { "type": "theme", "theme": "Ending_Purple", "time": 3.0 },
+      { "type": "sequence", "beats": [
+        { "type": "flame", "intensity": 1.5, "time": 0.4 },
+        { "type": "wait", "time": 0.5 },
+        { "type": "flame", "intensity": 1.4, "time": 0.3 },
+        { "type": "wait", "time": 0.7 },
+        { "type": "flame", "intensity": 1.6, "time": 0.4 }
+      ] }
+    ] },
+
+    // 2.
+    { "type": "text", "speaker": "Zulmat", "style": "boss", "lines": ["Look at me. You know my face."] },
+
+    // 3. Face to face, mirroring each other
+    { "type": "spawn", "id": "hero", "character": "Protagonist", "anim": "Idle", "pos": [-2.6, -4.6] },
+    { "type": "anim", "id": "zulmat", "anim": "Idle" },
+    { "type": "parallel", "beats": [
+      { "type": "move", "id": "hero",   "to": [-2.0, -4.6], "time": 1.2, "ease": "InOutQuad" },
+      { "type": "move", "id": "zulmat", "to": [2.0, -4.6],  "time": 1.2, "ease": "InOutQuad" }
+    ] },
+    { "type": "text", "style": "inner", "lines": ["He is… me."] },
+
+    // 4. Memory flashes: a god, whole — then cut in two
+    { "type": "parallel", "beats": [
+      { "type": "sequence", "beats": [
+        { "type": "image", "id": "memory", "sprite": "CS3_Merge_01", "layer": "Foreground", "fade": 0.3, "kenburns": { "from": [1.0, 0, 0], "to": [1.08, 0, 0], "time": 3.0 } },
+        { "type": "wait", "time": 2.6 },
+        { "type": "flash", "colour": "white", "time": 0.2 },
+        { "type": "image", "id": "memory", "sprite": "CS3_Merge_02", "layer": "Foreground", "fade": 0.15, "kenburns": { "from": [1.08, 0.4, 0], "to": [1.0, -0.4, 0], "time": 3.0 } },
+        { "type": "wait", "time": 2.8 },
+        { "type": "shake", "amp": 0.2, "time": 0.3 },
+        { "type": "image", "id": "memory", "sprite": "CS3_Merge_03", "layer": "Foreground", "fade": 0.15, "kenburns": { "from": [1.0, 0, 0.3], "to": [1.1, 0, -0.3], "time": 3.2 } },
+        { "type": "wait", "time": 3.0 }
+      ] },
+      { "type": "sequence", "beats": [
+        { "type": "wait", "time": 0.5 },
+        { "type": "text", "style": "inner", "lines": [
+          "I was a god.",
+          "I tore out my cruelty, and it became him.",
+          "I tore out my mercy, and it became me."
+        ] }
+      ] }
+    ] },
+    { "type": "remove", "id": "memory", "fade": 0.6 },
+
+    // 5. They walk toward each other and merge into one glowing figure
+    { "type": "anim", "id": "hero", "anim": "Run" },
+    { "type": "anim", "id": "zulmat", "anim": "Walk" },
+    { "type": "parallel", "beats": [
+      { "type": "move", "id": "hero",   "to": [-0.3, -4.6], "time": 2.0, "ease": "InOutQuad" },
+      { "type": "move", "id": "zulmat", "to": [0.3, -4.6],  "time": 2.0, "ease": "InOutQuad" }
+    ] },
+    { "type": "spawn", "id": "whole", "character": "Protagonist", "anim": "Idle", "pos": [0, -4.6], "scale": 1.2, "alpha": 0, "recolor": false, "layer": "Player", "order": 5 },
+    { "type": "tint", "id": "whole", "value": "#FFE7B0", "time": 0 },
+    { "type": "parallel", "beats": [
+      { "type": "alpha", "id": "hero",   "value": 0, "time": 1.4 },
+      { "type": "alpha", "id": "zulmat", "value": 0, "time": 1.4 },
+      { "type": "alpha", "id": "whole",  "value": 1, "time": 1.4 },
+      { "type": "scale", "id": "whole",  "value": 1.35, "time": 1.4, "ease": "OutQuad" },
+      { "type": "flame", "intensity": 1.6, "time": 0.6 }
+    ] },
+    { "type": "flash", "colour": "white", "time": 0.6 },
+    { "type": "remove", "id": "hero" },
+    { "type": "remove", "id": "zulmat" },
+    { "type": "wait", "time": 1.0 },
+
+    // 6. Three hooded gods; a blade enters the merged figure
+    { "type": "parallel", "beats": [
+      { "type": "spawn", "id": "godA", "sprite": "God_A", "pos": [-6.0, -1.5], "scale": 0.45, "alpha": 0, "layer": "Foreground" },
+      { "type": "spawn", "id": "godB", "sprite": "God_B", "pos": [0.0, 2.2],   "scale": 0.45, "alpha": 0, "layer": "Foreground" },
+      { "type": "spawn", "id": "godC", "sprite": "God_C", "pos": [6.0, -1.5],  "scale": 0.45, "alpha": 0, "layer": "Foreground" }
+    ] },
+    { "type": "parallel", "beats": [
+      { "type": "alpha", "id": "godA", "value": 1, "time": 1.2 },
+      { "type": "alpha", "id": "godB", "value": 1, "time": 1.2 },
+      { "type": "alpha", "id": "godC", "value": 1, "time": 1.2 }
+    ] },
+    { "type": "image", "id": "stab", "sprite": "CS3_GodsStab", "layer": "Foreground", "fade": 0.2, "kenburns": { "from": [1.0, 0, 0], "to": [1.06, 0, 0], "time": 5.0 } },
+    { "type": "parallel", "beats": [
+      { "type": "shake", "amp": 0.5, "time": 0.6 },
+      { "type": "flash", "colour": "#C1272D", "time": 0.5 }
+    ] },
+    { "type": "text", "speaker": "The Gods", "style": "boss", "lines": ["Whole, you are too much.", "Be halved again."] },
+
+    // 7. The figure splits into light and dark; the memory fades to black
+    { "type": "image", "id": "split", "sprite": "CS3_Split", "layer": "Foreground", "fade": 0.4, "kenburns": { "from": [1.06, 0, 0], "to": [1.0, 0, 0], "time": 5.0 } },
+    { "type": "parallel", "beats": [
+      { "type": "remove", "id": "stab", "fade": 0.4 },
+      { "type": "remove", "id": "godA", "fade": 0.4 },
+      { "type": "remove", "id": "godB", "fade": 0.4 },
+      { "type": "remove", "id": "godC", "fade": 0.4 },
+      { "type": "remove", "id": "whole", "fade": 0.4 }
+    ] },
+    { "type": "text", "style": "narration", "lines": ["Two halves, each too weak to resist. Their memories locked away."] },
+    { "type": "fade", "to": "black", "time": 1.5 },
+    { "type": "remove", "id": "split" },
+
+    // Credits (editable): shown before the loop
+    { "type": "card", "text": "Thanks for playing", "sub": "— Team Shatranj —", "time": 4.0, "colour": "#E8D9B5" },
+
+    // 8. Pan back: the stage pulls away, the paper rewinds, the flame runs back (purple → orange, t = 0), the village returns
+    { "type": "parallel", "beats": [
+      { "type": "image", "id": "villageFar",  "sprite": "CS1_Village_Far",  "fade": 1.0, "kenburns": { "from": [1.12, -1.0, 0], "to": [1.12, 1.0, 0], "time": 6 } },
+      { "type": "image", "id": "villageMid",  "sprite": "CS1_Village_Mid",  "fade": 1.0, "kenburns": { "from": [1.16, -1.6, 0], "to": [1.16, 1.6, 0], "time": 6 } },
+      { "type": "image", "id": "villageNear", "sprite": "CS1_Village_Near", "fade": 1.0, "kenburns": { "from": [1.20, -2.4, 0], "to": [1.20, 2.4, 0], "time": 6 } },
+      { "type": "fade", "to": "clear", "time": 1.2 },
+      { "type": "zoom", "value": 1.8, "time": 3.5 },
+      { "type": "rewind", "time": 3.5 },
+      { "type": "theme", "theme": "Phase1_Beige", "time": 3.5 },
+      { "type": "flame", "t": 0, "colour": "orange", "time": 3.5 }
+    ] },
+    { "type": "setFlag", "flag": "cycle" },
+    { "type": "setFlag", "flag": "titleCard", "value": "CYCLE {cycle}|The paper is drawn again." },
+    { "type": "zoom", "value": 1.0, "time": 1.2 },
+
+    // 9. "Cycle N" caption, fade, and the loop begins (Cutscene 1 — skippable from cycle 2 — then Phase 1)
+    { "type": "card", "text": "Cycle {cycle}", "sub": "", "time": 2.4 },
+    { "type": "fade", "to": "black", "time": 1.0 },
+    { "type": "loadScene", "cutscene": "cs1_intro", "next": "Phase1_Cave", "fade": 0.6 }
+  ]
+}

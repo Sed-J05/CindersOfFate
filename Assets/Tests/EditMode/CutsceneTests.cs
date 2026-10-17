@@ -13,6 +13,7 @@ namespace Shatranj.Tests
         {
             "fade", "theme", "flame", "spawn", "anim", "move", "scale", "rotate", "tint", "alpha", "image", "remove", "text",
             "wait", "shake", "flash", "parallel", "sequence", "sfx", "music", "card", "invertwipe", "setflag", "loadscene",
+            "zoom", "rewind",
         };
 
         [Test]

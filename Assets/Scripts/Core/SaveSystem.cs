@@ -28,6 +28,12 @@ namespace Shatranj.Core
         public List<string> defeatedBossIds = new List<string>();
         /// <summary>Generic flags such as "door_orb".</summary>
         public List<string> flags = new List<string>();
+        /// <summary>
+        /// Story cutscene that started from gameplay but hasn't finished (orb → cs2, final boss → cs3, cs3 → cs1).
+        /// Continue resumes it instead of dropping the player into a finished level (Prompt 16).
+        /// </summary>
+        public string pendingCutscene = "";
+        public string pendingNextScene = "";
         public string savedAtUtc = "";
 
         public bool HasKilled(string enemyId) => killedEnemyIds.Contains(enemyId);
@@ -59,7 +65,11 @@ namespace Shatranj.Core
             killedEnemyIds.Clear();
             defeatedBossIds.Clear();
             flags.Clear();
+            pendingCutscene = "";
+            pendingNextScene = "";
         }
+
+        public bool HasPendingCutscene => !string.IsNullOrEmpty(pendingCutscene);
     }
 
     /// <summary>JSON save in Application.persistentDataPath. Atomic write (temp file + move).</summary>
@@ -117,6 +127,10 @@ namespace Shatranj.Core
                 data.killedEnemyIds ??= new List<string>();
                 data.defeatedBossIds ??= new List<string>();
                 data.flags ??= new List<string>();
+                data.pendingCutscene ??= "";
+                data.pendingNextScene ??= "";
+                data.lastBenchId ??= "";
+                data.lastBenchScene ??= "";
                 return data;
             }
             catch (Exception e)

@@ -56,15 +56,27 @@ namespace Shatranj.Core
                 if (next == GameConstants.Phase2) DebugCommands.NotifyPhase2Applied();
                 Log($"F4 phase {next} abilities: {gm.Abilities}");
             }
+            bool shift = kb.leftShiftKey.isPressed || kb.rightShiftKey.isPressed;
             if (kb.f5Key.wasPressedThisFrame)
             {
-                DebugCommands.RequestKillAllEnemies();
-                Log("F5 kill all enemies in room");
+                if (shift) { DebugCommands.RequestKillBoss(); Log("Shift+F5 kill the boss in this room"); }
+                else { DebugCommands.RequestKillAllEnemies(); Log("F5 kill all enemies in room"); }
             }
             if (kb.f6Key.wasPressedThisFrame)
             {
-                DebugCommands.RequestTeleportToBoss();
-                Log("F6 teleport to boss arena");
+                if (shift)
+                {
+                    // Jump straight to Phase 2 (as if Cutscene 2 had played): loop testing without replaying Phase 1.
+                    GameManager gm = GameManager.Ensure();
+                    gm.SetPhase(GameConstants.Phase2);
+                    gm.Save.flameT = 0f;
+                    gm.Save.lastBenchId = "";
+                    gm.Save.lastBenchScene = "";
+                    gm.SetState(GameState.Playing);
+                    Log("Shift+F6 jump to Phase2_Castle");
+                    SceneFlow.Load(GameConstants.ScenePhase2, 0.3f);
+                }
+                else { DebugCommands.RequestTeleportToBoss(); Log("F6 teleport to boss arena"); }
             }
             if (kb.f7Key.wasPressedThisFrame)
             {

@@ -61,6 +61,7 @@ namespace Shatranj.Level
             DebugCommands.OnSkipRoomRequested += SkipRoom;
             DebugCommands.OnTeleportToBossRequested += TeleportToBoss;
             DebugCommands.OnKillAllEnemiesRequested += KillAllInCurrentRoom;
+            DebugCommands.OnKillBossRequested += KillBossInCurrentRoom;
         }
 
         private void OnDisable()
@@ -68,6 +69,7 @@ namespace Shatranj.Level
             DebugCommands.OnSkipRoomRequested -= SkipRoom;
             DebugCommands.OnTeleportToBossRequested -= TeleportToBoss;
             DebugCommands.OnKillAllEnemiesRequested -= KillAllInCurrentRoom;
+            DebugCommands.OnKillBossRequested -= KillBossInCurrentRoom;
         }
 
         private void OnDestroy()
@@ -228,6 +230,17 @@ namespace Shatranj.Level
             {
                 RoomBounds r = rooms[(start + k) % rooms.Count];
                 if (r.IsBossArena) { TeleportPlayerTo(r.EntryPoint); return; }
+            }
+        }
+
+        private void KillBossInCurrentRoom()
+        {
+            foreach (Bosses.BossBase boss in FindObjectsByType<Bosses.BossBase>(FindObjectsSortMode.None))
+            {
+                if (boss.IsDead || !boss.IsFighting) continue;
+                if (Current != null && !Current.Contains(boss.transform.position)) continue;
+                Health h = boss.GetComponent<Health>();
+                if (h != null) h.Kill();
             }
         }
 

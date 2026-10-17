@@ -53,7 +53,7 @@ namespace Shatranj.Level
             if (Application.CanStreamedLevelBeLoaded(GameConstants.SceneCutscene))
             {
                 GameManager gm = GameManager.Ensure();
-                gm.BeginCutscene(GameConstants.CutsceneOrb, GameConstants.ScenePhase2);
+                gm.QueueStoryCutscene(GameConstants.CutsceneOrb, GameConstants.ScenePhase2);   // Continue resumes cs2
                 SceneFlow.Load(GameConstants.SceneCutscene, fadeTime);
                 yield break;
             }

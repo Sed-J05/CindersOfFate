@@ -21,6 +21,17 @@ namespace Shatranj.Enemies
 
         private static readonly Dictionary<string, int> wakeCountByRoom = new Dictionary<string, int>();
 
+        // Desync counters belong to one scene visit; never carry them across loads or loops.
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void HookSceneLoads()
+        {
+            wakeCountByRoom.Clear();
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded -= ClearWakeCounts;
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += ClearWakeCounts;
+        }
+
+        private static void ClearWakeCounts(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode) => wakeCountByRoom.Clear();
+
         private State state = State.Sleep;
         private bool spawnAwake;
 

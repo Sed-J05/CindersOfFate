@@ -74,7 +74,8 @@ namespace Shatranj.EditorTools
             StageCamera(report);
             var runnerGo = new GameObject("[Cutscene]");
             runnerGo.transform.position = Vector3.zero;
-            runnerGo.AddComponent<CutsceneStage>();
+            var stage = runnerGo.AddComponent<CutsceneStage>();
+            SceneBuildUtil.SetReference(stage, "protagonistMaterial", PlayerFactory.GetOrCreateProtagonistMaterial());
             runnerGo.AddComponent<CutsceneUI>();
             runnerGo.AddComponent<CutsceneRunner>();
 

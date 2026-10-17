@@ -34,12 +34,18 @@ namespace Shatranj.Cutscenes
         private RectTransform wipeMask;
         private Image wipeInside;
 
+        private const int CardSortingOrder = 32100;
+
         private void Awake()
         {
             canvas = UIFactory.Canvas("CutsceneCanvas", transform, 900);
 
             // Card (title / abilities)
             RectTransform cardRoot = UIFactory.Stretch("Card", canvas);
+            // Cards draw above SceneFlow's fade overlay (32000) so they can be read on a black screen (credits, "Cycle N").
+            var cardCanvas = cardRoot.gameObject.AddComponent<Canvas>();
+            cardCanvas.overrideSorting = true;
+            cardCanvas.sortingOrder = CardSortingOrder;
             cardGroup = cardRoot.gameObject.AddComponent<CanvasGroup>();
             cardGroup.alpha = 0f;
             cardTitle = UIFactory.Text("Title", cardRoot, "", 80, TextAlignmentOptions.Center, UIFactory.Ink);
@@ -183,6 +189,66 @@ namespace Shatranj.Cutscenes
                 yield return null;
             }
             flash.color = new Color(1f, 1f, 1f, 0f);
+        }
+
+        private const int RewindStreaks = 14;
+        private RectTransform rewindRoot;
+        private Image[] rewindBars;
+        private float[] rewindSpeed;
+
+        /// <summary>
+        /// Docs/08 §4 beat 8 "the paper rewinds": thin paper-coloured streaks sweep right → left across the screen,
+        /// accelerating, while the stage pulls back (zoom beat) and the flame runs back to t = 0 (flame beat).
+        /// </summary>
+        public IEnumerator Rewind(float time, Color color, Func<bool> skipping)
+        {
+            if (time <= 0f) yield break;
+            EnsureRewind();
+            float width = canvas.rect.width > 1f ? canvas.rect.width : 1920f;
+            float height = canvas.rect.height > 1f ? canvas.rect.height : 1080f;
+            for (int i = 0; i < RewindStreaks; i++)
+            {
+                RectTransform r = rewindBars[i].rectTransform;
+                r.sizeDelta = new Vector2(UnityEngine.Random.Range(width * 0.25f, width * 0.8f), UnityEngine.Random.Range(3f, 14f));
+                r.anchoredPosition = new Vector2(UnityEngine.Random.Range(-width, width), UnityEngine.Random.Range(-height * 0.48f, height * 0.48f));
+                rewindSpeed[i] = UnityEngine.Random.Range(0.6f, 1.4f);
+            }
+            rewindRoot.gameObject.SetActive(true);
+            for (float t = 0f; t < time && !skipping(); t += Time.unscaledDeltaTime)
+            {
+                float k = t / time;
+                float ramp = Mathf.Sin(Mathf.PI * k);                 // fade in, peak mid-way, fade out
+                float speed = Mathf.Lerp(900f, 4200f, k * k);          // accelerating "tape"
+                for (int i = 0; i < RewindStreaks; i++)
+                {
+                    RectTransform r = rewindBars[i].rectTransform;
+                    Vector2 p = r.anchoredPosition;
+                    p.x -= speed * rewindSpeed[i] * Time.unscaledDeltaTime;
+                    if (p.x < -width) { p.x = width; p.y = UnityEngine.Random.Range(-height * 0.48f, height * 0.48f); }
+                    r.anchoredPosition = p;
+                    Color c = color;
+                    c.a = color.a * ramp;
+                    rewindBars[i].color = c;
+                }
+                yield return null;
+            }
+            rewindRoot.gameObject.SetActive(false);
+        }
+
+        private void EnsureRewind()
+        {
+            if (rewindRoot != null) return;
+            rewindRoot = UIFactory.Stretch("Rewind", canvas);
+            rewindRoot.SetSiblingIndex(0);   // under the caption and cards
+            rewindBars = new Image[RewindStreaks];
+            rewindSpeed = new float[RewindStreaks];
+            for (int i = 0; i < RewindStreaks; i++)
+            {
+                RectTransform bar = UIFactory.Rect("Streak" + i, rewindRoot, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(400f, 6f));
+                rewindBars[i] = bar.gameObject.AddComponent<Image>();
+                rewindBars[i].raycastTarget = false;
+            }
+            rewindRoot.gameObject.SetActive(false);
         }
 
         public void SetSkipProgress(float progress)

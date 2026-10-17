@@ -89,9 +89,25 @@ namespace Shatranj.UI
             GameManager gm = GameManager.Ensure();
             if (!gm.TryContinue()) return;
             leaving = true;
+            SceneFlow.Load(ContinueTarget(gm), fadeTime);
+        }
+
+        /// <summary>
+        /// Where Continue goes (Prompt 16): an unfinished story cutscene first (cs2 / cs3 / the post-loop cs1), otherwise the
+        /// saved bench — but only if it belongs to the current phase's scene — otherwise the phase scene's start.
+        /// </summary>
+        public static string ContinueTarget(GameManager gm)
+        {
+            SaveData save = gm.Save;
+            if (save.HasPendingCutscene)
+            {
+                string next = !string.IsNullOrEmpty(save.pendingNextScene) ? save.pendingNextScene : gm.CurrentPhaseScene;
+                gm.BeginCutscene(save.pendingCutscene, next);
+                return GameConstants.SceneCutscene;
+            }
             gm.SetState(GameState.Playing);
-            string scene = !string.IsNullOrEmpty(gm.Save.lastBenchScene) ? gm.Save.lastBenchScene : gm.CurrentPhaseScene;
-            SceneFlow.Load(scene, fadeTime);
+            bool benchHere = !string.IsNullOrEmpty(save.lastBenchScene) && save.lastBenchScene == gm.CurrentPhaseScene;
+            return benchHere ? save.lastBenchScene : gm.CurrentPhaseScene;
         }
 
         private void OnQuit()

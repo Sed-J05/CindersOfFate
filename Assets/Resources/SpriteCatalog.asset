@@ -120,4 +120,6 @@ MonoBehaviour:
     json: {fileID: 4900000, guid: 96e181a3913ec0849a8e3176bcbc6448, type: 3}
   - id: cs2_orb
     json: {fileID: 4900000, guid: 51d7cc97fdc8d3a489dac96a6f15771d, type: 3}
+  - id: cs3_ending
+    json: {fileID: 4900000, guid: e92511c2f079b334aadc1538d13b0dc7, type: 3}
   unlitMaterial: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}

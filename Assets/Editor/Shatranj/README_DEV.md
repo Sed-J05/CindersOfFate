@@ -26,7 +26,7 @@ Menu order (top → bottom) mirrors the build order. `Build Everything` runs the
 | `Shatranj/Build Windows Player` | planned (Prompt 18) | `BuildPlayer.cs` | Sets scene list, 1920×1080 windowed defaults, runs `BuildPipeline` into `/Builds`. |
 | `Shatranj/Build Everything` | planned (after Prompt 8) | `BuildEverything.cs` | Runs Setup Project → Generate Config Assets → Generate Placeholder Art → Import & Rebuild Animations → Build Prefabs → Build UI Prefabs → Build Levels → Build All Scenes → Validate Project. |
 
-Debug-only panels (runtime hotkeys, not menu items): F1–F9 per `CLAUDE.md` §6, F10 HUD fake-events (Prompt 5),
+Debug-only panels (runtime hotkeys, not menu items): F1–F9 per `CLAUDE.md` §6 plus Shift+F5 (kill the boss in this room) and Shift+F6 (jump to Phase2_Castle) for loop testing (Prompt 16), F10 HUD fake-events (Prompt 5),
 F11 visuals: `,`/`.` scrub flame t, M freeze, P park, G spike, T next theme, Y drop-shadows (Prompt 10), F12 flame-scale slider: drag or `[`/`]` (Shift fine) to set flameT, readout of target scale and scaling enemies; F4 for Phase 2 (Prompt 12).
 Sandbox spawn keys at the cursor: 1 Crawler, 2 Lunger, 3 Kite, 4 Kage Warden, 5 Knight, 6 Bat, 7 Charger, 8 Thrower, 9 Zulmat, Shift+1 Kage Warden, Shift+2 Kage Caller, Shift+3 Iron Colossus, Shift+4 Zulmat, 0 clear.
 
