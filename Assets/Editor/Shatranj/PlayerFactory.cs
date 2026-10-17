@@ -12,7 +12,7 @@ namespace Shatranj.EditorTools
     /// </summary>
     public static class PlayerFactory
     {
-        public static GameObject Build(PlayerConfig config, Vector2 position)
+        public static GameObject Build(PlayerConfig config, Vector2 position, Transform respawnPoint = null)
         {
             Sprite sprite = SceneBuildUtil.GetOrCreateWhiteSprite();
             Material lit = SceneBuildUtil.SpriteLitMaterial();
@@ -71,11 +71,19 @@ namespace Shatranj.EditorTools
             hurtCol.offset = config.colliderOffset;
             hurtCol.isTrigger = true;
 
-            // --- Components ---
+            // --- Components (order = Awake order) ---
             var input = root.AddComponent<PlayerInput>();
             var motor = root.AddComponent<PlayerMotor>();
             var controller = root.AddComponent<PlayerController>();
             var animator = root.AddComponent<PlayerAnimator>();
+            var health = root.AddComponent<Health>();
+            var fxPools = root.AddComponent<PlayerFxPools>();
+            var soul = root.AddComponent<PlayerSoul>();
+            var playerHealth = root.AddComponent<PlayerHealth>();
+            root.AddComponent<PlayerCombat>();
+            root.AddComponent<PlayerSpells>();
+            var dash = root.AddComponent<PlayerDash>();
+            var hurtboxComp = hurtbox.AddComponent<PlayerHurtbox>();
 
             SceneBuildUtil.SetReference(controller, "config", config);
             SceneBuildUtil.SetReference(controller, "input", input);
@@ -85,6 +93,14 @@ namespace Shatranj.EditorTools
             SceneBuildUtil.SetReference(animator, "controller", controller);
             SceneBuildUtil.SetReference(animator, "visualRoot", visual.transform);
             SceneBuildUtil.SetReference(animator, "spriteRenderer", sr);
+
+            SceneBuildUtil.SetInt(health, "maxHp", config.heartsPhase1);
+            SceneBuildUtil.SetFloat(health, "invulnerabilityDuration", config.hurtInvulnerabilityTime);
+            SceneBuildUtil.SetFloat(health, "hitFlashDuration", 0.08f);
+
+            if (respawnPoint != null) SceneBuildUtil.SetReference(playerHealth, "respawnPoint", respawnPoint);
+            SceneBuildUtil.SetReference(hurtboxComp, "owner", playerHealth);
+            SceneBuildUtil.SetReference(dash, "ghostSource", sr);
 
             return root;
         }

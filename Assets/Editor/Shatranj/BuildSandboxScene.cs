@@ -25,6 +25,9 @@ namespace Shatranj.EditorTools
         private static readonly Color StepColor = new Color(0.29f, 0.29f, 0.32f);       // #4A4A52
         private static readonly Color OneWayColor = new Color(0.42f, 0.23f, 0.23f);     // #6B3A3A
         private static readonly Color ParchmentColor = new Color(0.91f, 0.85f, 0.71f);  // #E8D9B5
+        private static readonly Color EnemyBodyColor = new Color(0.086f, 0.035f, 0.039f); // #16090A
+        private static readonly Color EnemyRedColor = new Color(0.757f, 0.153f, 0.176f); // #C1272D
+        private static readonly Color SpikeColor = new Color(0.64f, 0.23f, 0.23f);       // muted red, reads as danger
 
         [MenuItem("Shatranj/Build Sandbox Scene", false, 20)]
         public static void Run()
@@ -64,8 +67,19 @@ namespace Shatranj.EditorTools
             // --- Spawn + player ---
             var spawn = new GameObject("PlayerSpawn");
             spawn.transform.position = new Vector3(0f, 0f, 0f);
-            GameObject player = PlayerFactory.Build(playerConfig, spawn.transform.position);
+            GameObject player = PlayerFactory.Build(playerConfig, spawn.transform.position, spawn.transform);
             var controller = player.GetComponent<PlayerController>();
+
+            // --- Combat targets + hazards (Prompt 3) ---
+            var targets = new GameObject("Targets").transform;
+            SceneBuildUtil.CreateDummy("Dummy_Ground", new Vector2(14f, 0f), 10, new Vector2(0.9f, 1.0f), EnemyBodyColor, EnemyRedColor).transform.SetParent(targets, true);
+            SceneBuildUtil.CreateDummy("Dummy_Platform", new Vector2(20f, 4.65f), 10, new Vector2(0.9f, 1.0f), EnemyBodyColor, EnemyRedColor).transform.SetParent(targets, true);
+            SceneBuildUtil.CreateDummy("Dummy_Overhead", new Vector2(3f, 3.7f), 10, new Vector2(1.0f, 0.8f), EnemyBodyColor, EnemyRedColor).transform.SetParent(targets, true);
+            SceneBuildUtil.CreateDummy("Dummy_Tall", new Vector2(26f, 0f), 20, new Vector2(1.6f, 2.4f), EnemyBodyColor, EnemyRedColor).transform.SetParent(targets, true);
+
+            SceneBuildUtil.CreateSpikes("Spikes_Floor", env.transform, new Vector2(5f, 0.2f), new Vector2(2f, 0.4f), SpikeColor);
+            SceneBuildUtil.CreateSpikes("Spikes_Pit", env.transform, new Vector2(32.5f, -2.8f), new Vector2(3f, 0.4f), SpikeColor);
+            report.AppendLine("Targets: 4 dummies (10/10/10/20 HP). Hazards: floor spikes at x≈5, pit spikes at x≈32.5.");
 
             // --- Camera rig ---
             Camera cam = SceneBuildUtil.CreateMainCamera(new Vector3(0f, cameraConfig.verticalOffset, -10f), cameraConfig.orthographicSize, ParchmentColor);
@@ -97,7 +111,7 @@ namespace Shatranj.EditorTools
             report.Append("Config references: PlayerConfig ").Append(playerCfgOk ? "OK" : "MISSING")
                   .Append(", CameraConfig ").AppendLine(camCfgOk ? "OK" : "MISSING");
             if (!playerCfgOk || !camCfgOk) saved = false;
-            report.AppendLine("Press Play: A/D move, Space jump, W/S hold to look, F9 reload.");
+            report.AppendLine("Press Play: A/D move, Space jump, J attack (W+J up), K heal/fireball, L dash, F4 phase toggle, F7 gizmos, F9 reload.");
             Selection.activeGameObject = player;
 
             if (saved) Debug.Log(report.ToString()); else Debug.LogError(report.ToString());

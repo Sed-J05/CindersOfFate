@@ -49,9 +49,12 @@ namespace Shatranj.Core
             }
             if (kb.f4Key.wasPressedThisFrame)
             {
-                GameManager.Ensure().SetPhase(GameConstants.Phase2);
-                DebugCommands.NotifyPhase2Applied();
-                Log($"F4 phase 2 applied: {GameManager.Instance.Abilities}");
+                // Toggle: Phase 1 → Phase 2 (dash, fireball, 7 hearts) → back to Phase 1.
+                GameManager gm = GameManager.Ensure();
+                int next = gm.Phase == GameConstants.Phase2 ? GameConstants.Phase1 : GameConstants.Phase2;
+                gm.SetPhase(next);
+                if (next == GameConstants.Phase2) DebugCommands.NotifyPhase2Applied();
+                Log($"F4 phase {next} abilities: {gm.Abilities}");
             }
             if (kb.f5Key.wasPressedThisFrame)
             {

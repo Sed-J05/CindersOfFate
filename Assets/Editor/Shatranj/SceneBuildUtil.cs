@@ -188,6 +188,108 @@ namespace Shatranj.EditorTools
             EditorBuildSettings.scenes = list.ToArray();
         }
 
+        /// <summary>Sandbox training dummy: Enemy-layer root, EnemyHurtbox trigger child, Health + DamageableDummy.</summary>
+        public static GameObject CreateDummy(string name, Vector2 feetPosition, int hp, Vector2 bodySize, Color bodyColor, Color accentColor)
+        {
+            var root = new GameObject(name);
+            root.layer = GameLayers.Enemy;
+            root.tag = GameLayers.Tags.Enemy;
+            root.transform.position = feetPosition;
+
+            var visual = new GameObject("Visual");
+            visual.transform.SetParent(root.transform, false);
+            visual.transform.localPosition = new Vector3(0f, bodySize.y * 0.5f, 0f);
+            visual.transform.localScale = new Vector3(bodySize.x, bodySize.y, 1f);
+            var sr = visual.AddComponent<SpriteRenderer>();
+            sr.sprite = GetOrCreateWhiteSprite();
+            sr.color = bodyColor;
+            sr.sortingLayerName = GameLayers.Sorting.Enemies;
+            Material lit = SpriteLitMaterial();
+            if (lit != null) sr.sharedMaterial = lit;
+
+            var eye = new GameObject("Eye");
+            eye.transform.SetParent(visual.transform, false);
+            eye.transform.localPosition = new Vector3(-0.25f, 0.25f, 0f);
+            eye.transform.localScale = new Vector3(0.18f, 0.1f, 1f);
+            var eyeSr = eye.AddComponent<SpriteRenderer>();
+            eyeSr.sprite = GetOrCreateWhiteSprite();
+            eyeSr.color = accentColor;
+            eyeSr.sortingLayerName = GameLayers.Sorting.Enemies;
+            eyeSr.sortingOrder = 1;
+            if (lit != null) eyeSr.sharedMaterial = lit;
+
+            var hurtboxGo = new GameObject("Hurtbox");
+            hurtboxGo.transform.SetParent(root.transform, false);
+            hurtboxGo.layer = GameLayers.EnemyHurtbox;
+            var hurtbox = hurtboxGo.AddComponent<BoxCollider2D>();
+            hurtbox.isTrigger = true;
+            hurtbox.size = new Vector2(bodySize.x * 0.9f, bodySize.y * 0.9f);
+            hurtbox.offset = new Vector2(0f, bodySize.y * 0.5f);
+
+            var health = root.AddComponent<Health>();
+            SetInt(health, "maxHp", hp);
+            SetFloat(health, "invulnerabilityDuration", 0f);
+            SetFloat(health, "hitFlashDuration", 0.08f);
+
+            var dummy = root.AddComponent<Shatranj.Enemies.DamageableDummy>();
+            SetReference(dummy, "body", sr);
+            SetReference(dummy, "hurtbox", hurtbox);
+            return root;
+        }
+
+        /// <summary>Spike strip: Hazard-layer trigger with a DamageDealer (type Hazard → safe-ground respawn).</summary>
+        public static GameObject CreateSpikes(string name, Transform parent, Vector2 center, Vector2 size, Color color)
+        {
+            var go = new GameObject(name);
+            go.transform.SetParent(parent, false);
+            go.transform.position = new Vector3(center.x, center.y, 0f);
+            go.transform.localScale = new Vector3(size.x, size.y, 1f);
+            go.layer = GameLayers.Hazard;
+
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = GetOrCreateWhiteSprite();
+            sr.color = color;
+            sr.sortingLayerName = GameLayers.Sorting.Props;
+            Material lit = SpriteLitMaterial();
+            if (lit != null) sr.sharedMaterial = lit;
+
+            var col = go.AddComponent<BoxCollider2D>();
+            col.size = Vector2.one;
+            col.isTrigger = true;
+
+            var dealer = go.AddComponent<DamageDealer>();
+            SetInt(dealer, "damage", 1);
+            SetEnum(dealer, "type", (int)DamageType.Hazard);
+            return go;
+        }
+
+        public static void SetInt(Object target, string field, int value)
+        {
+            var so = new SerializedObject(target);
+            SerializedProperty p = so.FindProperty(field);
+            if (p == null) { Debug.LogWarning($"SceneBuildUtil: field '{field}' not found on {target.GetType().Name}"); return; }
+            p.intValue = value;
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        public static void SetFloat(Object target, string field, float value)
+        {
+            var so = new SerializedObject(target);
+            SerializedProperty p = so.FindProperty(field);
+            if (p == null) { Debug.LogWarning($"SceneBuildUtil: field '{field}' not found on {target.GetType().Name}"); return; }
+            p.floatValue = value;
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        public static void SetEnum(Object target, string field, int enumValue)
+        {
+            var so = new SerializedObject(target);
+            SerializedProperty p = so.FindProperty(field);
+            if (p == null) { Debug.LogWarning($"SceneBuildUtil: field '{field}' not found on {target.GetType().Name}"); return; }
+            p.enumValueIndex = enumValue;
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
         /// <summary>Assigns a serialized (possibly private) object reference field on a component.</summary>
         public static void SetReference(Object target, string field, Object value)
         {

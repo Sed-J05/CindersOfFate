@@ -11,9 +11,22 @@ namespace Shatranj.Player
         [SerializeField] private Text text;
         [SerializeField] private float refreshInterval = 0.05f;
 
-        private readonly StringBuilder sb = new StringBuilder(256);
+        private readonly StringBuilder sb = new StringBuilder(384);
         private float timer;
         private float fps;
+        private PlayerHealth playerHealth;
+        private PlayerSoul playerSoul;
+        private PlayerDash playerDash;
+        private PlayerSpells playerSpells;
+
+        private void Start()
+        {
+            if (player == null) return;
+            playerHealth = player.GetComponent<PlayerHealth>();
+            playerSoul = player.GetComponent<PlayerSoul>();
+            playerDash = player.GetComponent<PlayerDash>();
+            playerSpells = player.GetComponent<PlayerSpells>();
+        }
 
         private void Update()
         {
@@ -43,8 +56,19 @@ namespace Shatranj.Player
             sb.Append("  Ceiling ").Append(m.HitCeiling ? "yes" : "no").Append('\n');
             sb.Append("Facing   ").Append(player.Facing > 0 ? "right" : "left");
             sb.Append("  Input ").Append(player.Input.MoveX.ToString("0")).Append(',').Append(player.Input.MoveY.ToString("0")).Append('\n');
+            if (playerHealth != null)
+                sb.Append("Hearts   ").Append(playerHealth.Hearts).Append('/').Append(playerHealth.MaxHearts)
+                  .Append(playerHealth.IsInvulnerable ? "  (i-frames)" : "").Append('\n');
+            if (playerSoul != null)
+                sb.Append("Soul     ").Append(playerSoul.Soul).Append('/').Append(playerSoul.Max)
+                  .Append(playerSpells != null && playerSpells.IsHealing ? "  healing " + (playerSpells.HealProgress * 100f).ToString("0") + "%" : "").Append('\n');
+            if (playerDash != null)
+                sb.Append("Dash     ").Append(playerDash.Unlocked ? "unlocked" : "LOCKED (F4)")
+                  .Append("  cd ").Append(playerDash.CooldownRemaining.ToString("0.00"))
+                  .Append("  air ").Append(playerDash.AirDashesLeft).Append('\n');
             sb.Append("FPS      ").Append(fps.ToString("0")).Append("   timeScale ").Append(Time.timeScale.ToString("0.00")).Append('\n');
-            sb.Append("A/D move  Space jump  W/S look  F1-F9 debug  F9 reload");
+            sb.Append("A/D move  Space jump  J attack (W+J up)  K tap fireball / hold heal  L dash\n");
+            sb.Append("F1 god  F2 soul  F4 phase toggle  F7 hitbox gizmos  F9 reload");
             text.text = sb.ToString();
         }
     }

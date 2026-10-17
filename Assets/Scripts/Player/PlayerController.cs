@@ -46,6 +46,8 @@ namespace Shatranj.Player
         private Vector2 cutsceneTarget;
         private float cutsceneSpeed;
         private bool cutsceneMoving;
+        private float recoilTimer;
+        private float recoilVelocityX;
 
         // --- ICameraTarget ---
         public Vector2 Position => transform.position;
@@ -89,7 +91,9 @@ namespace Shatranj.Player
             bool gameAllows = !GameManager.HasInstance || GameManager.Instance.InputEnabled;
             input.Enabled = ControlsEnabled && gameAllows && State != PlayerState.Dead && State != PlayerState.Cutscene;
 
-            if (State.AllowsRunInput() && input.MoveX != 0f)
+            // Facing follows input except mid-swing (the slash direction is committed, Hollow-Knight style).
+            bool swinging = State == PlayerState.AttackSide || State == PlayerState.AttackUp;
+            if (State.AllowsRunInput() && !swinging && input.MoveX != 0f)
                 SetFacing(input.MoveX > 0f ? 1 : -1);
         }
 
@@ -154,7 +158,13 @@ namespace Shatranj.Player
 
                 case PlayerState.AttackSide:
                 case PlayerState.AttackUp:
-                    motor.ApplyRun(input.MoveX, dt);
+                    if (recoilTimer > 0f)
+                    {
+                        // Docs/03 §4 self-recoil: brief push away from the enemy, grounded only.
+                        recoilTimer -= dt;
+                        motor.SetVelocityX(recoilVelocityX);
+                    }
+                    else motor.ApplyRun(input.MoveX, dt);
                     if (TryJump()) return;
                     if (stateTimer >= stateDuration) ExitToNeutral();
                     break;
@@ -173,7 +183,7 @@ namespace Shatranj.Player
 
                 case PlayerState.Dash:
                     motor.SetVelocity(new Vector2(Facing * config.dashSpeed, 0f));
-                    if (stateTimer >= stateDuration) { motor.SetVelocityX(0f); ExitToNeutral(); }
+                    if (stateTimer >= stateDuration) { motor.SetVelocity(Vector2.zero); ExitToNeutral(); }
                     break;
 
                 case PlayerState.Hurt:
@@ -227,6 +237,16 @@ namespace Shatranj.Player
             else SetState(input.MoveX != 0f ? PlayerState.Run : PlayerState.Idle);
         }
 
+        /// <summary>Leaves any special state for Idle / Run / Fall depending on ground and input.</summary>
+        public void ReturnToNeutral() => ExitToNeutral();
+
+        /// <summary>Horizontal push for <paramref name="time"/> seconds during an attack (self-recoil on hit).</summary>
+        public void ApplyRecoil(float velocityX, float time)
+        {
+            recoilVelocityX = velocityX;
+            recoilTimer = time;
+        }
+
         private void TickCutscene(float dt)
         {
             if (!cutsceneMoving) { motor.ApplyBrake(dt); return; }
@@ -248,6 +268,7 @@ namespace Shatranj.Player
             State = next;
             stateTimer = 0f;
             stateDuration = 0f;
+            recoilTimer = 0f;
             OnStateChanged?.Invoke(PreviousState, next);
         }
 

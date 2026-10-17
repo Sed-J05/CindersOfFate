@@ -19,6 +19,9 @@ namespace Shatranj.Player
 
         private Vector3 baseScale = Vector3.one;
         private int facing = 1;
+        private float blinkRemaining;
+        private float blinkHz = 10f;
+        private GameObject healAura;
 
         /// <summary>True once real animation clips are driving the sprite (Prompt 4 sets this).</summary>
         public bool HasClips { get; set; }
@@ -55,6 +58,60 @@ namespace Shatranj.Player
         {
             facing = direction >= 0 ? 1 : -1;
             ApplyScale(baseScale);
+        }
+
+        private void Update()
+        {
+            if (blinkRemaining <= 0f || visualRoot == null) return;
+            blinkRemaining -= Time.deltaTime;
+            if (blinkRemaining <= 0f)
+            {
+                visualRoot.gameObject.SetActive(true);
+                return;
+            }
+            // Docs/03 §7: sprite blinks at 10 Hz during i-frames (whole visual, so the eye blinks too).
+            bool visible = Mathf.FloorToInt(blinkRemaining * blinkHz * 2f) % 2 == 0;
+            if (visualRoot.gameObject.activeSelf != visible) visualRoot.gameObject.SetActive(visible);
+        }
+
+        /// <summary>Starts the i-frame blink.</summary>
+        public void StartBlink(float duration, float hz)
+        {
+            blinkRemaining = duration;
+            blinkHz = Mathf.Max(1f, hz);
+        }
+
+        public void StopBlink()
+        {
+            blinkRemaining = 0f;
+            if (visualRoot != null) visualRoot.gameObject.SetActive(true);
+        }
+
+        /// <summary>Placeholder heal aura: a soft green disc behind the puppet while charging.</summary>
+        public void SetHealAura(bool on)
+        {
+            if (on && healAura == null)
+            {
+                healAura = new GameObject("HealAura");
+                healAura.transform.SetParent(transform, false);
+                healAura.transform.localPosition = new Vector3(0f, 0.85f, 0f);
+                healAura.transform.localScale = Vector3.one * 2.4f;
+                var sr = healAura.AddComponent<SpriteRenderer>();
+                sr.sprite = Visuals.PlaceholderSprites.Circle;
+                sr.color = new Color(0.45f, 1f, 0.65f, 0.28f);
+                sr.sortingLayerName = GameLayers.Sorting.FX;
+                sr.sortingOrder = -1;
+            }
+            if (healAura != null)
+            {
+                healAura.SetActive(on);
+                if (on)
+                {
+                    Tween.KillTweensOf(healAura.transform);
+                    healAura.transform.localScale = Vector3.one * 1.6f;
+                    Tween.Scale(healAura.transform, 2.6f, 0.9f, Ease.OutQuad);
+                }
+            }
         }
 
         private void ApplyScale(Vector3 scale)

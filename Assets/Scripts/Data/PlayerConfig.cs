@@ -64,6 +64,9 @@ namespace Shatranj.Data
         public float hitStopOnHit = 0.05f;
         public float hitStopOnBossHit = 0.10f;
         public float slashFxLifetime = 0.12f;
+        [Tooltip("How long the attack state lasts (4 frames @ 20 fps). Cooldown still gates the next swing.")]
+        public float attackAnimTime = 0.2f;
+        public float hitSparkLifetime = 0.15f;
 
         [Header("Soul & heal (Docs/03 §5)")]
         public int soulMax = 99;
@@ -84,6 +87,7 @@ namespace Shatranj.Data
         public int fireballDamage = 3;
         public bool fireballPierces = true;
         public Vector2 fireballSpawnOffset = new Vector2(0.8f, 1.0f);
+        public float fireballImpactLifetime = 0.25f;
 
         [Header("Dash / Time Slip (Docs/03 §6)")]
         public float dashSpeed = 20f;
@@ -92,6 +96,7 @@ namespace Shatranj.Data
         public int airDashesPerAirtime = 1;
         public int dashGhostCount = 4;
         public float dashGhostFadeTime = 0.3f;
+        public float dashInputBuffer = 0.1f;
 
         [Header("Health (Docs/03 §7)")]
         public int heartsPhase1 = 5;
@@ -107,6 +112,9 @@ namespace Shatranj.Data
         public float hurtShakeDuration = 0.2f;
         [Tooltip("Seconds standing on safe ground before the position is stored as the spike respawn point.")]
         public float safeGroundRecordTime = 0.5f;
+        [Tooltip("Spikes: delay after the hit before teleporting back to safe ground.")]
+        public float hazardRespawnDelay = 0.35f;
+        public float hazardRespawnFadeTime = 0.15f;
         public float deathSlowmoDuration = 0.6f;
         [Range(0.05f, 1f)] public float deathSlowmoScale = 0.3f;
         public float deathFadeTime = 0.6f;
