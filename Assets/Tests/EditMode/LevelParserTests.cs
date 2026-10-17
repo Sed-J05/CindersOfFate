@@ -67,7 +67,8 @@ namespace Shatranj.Tests
         [Test]
         public void WrongRowCount_IsAnError()
         {
-            string text = Valid.Replace("########\n#...x..#\n", "########\n");
+            string text = Valid.Replace("#...x..#\n", "");   // 4 map rows, header says 5
+            Assert.AreNotEqual(Valid, text, "test setup must actually remove a row");
             var ex = Assert.Throws<LevelParseException>(() => LevelParser.ParseRoom(text, "T1.txt"));
             StringAssert.Contains("rows", ex.Message);
         }

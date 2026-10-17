@@ -377,6 +377,7 @@ GameObject:
   - component: {fileID: 6364601967120755163}
   - component: {fileID: 6553367535670072825}
   - component: {fileID: 3060246802729105445}
+  - component: {fileID: 1613556734490407749}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -471,6 +472,23 @@ MonoBehaviour:
   defaultClip: Idle
   playOnEnable: 1
   speed: 1
+--- !u!114 &1613556734490407749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4755882296388629742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3077d4b11690c1478637e42f2011244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseOffset: 0.1
+  maxOffset: 0.35
+  shadowScale: 1.04
+  blurScale: 1.08
+  blurAlpha: 0.15
 --- !u!1 &7221569283066060966
 GameObject:
   m_ObjectHideFlags: 0

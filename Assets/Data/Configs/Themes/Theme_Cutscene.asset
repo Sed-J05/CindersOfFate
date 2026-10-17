@@ -17,13 +17,16 @@ MonoBehaviour:
   parchmentBase: {r: 0.8117647, g: 0.78431374, b: 0.72156864, a: 1}
   parchmentEdge: {r: 0.43137255, g: 0.4, b: 0.34117648, a: 1}
   frameTint: {r: 0.43137255, g: 0.4, b: 0.34117648, a: 1}
-  parchmentSprite: {fileID: 0}
-  frameSprite: {fileID: 0}
+  parchmentSprite: {fileID: 21300000, guid: 28ebed0e2e7f2b14294ee622b5de1669, type: 3}
+  frameSprite: {fileID: 21300000, guid: 47462db8276139d4eab93e175e38ae80, type: 3}
+  parchmentSpriteTint: {r: 0.88, g: 0.86, b: 0.82, a: 1}
+  flameGlowAlpha: 0.55
+  flameCoreAlpha: 0.35
   environmentDark: {r: 0.14901961, g: 0.14901961, b: 0.16470589, a: 1}
   environmentMid: {r: 0.2901961, g: 0.2901961, b: 0.32156864, a: 1}
   environmentAccent: {r: 0.41960785, g: 0.22745098, b: 0.22745098, a: 1}
-  backgroundFar: {fileID: 0}
-  backgroundMid: {fileID: 0}
+  backgroundFar: {fileID: 21300000, guid: 3468f5990cbd8fd49a3437ac67cc88af, type: 3}
+  backgroundMid: {fileID: 21300000, guid: 9c340721a43acc6469fad19201da9e0f, type: 3}
   parallaxFar: 0.1
   parallaxMid: 0.3
   enemyBase: {r: 0.08627451, g: 0.03529412, b: 0.039215688, a: 1}
