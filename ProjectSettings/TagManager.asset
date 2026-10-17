@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Player
+  - Enemy
+  - Boss
+  - Interactable
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Ground
+  - OneWay
+  - Player
+  - PlayerHurtbox
+  - Enemy
+  - EnemyHurtbox
+  - PlayerAttack
+  - EnemyAttack
+  - Hazard
+  - Interactable
+  - RoomBounds
+  - Ignore
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Parchment
+    uniqueID: 410443775
+    locked: 0
+  - name: BG_Far
+    uniqueID: 1071816672
+    locked: 0
+  - name: BG_Mid
+    uniqueID: 1504512079
+    locked: 0
+  - name: Tiles
+    uniqueID: 92345710
+    locked: 0
+  - name: Props
+    uniqueID: 1504818033
+    locked: 0
+  - name: Enemies
+    uniqueID: 1127771115
+    locked: 0
+  - name: Player
+    uniqueID: 477166624
+    locked: 0
+  - name: FX
+    uniqueID: 1825785779
+    locked: 0
+  - name: Foreground
+    uniqueID: 1500198624
+    locked: 0
+  - name: LightOverlay
+    uniqueID: 998601301
+    locked: 0
+  - name: UI
+    uniqueID: 2079568635
+    locked: 0
+  m_RenderingLayers:
+  - Default
