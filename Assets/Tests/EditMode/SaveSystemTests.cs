@@ -102,9 +102,9 @@ namespace Shatranj.Tests
         public void Load_CorruptFile_ReturnsNull()
         {
             File.WriteAllText(tempPath, "{ this is not json");
-            LogAssert.ignoreFailingMessages = true;
+            // The loader is expected to warn (not throw) on a corrupt file; declare it so the Console stays clean.
+            LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex("^SaveSystem: could not read save"));
             SaveData loaded = SaveSystem.Load();
-            LogAssert.ignoreFailingMessages = false;
             Assert.IsNull(loaded);
         }
 
