@@ -164,9 +164,9 @@ namespace Shatranj.EditorTools
             b.deathSlowmoTime = 1.2f; b.arenaWidthTiles = 50; b.arenaHeightTiles = 22;
             b.enrageBelowFraction = 0.5f; b.enrageTelegraphReduction = 0.1f; b.enrageSpeedMultiplier = 1.25f; b.enrageCooldownMultiplier = 1f;
             b.summonCount = 2; b.summonCountEnraged = 3; b.summonCap = 3; b.summonCooldown = 12f; b.summonCooldownEnraged = 8f;
-            b.summonEnemyIds = new[] { "crawler", "lunger" };
+            b.summonEnemyIds = new[] { "shadow_kite" }; // D-126: flyers only (doc: crawlers/lungers)
             b.projectileSpeed = 11f; b.projectileSize = new Vector2(1.4f, 0.6f); b.projectileCanvas = new Vector2Int(192, 96);
-            b.projectileLifetime = 2f; b.projectileSecondBelowFraction = 0.66f; b.projectileSecondDelay = 0.5f;
+            b.projectileLifetime = 2f; b.projectileSecondBelowFraction = 0f; b.projectileSecondDelay = 0.5f; // D-126: single shot (doc: 2 below 66 %)
             b.advanceTimeMin = 0.8f; b.advanceTimeMax = 1.4f; b.backstepDistance = 3f; b.backstepTime = 0.35f;
             b.noImmediateRepeat = true; b.maxSameMoveInRow = 1; b.fairnessGap = 0.4f;
             b.moves = new[]

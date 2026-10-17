@@ -20,15 +20,25 @@ namespace Shatranj.Bosses
     {
         [SerializeField] private GameObject[] minionPrefabs = new GameObject[0];
         [SerializeField] private string unlockFlag = GameConstants.FlagDoorOrb;
-        [SerializeField, Tooltip("First summon becomes available this many seconds into the fight.")]
-        private float firstSummonDelay = 6f;
         [SerializeField] private float dropHeightFallback = 8f;
+
+        [Header("Tuning (D-126)")]
+        [SerializeField, Tooltip("Black Slash is only used when the player is farther than this (u).")]
+        private float rangedMinDistance = 5f;
+        [SerializeField, Tooltip("Pause after every attack (slash, Black Slash, summon) before the next move.")]
+        private float postAttackGap = 0.8f;
+        [SerializeField, Tooltip("Player counts as 'on a platform' when standing this far above the boss's floor (u).")]
+        private float platformHeight = 1.2f;
+        [SerializeField, Tooltip("Seconds of platform time that trigger a summon. Time on the floor drains it at half speed.")]
+        private float platformCampTime = 3f;
 
         private enum Move { None, Advance, SlashCombo, BlackSlash, Summon, BackStep }
 
         private Move last = Move.None;
         private BossMoveConfig blackSlash, summon;
         private float summonTimer;
+        private float platformTime;
+        private EnemyProjectile lastShot;
         private readonly List<EnemyBase> minions = new List<EnemyBase>();
         private readonly List<GameObject> markers = new List<GameObject>();
         private readonly List<Vector2> dropPoints = new List<Vector2>(3);
@@ -42,14 +52,25 @@ namespace Shatranj.Bosses
             base.Awake();
             blackSlash = config.FindMove("BlackSlash") ?? new BossMoveConfig("BlackSlash", 0.5f, 0.1f, 0.6f, 0f, 1, 2f) { speed = 11f };
             summon = config.FindMove("Summon") ?? new BossMoveConfig("Summon", 0.8f, 0.1f, 0.8f, 0f, 0, 1f) { cooldown = 12f };
-            summonTimer = firstSummonDelay;
+            summonTimer = 0f;
         }
 
         protected override void Update()
         {
             base.Update();
-            if (IsFighting && summonTimer > 0f) summonTimer -= Time.deltaTime;
+            if (!IsFighting) return;
+            float dt = Time.deltaTime;
+            if (summonTimer > 0f) summonTimer -= dt;
+
+            // D-126: summons answer platform camping — standing on a platform above the boss's floor fills the meter.
+            bool onPlatform = TryGetPlayer(out var p) && p.IsGrounded && p.Position.y > rb.position.y + platformHeight;
+            platformTime = onPlatform ? platformTime + dt : Mathf.Max(0f, platformTime - dt * 0.5f);
         }
+
+        /// <summary>A Black Slash is still flying: no new attack until it breaks (one attack at a time).</summary>
+        private bool ShotInFlight => lastShot != null && lastShot.IsActive && lastShot.Owner == gameObject;
+
+        private static bool IsAttack(Move m) => m == Move.SlashCombo || m == Move.BlackSlash || m == Move.Summon;
 
         private int AliveMinions
         {
@@ -81,22 +102,27 @@ namespace Shatranj.Bosses
                 last = next;
                 Stop();
                 Play("Idle", false);
-                yield return Wait(config.fairnessGap);
+                yield return Wait(IsAttack(next) ? Mathf.Max(postAttackGap, config.fairnessGap) : config.fairnessGap);
             }
         }
 
-        /// <summary>Summon has priority when ready and below the cap; otherwise weighted random by distance, no repeats.</summary>
+        /// <summary>
+        /// D-126: summon when the player has camped on the platforms (and cooldown / cap allow); Black Slash only from range;
+        /// while a Black Slash is in flight only movement moves are picked. Weighted random by distance, no repeats.
+        /// </summary>
         private Move Choose()
         {
-            if (last != Move.Summon && summonTimer <= 0f && AliveMinions < config.summonCap && minionPrefabs.Length > 0)
+            bool shotFlying = ShotInFlight;
+            if (!shotFlying && last != Move.Summon && platformTime >= platformCampTime && summonTimer <= 0f
+                && AliveMinions < config.summonCap && minionPrefabs.Length > 0)
                 return Move.Summon;
 
             float d = DistanceToPlayer;
             bool inReach = d <= slash.reach + 1.2f;
-            bool far = d > 5f;
+            bool far = d > rangedMinDistance;
             float wAdvance = last == Move.Advance ? 0f : advance.weight * (inReach ? 0.3f : 1.5f);
-            float wSlash = last == Move.SlashCombo ? 0f : slash.weight * (inReach ? 2.5f : 0.2f);
-            float wShot = last == Move.BlackSlash ? 0f : blackSlash.weight * (far ? 2f : 0.8f);
+            float wSlash = shotFlying || last == Move.SlashCombo ? 0f : slash.weight * (inReach ? 2.5f : 0.2f);
+            float wShot = shotFlying || !far || last == Move.BlackSlash ? 0f : blackSlash.weight * 0.6f;
             float wBack = last == Move.BackStep ? 0f : backStep.weight * (d < 2f ? 1.5f : 0.2f);
             float total = wAdvance + wSlash + wShot + wBack;
             if (total <= 0f) return Move.Advance;
@@ -138,7 +164,7 @@ namespace Shatranj.Bosses
             Vector2 size = config.projectileSize.sqrMagnitude > 0f ? config.projectileSize : new Vector2(1.4f, 0.6f);
             // Travels along the ground: bottom edge at the floor, so it must be jumped.
             Vector2 spawn = rb.position + new Vector2(facing * (config.colliderSize.x * 0.5f + size.x * 0.5f), size.y * 0.5f + 0.02f);
-            ProjectilePool.Fire(ProjectileSet, spawn, new EnemyProjectile.Spec
+            lastShot = ProjectilePool.Fire(ProjectileSet, spawn, new EnemyProjectile.Spec
             {
                 velocity = new Vector2(facing * speed, 0f),
                 size = size,
@@ -176,6 +202,7 @@ namespace Shatranj.Bosses
             for (int i = 0; i < dropPoints.Count; i++) SpawnMinion(dropPoints[i]);
             summonTimer = IsEnraged && config.summonCooldownEnraged > 0f ? config.summonCooldownEnraged
                         : (config.summonCooldown > 0f ? config.summonCooldown : summon.cooldown);
+            platformTime = 0f;
 
             Play("Idle", false);
             yield return Wait(summon.recovery);
@@ -246,9 +273,13 @@ namespace Shatranj.Bosses
             // D-125: drop slots sit in the row under the ceiling; spawning the feet there put the body inside the
             // ceiling and physics pushed it out on top. Lower the feet so the whole body starts in open air.
             var template = prefab.GetComponent<EnemyBase>();
-            float bodyHeight = template != null && template.Config != null ? template.Config.bodySize.y : 1f;
-            Vector2 feet = at - new Vector2(0f, 0.25f + bodyHeight + MinionCeilingClearance);
-            GameObject go = Instantiate(prefab, feet, Quaternion.identity, transform.parent);
+            EnemyConfig cfg = template != null ? template.Config : null;
+            Vector2 spawn;
+            if (cfg != null && cfg.locomotion == EnemyLocomotion.Flyer)
+                spawn = at - new Vector2(0f, 0.25f + cfg.bodySize.y * 0.5f + MinionCeilingClearance);   // flyer root = centre
+            else
+                spawn = at - new Vector2(0f, 0.25f + (cfg != null ? cfg.bodySize.y : 1f) + MinionCeilingClearance);  // ground root = feet
+            GameObject go = Instantiate(prefab, spawn, Quaternion.identity, transform.parent);
             var enemy = go.GetComponent<EnemyBase>();
             if (enemy != null) minions.Add(enemy);
         }

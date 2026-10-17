@@ -73,11 +73,10 @@ namespace Shatranj.EditorTools
                 GameObject root = BossPrefabFactory.Build(b.name, cfg, b.behaviour);
                 if (b.behaviour == typeof(Shatranj.Bosses.KageCaller))
                 {
-                    // Docs/04 §B2 minions: Crawler / Lunger (enemy prefabs are built before bosses).
+                    // Minions: Shadow Kites only (D-126; Docs/04 §B2 had Crawler / Lunger). Enemy prefabs are built first.
                     var minions = new Object[]
                     {
-                        AssetDatabase.LoadAssetAtPath<GameObject>(EnemyPrefabPath("Crawler")),
-                        AssetDatabase.LoadAssetAtPath<GameObject>(EnemyPrefabPath("Lunger")),
+                        AssetDatabase.LoadAssetAtPath<GameObject>(EnemyPrefabPath("ShadowKite")),
                     };
                     SceneBuildUtil.SetObjectArray(root.GetComponent<Shatranj.Bosses.KageCaller>(), "minionPrefabs", minions);
                 }

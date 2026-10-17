@@ -72,7 +72,7 @@ namespace Shatranj.Tests
             Assert.AreEqual(11f, b.projectileSpeed);
             Assert.AreEqual(new Vector2(1.4f, 0.6f), b.projectileSize);
             Assert.AreEqual(2f, b.projectileLifetime);
-            Assert.AreEqual(0.66f, b.projectileSecondBelowFraction, 1e-5f);
+            Assert.AreEqual(0f, b.projectileSecondBelowFraction, 1e-5f, "D-126: single Black Slash (doc: 2 below 66 %)");
             Assert.AreEqual(0.5f, b.projectileSecondDelay);
 
             Assert.AreEqual(0.8f, b.FindMove("Summon").telegraph);

@@ -53,13 +53,12 @@ MonoBehaviour:
   summonCooldown: 12
   summonCooldownEnraged: 8
   summonEnemyIds:
-  - crawler
-  - lunger
+  - shadow_kite
   projectileSpeed: 11
   projectileSize: {x: 1.4, y: 0.6}
   projectileCanvas: {x: 192, y: 96}
   projectileLifetime: 2
-  projectileSecondBelowFraction: 0.66
+  projectileSecondBelowFraction: 0
   projectileSecondDelay: 0.5
   shrinkScale: 1
   giantScale: 1

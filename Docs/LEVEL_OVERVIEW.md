@@ -19,7 +19,7 @@ Tile = 0.5 u. Map scale: 1 character = 4 tiles horizontally and vertically. Room
 | 10 | `P1_B4` | Spike Hall | 80×22 | 500,44 | B | 4 | spikes |
 | 11 | `P1_B5` | Pillars | 60×22 | 580,44 | B | 3 |  |
 | 12 | `P1_B6` | Last Light | 60×22 | 640,44 | B | 3 | bench |
-| 13 | `P1_MB2` | The Caller Hall | 50×22 | 700,44 | B | 0 | boss:kage_caller door |
+| 13 | `P1_MB2` | The Caller Hall | 50×22 | 700,44 | B | 0 | boss:kage_caller door:door_orb |
 | 14 | `P1_ORB` | The Orb | 30×22 | 750,44 | B | 0 | orb |
 
 - Section **A**: 15/15 enemies ✔
@@ -50,5 +50,3 @@ Tile = 0.5 u. Map scale: 1 character = 4 tiles horizontally and vertically. Room
 
 _No rooms authored yet._
 
-- Section **C**: 0/20 enemies (pending)
-- Section **D**: 0/30 enemies (pending)

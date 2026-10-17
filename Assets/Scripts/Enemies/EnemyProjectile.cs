@@ -36,6 +36,9 @@ namespace Shatranj.Enemies
 
         public SpriteRenderer Renderer { get; private set; }
         public SpriteAnimator Animator { get; private set; }
+        /// <summary>True while flying (false once it broke and went back to the pool).</summary>
+        public bool IsActive => active;
+        public GameObject Owner => spec.owner;
 
         private void Awake()
         {
