@@ -64,6 +64,7 @@ namespace Shatranj.Player
             int before = soul;
             soul = Mathf.Clamp(soul + amount, 0, config.soulMax);
             if (soul != before) GameEvents.RaiseSoulChanged(soul, config.soulMax);
+            if (soul == config.soulMax && before < config.soulMax) AudioManager.Play("soul_full");
         }
 
         public bool CanSpend(int cost) => soul >= cost;

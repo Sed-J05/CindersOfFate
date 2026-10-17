@@ -70,6 +70,10 @@ namespace Shatranj.Data
         public float deathSlowmoTime = 1.2f;
         [Range(0.05f, 1f)] public float deathSlowmoScale = 0.25f;
         public float introDuration = 1.5f;
+        [Tooltip("Camera push-in during the intro and the slow-mo death (multiple of the normal size; 1 = none).")]
+        public float introZoom = 0.88f;
+        public float introZoomTime = 0.4f;
+        public float outroZoom = 0.85f;
 
         [Header("Stages (fractions of HP where a new stage begins, descending)")]
         public float[] stageThresholds = new float[0];
@@ -103,6 +107,8 @@ namespace Shatranj.Data
 
         [Header("Telegraph (Docs/04 global rules)")]
         public float telegraphFlashTime = 0.1f;
+        [Tooltip("Balance floor (Prompt 17): no telegraph gets shorter than this, even after enrage reductions (CLAUDE.md §5 fair telegraphs).")]
+        public float minTelegraph = 0.25f;
         public Color telegraphFlashColor = new Color(1f, 0.35f, 0.3f, 1f);
         [Tooltip("Gravity scale of the boss body (Physics2D gravity is −9.81).")]
         public float gravityScale = 3f;

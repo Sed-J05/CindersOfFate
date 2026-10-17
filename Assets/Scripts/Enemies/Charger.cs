@@ -1,4 +1,5 @@
 using Shatranj.Core;
+using Shatranj.Data;
 using Shatranj.Player;
 using Shatranj.Visuals;
 using UnityEngine;
@@ -115,7 +116,7 @@ namespace Shatranj.Enemies
             SetVelocityX(0f);
             SetAnim("Stunned", true);
             FxPool.Play("Dust_Puff", BodyCenter + new Vector2(facing * config.colliderSize.x * 0.5f * FlameScale, 0f), facing, FlameScale);
-            ScreenShake.Shake(0.15f, 0.2f);
+            Feel.Play(FeelEvent.MediumImpact, -1f, FlameScale);
             AudioManager.Play("charger_stun");
         }
 

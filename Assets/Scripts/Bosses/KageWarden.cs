@@ -119,6 +119,7 @@ namespace Shatranj.Bosses
                 FxPool.Play("Block_Clink", spark);
                 Play("Block_Impact");
                 AudioManager.Play("warden_clink");
+                Feel.Play(FeelEvent.GuardBlock);
                 var pc = info.source.GetComponent<PlayerController>();
                 if (pc != null) pc.ApplyRecoil(side * config.blockPushback, config.blockPushbackTime);
                 return false;

@@ -59,7 +59,7 @@ namespace Shatranj.Bosses
         {
             if (anim != null) anim.Play("Grow", restart: true);
             AudioManager.Play("zulmat_vine");
-            ScreenShake.Shake(0.06f, 0.1f);
+            Feel.Play(FeelEvent.LightImpact);
             float t = 0f;
             while (t < stay) { t += Time.deltaTime; yield return null; }
             box.enabled = false;

@@ -110,6 +110,12 @@ namespace Shatranj.Data
         public float hurtHitStop = 0.12f;
         public float hurtShakeAmplitude = 0.3f;
         public float hurtShakeDuration = 0.2f;
+
+        [Header("Dust puffs (Prompt 17)")]
+        [Tooltip("Dust_Puff scale for jumps, landings and dashes.")]
+        public float dustScale = 0.8f;
+        [Tooltip("Landing dust only after falling at least this fast (u/s), so small hops stay clean.")]
+        public float landDustMinFallSpeed = 9f;
         [Tooltip("Seconds standing on safe ground before the position is stored as the spike respawn point.")]
         public float safeGroundRecordTime = 0.5f;
         [Tooltip("Spikes: delay after the hit before teleporting back to safe ground.")]

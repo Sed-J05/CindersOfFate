@@ -51,6 +51,9 @@ namespace Shatranj.Bosses
         public int Stage => stage;
         public BossArena Arena => arena;
 
+        /// <summary>Move telegraph after enrage, never below <see cref="BossConfig.minTelegraph"/> (Prompt 17 balance floor).</summary>
+        protected float TelegraphTime(BossMoveConfig move) => Mathf.Max(Mathf.Max(0.05f, config.minTelegraph), move.telegraph - TelegraphReduction);
+
         protected bool IsEnraged => config.enrageBelowFraction > 0f && health.Fraction < config.enrageBelowFraction;
         protected float TelegraphReduction => IsEnraged ? config.enrageTelegraphReduction : 0f;
         protected float SpeedMultiplier => IsEnraged ? config.enrageSpeedMultiplier : 1f;
@@ -106,6 +109,7 @@ namespace Shatranj.Bosses
         {
             // Removed mid-fight (player death, sandbox clear): hide the bar without counting a victory.
             if (started && !dead) GameEvents.RaiseBossReset(BossId);
+            if (started && CameraController.Main != null) CameraController.Main.ResetZoom(0.3f);
         }
 
         // ------------------------------------------------------------------
@@ -130,7 +134,9 @@ namespace Shatranj.Bosses
             GameEvents.RaiseBossIntroCard(config.displayName, config.epithet);
             GameEvents.RaiseBossHealthChanged(BossId, health.CurrentHp, health.MaxHp);
             AudioManager.Play("boss_intro");
+            ZoomCamera(config.introZoom, config.introZoomTime);   // intro push-in (Prompt 17)
             yield return Wait(config.introDuration);
+            ZoomCamera(1f, config.introZoomTime * 1.5f);
             health.Invulnerable = false;
             Play("Idle");
             yield return Fight();
@@ -302,10 +308,12 @@ namespace Shatranj.Bosses
             Stop();
             Play("Death");
             AudioManager.Play("boss_death");
+            Feel.Play(FeelEvent.BossDeath);
             OnDeathStarted();
 
             // Docs/04: slow-mo death. Real-time wait so the slow-mo length is exact; paused time doesn't count.
             HitStop.Cancel();
+            ZoomCamera(config.outroZoom, config.introZoomTime);   // outro push-in during the slow-mo
             Time.timeScale = config.deathSlowmoScale;
             float t = 0f;
             while (t < config.deathSlowmoTime)
@@ -316,12 +324,21 @@ namespace Shatranj.Bosses
             if (!(GameManager.HasInstance && GameManager.Instance.IsPaused)) Time.timeScale = 1f;
 
             FxPool.Play("Death_Smoke", rb.position + new Vector2(0f, config.colliderSize.y * 0.5f), 1, 2f);
+            ZoomCamera(1f, config.introZoomTime * 2f);
             OnDefeated();
             GameEvents.RaiseBossDefeated(BossId);
             Destroy(gameObject);
         }
 
         protected virtual void OnDeathStarted() { }
+
+        /// <summary>Camera zoom as a multiple of the normal size (1 = back to normal).</summary>
+        private static void ZoomCamera(float multiple, float time)
+        {
+            CameraController cam = CameraController.Main;
+            if (cam == null || cam.Config == null || multiple <= 0f) return;
+            cam.SetZoom(cam.Config.orthographicSize * multiple, time);
+        }
 
         /// <summary>After the slow-mo death, right before OnBossDefeated and Destroy (Zulmat: white flash + final-boss event).</summary>
         protected virtual void OnDefeated() { }

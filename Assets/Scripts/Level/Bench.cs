@@ -58,8 +58,14 @@ namespace Shatranj.Level
                 if (!animator.Play("Activate", true)) animator.Play("Lit");
             }
 
+            // Rest FX (Prompt 17): the healing aura wraps the player while resting, then a soft flame pulse.
+            TimedFx.Spawn("Heal_Aura", player.Position + new Vector2(0f, 0.85f), restTime, 0.8f, GameLayers.Sorting.FX);
+
             yield return new WaitForSeconds(restTime);
 
+            if (FlameController.Instance != null) FlameController.Instance.Spike();
+            Feel.Play(Data.FeelEvent.BenchRest);
+            AudioManager.Play("bench_saved");
             SetLit(true);
             var health = player.GetComponent<PlayerHealth>();
             if (health != null)

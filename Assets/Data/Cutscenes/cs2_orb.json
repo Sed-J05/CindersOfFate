@@ -4,6 +4,7 @@
   "theme": "Phase1_Beige",
   "skipHoldTime": 1.0,
   "beats": [
+    { "type": "music", "id": "music_memory" },
     // 1. The orb pulses; white flash
     { "type": "fade", "to": "clear", "time": 0.6 },
     { "type": "spawn", "id": "orb",  "character": "Orb",         "anim": "Idle", "pos": [2.0, -3.2], "scale": 1.6, "layer": "Props" },

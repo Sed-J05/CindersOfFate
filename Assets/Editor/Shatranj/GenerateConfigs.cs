@@ -25,6 +25,9 @@ namespace Shatranj.EditorTools
 
         public static string EnemyPath(string name) => $"{EnemiesFolder}/Enemy_{name}.asset";
         public static string BossPath(string name) => $"{BossesFolder}/Boss_{name}.asset";
+        public const string ResourcesFolder = "Assets/Resources";
+        public const string FeelPath = ResourcesFolder + "/" + FeelConfig.ResourcePath + ".asset";
+
         public static string ThemePath(string name) => $"{ThemesFolder}/Theme_{name}.asset";
         public static string FlamePath(string name) => $"{FlameFolder}/Flame_{name}.asset";
 
@@ -67,6 +70,10 @@ namespace Shatranj.EditorTools
 
                 Create<FlameConfig>(FlamePath("Phase1"), ConfigDefaults.FlamePhase1, ref created, ref skipped, report);
                 Create<FlameConfig>(FlamePath("Phase2"), ConfigDefaults.FlamePhase2, ref created, ref skipped, report);
+
+                // Prompt 17: game-feel presets, loaded by Feel from Resources (no scene references needed).
+                EnsureFolder(ResourcesFolder);
+                Create<FeelConfig>(FeelPath, null, ref created, ref skipped, report);
 
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();

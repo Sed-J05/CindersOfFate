@@ -65,6 +65,7 @@ namespace Shatranj.Level
 
         protected void ShowPrompt()
         {
+            AudioManager.Play("ui_prompt");
             if (!CanInteract || string.IsNullOrEmpty(promptText)) return;
             promptShown = true;
             GameEvents.RaiseInteractPromptShown(promptText, (Vector2)transform.position + promptOffset);

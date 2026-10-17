@@ -16,7 +16,6 @@ namespace Shatranj.Bosses
 
         protected const float StopDistance = 1.3f;
         private const float BackStepHopSpeed = 4f;
-        private const float MinTelegraph = 0.05f;
 
         protected override void Awake()
         {
@@ -26,7 +25,7 @@ namespace Shatranj.Bosses
             backStep = config.FindMove("BackStep") ?? new BossMoveConfig("BackStep", 0f, 0f, 0f, config.backstepDistance, 0) { duration = config.backstepTime };
         }
 
-        protected float Telegraph(BossMoveConfig move) => Mathf.Max(MinTelegraph, move.telegraph - TelegraphReduction);
+        protected float Telegraph(BossMoveConfig move) => TelegraphTime(move);
 
         protected IEnumerator DoAdvance()
         {

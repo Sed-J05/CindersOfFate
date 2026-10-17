@@ -145,12 +145,15 @@ namespace Shatranj.Core
             if (State != GameState.Playing) return;
             stateBeforePause = State;
             SetState(GameState.Paused);
+            Rumble.Stop();
+            AudioManager.Play("ui_pause");
         }
 
         public void Resume()
         {
             if (State != GameState.Paused) return;
             SetState(stateBeforePause);
+            AudioManager.Play("ui_resume");
         }
 
         public void TogglePause()

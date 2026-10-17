@@ -22,7 +22,6 @@ namespace Shatranj.Bosses
     {
         [SerializeField] private GameObject[] minionPrefabs = new GameObject[0];
 
-        private const float MinTelegraph = 0.05f;
         private const float FlySpeed = 9f;
         private const float WhiteFlashIn = 0.12f, WhiteFlashOut = 0.9f;
 
@@ -136,7 +135,7 @@ namespace Shatranj.Bosses
             return true;
         }
 
-        private float Telegraph(BossMoveConfig move) => Mathf.Max(MinTelegraph, move.telegraph - TelegraphReduction);
+        private float Telegraph(BossMoveConfig move) => TelegraphTime(move);
 
         private float CooldownMultiplier => IsEnraged ? config.enrageCooldownMultiplier : 1f;
 
@@ -181,7 +180,7 @@ namespace Shatranj.Bosses
             Stop();
             FacePlayer();
             Play("Roar");
-            ScreenShake.Shake(config.stageRoarShake, 0.6f);
+            Feel.Play(FeelEvent.BossStageChange, -1f, config.stageRoarShake / 0.35f);
             if (FlameController.Instance != null) FlameController.Instance.Spike();
             AudioManager.Play("zulmat_roar");
             yield return Wait(config.stageTransitionInvulnerability);

@@ -1,5 +1,6 @@
 using System.Collections;
 using Shatranj.Core;
+using Shatranj.Data;
 using Shatranj.Enemies;
 using Shatranj.Player;
 using Shatranj.Visuals;
@@ -94,7 +95,7 @@ namespace Shatranj.Bosses
 
             Play("Swipe");
             AudioManager.Play("zulmat_swipe");
-            ScreenShake.Shake(0.2f, 0.25f);
+            Feel.Play(FeelEvent.HeavyImpact, -1f, 0.7f);
             FxPool.Play("Giant_Swipe", new Vector2(rb.position.x, floorY + config.swipeHeight * 0.5f), facing, swipe.reach / SwipeArtWidth);
             // Full floor width in front: from the body centre to `reach`, from the floor to `swipeHeight`.
             yield return HitWindow(swipe.reach, swipe.active, swipe.damage, config.swipeHeight, 0f, 0f);

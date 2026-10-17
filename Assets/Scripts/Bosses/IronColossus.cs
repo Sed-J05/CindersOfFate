@@ -20,7 +20,6 @@ namespace Shatranj.Bosses
     /// </summary>
     public class IronColossus : BossBase
     {
-        private const float MinTelegraph = 0.05f;
         private const float ShockwaveHeight = 1.2f;   // the wave hugs the floor: jumping clears it
         private const float ShockwaveArtWidth = 2.56f; // Shockwave canvas 256 px at 100 px/u
         private const float ShieldArcScale = 0.8f;
@@ -79,7 +78,7 @@ namespace Shatranj.Bosses
             }
         }
 
-        private float Telegraph(BossMoveConfig move) => Mathf.Max(MinTelegraph, move.telegraph - TelegraphReduction);
+        private float Telegraph(BossMoveConfig move) => TelegraphTime(move);
 
         private int Damage(BossMoveConfig move) => move.damage > 0 ? move.damage : config.attackDamage;
 
@@ -166,7 +165,7 @@ namespace Shatranj.Bosses
 
             Play("Slash");
             AudioManager.Play("colossus_slash");
-            ScreenShake.Shake(0.08f, 0.12f);
+            Feel.Play(FeelEvent.LightImpact);
             // Wide arc: from just behind the body centre to 3.2 u in front, taller than the boss.
             yield return HitWindow(arc.reach, arc.active, Damage(arc), config.bodySize.y + 0.6f, 0f, -0.3f);
 
@@ -260,7 +259,7 @@ namespace Shatranj.Bosses
             FxPool.Play("Shockwave", feet + new Vector2(0f, 0.3f), 1, scale);
             FxPool.Play("Dust_Puff", feet + new Vector2(-radius * 0.6f, 0.3f), -1, 1.5f);
             FxPool.Play("Dust_Puff", feet + new Vector2(radius * 0.6f, 0.3f), 1, 1.5f);
-            ScreenShake.Shake(0.3f, 0.3f);
+            Feel.Play(FeelEvent.HeavyImpact);
             AudioManager.Play("colossus_slam");
             TryHitPlayer(feet + new Vector2(0f, ShockwaveHeight * 0.5f), new Vector2(radius * 2f, ShockwaveHeight), Damage(jump));
         }
@@ -282,7 +281,7 @@ namespace Shatranj.Bosses
             float t = 0f;
             while (t < duration)
             {
-                if (WallAhead(0.15f)) { ScreenShake.Shake(0.15f, 0.15f); break; }
+                if (WallAhead(0.15f)) { Feel.Play(FeelEvent.MediumImpact); break; }
                 SetVelocityX(facing * speed);
                 if (!hit)
                 {
@@ -313,6 +312,7 @@ namespace Shatranj.Bosses
             FxPool.Play("Block_Clink", spark);
             Play("Block_Impact");
             AudioManager.Play("colossus_clink");
+            Feel.Play(FeelEvent.GuardBlock);
             var pc = info.source.GetComponent<PlayerController>();
             if (pc != null) pc.ApplyRecoil(side * config.blockPushback, config.blockPushbackTime);
             return false;

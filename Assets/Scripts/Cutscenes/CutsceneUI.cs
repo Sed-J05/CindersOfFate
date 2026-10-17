@@ -111,6 +111,7 @@ namespace Shatranj.Cutscenes
         public IEnumerator ShowLine(string speaker, string line, string style, Func<bool> advancePressed, Func<bool> skipping)
         {
             captionGroup.alpha = 1f;
+            AudioManager.Play("ui_text");
             speakerText.text = speaker ?? "";
             ApplyStyle(style);
             lineText.text = line;

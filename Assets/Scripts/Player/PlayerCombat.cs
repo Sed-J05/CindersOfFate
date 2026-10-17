@@ -153,7 +153,8 @@ namespace Shatranj.Player
         private void OnHitLanded(Collider2D col, Vector2 targetCenter, DamageInfo info)
         {
             bool boss = col.GetComponentInParent<IBossTarget>() != null;
-            HitStop.Do(boss ? config.hitStopOnBossHit : config.hitStopOnHit);
+            // Docs/03 §11: hit-stop (PlayerConfig) + shake + rumble (FeelConfig).
+            Feel.Play(boss ? FeelEvent.PlayerHitBoss : FeelEvent.PlayerHitEnemy, boss ? config.hitStopOnBossHit : config.hitStopOnHit);
 
             if (!attackUp && controller.IsGrounded)
                 controller.ApplyRecoil(-controller.Facing * config.recoilSpeed, config.recoilTime);

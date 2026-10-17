@@ -6,6 +6,7 @@
   "skipHoldTime": 1.0,
   "instantSkipFromCycle": 2,
   "beats": [
+    { "type": "music", "id": "music_intro" },
     // 1. Black → parchment, title card 2.5 s
     { "type": "fade", "to": "black", "time": 0 },
     { "type": "image", "id": "logo", "sprite": "Title_Logo", "fit": "none", "layer": "Foreground", "fade": 0,

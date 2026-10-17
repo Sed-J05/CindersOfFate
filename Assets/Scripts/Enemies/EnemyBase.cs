@@ -34,6 +34,7 @@ namespace Shatranj.Enemies
         private EnemySpawner spawner;
         private string roomId = "";
         private bool roomActive = true;
+        private PuppetShadow shadow;
         private bool dead;
         private bool dying;
         private float deathTimer;
@@ -60,6 +61,7 @@ namespace Shatranj.Enemies
         {
             rb = GetComponent<Rigidbody2D>();
             health = GetComponent<Health>();
+            shadow = GetComponentInChildren<PuppetShadow>(true);
             if (config == null)
             {
                 Debug.LogError($"{name}: no EnemyConfig assigned — using defaults.", this);
@@ -162,7 +164,9 @@ namespace Shatranj.Enemies
         {
             roomActive = active;
             if (rb != null) rb.simulated = active;
-            if (animator != null) animator.Speed = active ? 1f : 0f;
+            // Active-room culling (Prompt 17): frozen enemies stop animating and stop updating their drop-shadows.
+            if (animator != null) { animator.Speed = active ? 1f : 0f; animator.enabled = active || dead; }
+            if (shadow != null) shadow.enabled = active;
         }
 
         // ------------------------------------------------------------------
@@ -444,6 +448,7 @@ namespace Shatranj.Enemies
 
             if (animator != null && animator.HasClip("Death")) animator.Play("Death", true);
             AudioManager.Play("enemy_death");
+            Feel.Play(FeelEvent.EnemyDeath, -1f, FlameScale);
 
             if (spawner != null) spawner.MarkKilled();
             else GameEvents.RaiseEnemyKilled(name);

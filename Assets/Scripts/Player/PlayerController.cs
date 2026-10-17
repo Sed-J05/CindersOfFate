@@ -125,6 +125,7 @@ namespace Shatranj.Player
             else
             {
                 coyoteTimer -= dt;
+                if (-motor.Velocity.y > airFallSpeed) airFallSpeed = -motor.Velocity.y;
             }
 
             stateTimer += dt;
@@ -236,6 +237,7 @@ namespace Shatranj.Player
             SetState(PlayerState.JumpRise);
             OnJumped?.Invoke();
             AudioManager.Play("player_jump");
+            if (canGroundJump) Dust(0f);   // off the ground only, not air jumps
             return true;
         }
 
@@ -244,6 +246,8 @@ namespace Shatranj.Player
             SetState(PlayerState.Land);
             OnLanded?.Invoke();
             AudioManager.Play("player_land");
+            if (airFallSpeed >= config.landDustMinFallSpeed) Dust(0f);
+            airFallSpeed = 0f;
         }
 
         private void ExitToNeutral()
@@ -256,6 +260,15 @@ namespace Shatranj.Player
         public void ReturnToNeutral() => ExitToNeutral();
 
         /// <summary>Horizontal push for <paramref name="time"/> seconds during an attack (self-recoil on hit).</summary>
+        private float airFallSpeed;
+
+        /// <summary>Dust puff at the feet (jump off the ground, hard landing, dash start). <paramref name="behind"/> u behind the facing.</summary>
+        public void Dust(float behind)
+        {
+            Vector2 feet = (Vector2)transform.position + new Vector2(-Facing * behind, 0.25f);
+            FxPool.Play("Dust_Puff", feet, -Facing, config.dustScale);
+        }
+
         public void ApplyRecoil(float velocityX, float time)
         {
             recoilVelocityX = velocityX;
@@ -340,6 +353,7 @@ namespace Shatranj.Player
         /// <summary>Respawn helper: teleport, zero velocity, back to Idle.</summary>
         public void Respawn(Vector2 position)
         {
+            AudioManager.Play("player_respawn");
             motor.Teleport(position);
             coyoteTimer = 0f;
             jumpCutDone = true;

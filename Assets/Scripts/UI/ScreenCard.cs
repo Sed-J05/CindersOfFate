@@ -1,3 +1,4 @@
+using Shatranj.Core;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Shatranj.UI
         /// <summary>Shows a card and returns the coroutine; yield on it to wait for the whole card.</summary>
         public static Coroutine Show(MonoBehaviour host, string title, string subtitle, float backdropAlpha, float fade, float hold, Color? textColor = null)
         {
+            AudioManager.Play("ui_card");
             RectTransform canvas = UIFactory.Canvas("[ScreenCard]", null, 31500);
             var card = canvas.gameObject.AddComponent<ScreenCard>();
             card.group = canvas.gameObject.AddComponent<CanvasGroup>();

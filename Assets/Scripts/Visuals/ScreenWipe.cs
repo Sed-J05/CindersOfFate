@@ -148,6 +148,7 @@ namespace Shatranj.Visuals
         {
             if (!skippedFirstRoom) { skippedFirstRoom = true; return; }
             if (!roomWipeEnabled || instant || burning) return;
+            AudioManager.Play("room_transition");
             Sweep(roomWipeColor, roomWipeTime);
         }
 

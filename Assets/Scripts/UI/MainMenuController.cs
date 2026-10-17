@@ -22,6 +22,7 @@ namespace Shatranj.UI
 
         private void Start()
         {
+            AudioManager.PlayMusic("music_menu");
             GameManager gm = GameManager.Ensure();
             gm.SetState(GameState.Menu);
             Time.timeScale = 1f;

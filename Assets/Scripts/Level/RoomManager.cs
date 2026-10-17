@@ -79,14 +79,14 @@ namespace Shatranj.Level
 
         private void Start()
         {
-            player = FindFirstObjectByType<PlayerController>();
+            player = PlayerController.Active != null ? PlayerController.Active : FindFirstObjectByType<PlayerController>();
             LocatePlayer(instant: true);
         }
 
         /// <summary>Finds the room containing the player and enters it (used after teleports / scene setup).</summary>
         public void LocatePlayer(bool instant)
         {
-            if (player == null) player = FindFirstObjectByType<PlayerController>();
+            if (player == null) player = PlayerController.Active;   // static, no per-frame scene search (Prompt 17)
             if (player == null) return;
             RoomBounds room = RoomAt(player.Position);
             if (room != null) Enter(room, instant);
@@ -207,7 +207,7 @@ namespace Shatranj.Level
 
         public void TeleportPlayerTo(Vector2 position)
         {
-            if (player == null) player = FindFirstObjectByType<PlayerController>();
+            if (player == null) player = PlayerController.Active;   // static, no per-frame scene search (Prompt 17)
             if (player == null) return;
             player.Respawn(position);
             RoomBounds room = RoomAt(position);

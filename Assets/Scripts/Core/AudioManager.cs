@@ -26,11 +26,28 @@ namespace Shatranj.Core
 
         public static bool Has(string id) => !string.IsNullOrEmpty(id) && clips.ContainsKey(id);
 
+        /// <summary>Drop-in clips (Docs/AUDIO_HOOKS.md): Resources/Audio/&lt;id&gt; for sfx, Resources/Audio/Music/&lt;id&gt; for music.</summary>
+        public const string SfxFolder = "Audio/", MusicFolder = "Audio/Music/";
+
+        private static readonly HashSet<string> notInResources = new HashSet<string>();
+
+        /// <summary>Registered clip, else a one-time Resources lookup (misses are remembered, so no repeated loads).</summary>
+        private static AudioClip Find(string id, string folder)
+        {
+            if (clips.TryGetValue(id, out AudioClip clip) && clip != null) return clip;
+            if (!Application.isPlaying || notInResources.Contains(id)) return null;
+            clip = Resources.Load<AudioClip>(folder + id);
+            if (clip != null) clips[id] = clip;
+            else notInResources.Add(id);
+            return clip;
+        }
+
         /// <summary>Plays a one-shot SFX by id. No-op if nothing is registered under that id.</summary>
         public static void Play(string id, float volume = 1f)
         {
             if (string.IsNullOrEmpty(id)) return;
-            if (!clips.TryGetValue(id, out AudioClip clip) || clip == null)
+            AudioClip clip = Find(id, SfxFolder);
+            if (clip == null)
             {
                 NoteMissing(id);
                 return;
@@ -43,7 +60,8 @@ namespace Shatranj.Core
         public static void PlayMusic(string id, float volume = 1f, bool loop = true)
         {
             if (string.IsNullOrEmpty(id)) return;
-            if (!clips.TryGetValue(id, out AudioClip clip) || clip == null)
+            AudioClip clip = Find(id, MusicFolder);
+            if (clip == null)
             {
                 NoteMissing(id);
                 return;

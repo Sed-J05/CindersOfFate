@@ -107,6 +107,8 @@ namespace Shatranj.Player
             health.Health.GrantInvulnerability(config.dashDuration);
             controller.EnterTimedState(PlayerState.Dash, config.dashDuration);
             AudioManager.Play("player_dash");
+            Feel.Play(FeelEvent.PlayerDash);
+            if (controller.IsGrounded) controller.Dust(0.4f);
         }
 
         private void HandleStateChanged(PlayerState previous, PlayerState next)

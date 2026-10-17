@@ -5,6 +5,7 @@
   "theme": "Phase2_Inverted",
   "skipHoldTime": 1.0,
   "beats": [
+    { "type": "music", "id": "music_ending" },
     // 1. Zulmat kneels (death pose); the flame flickers and turns purple
     { "type": "fade", "to": "clear", "time": 0.4 },
     { "type": "spawn", "id": "zulmat", "character": "Zulmat", "anim": "Death", "pos": [2.6, -4.6], "flip": true, "layer": "Enemies" },

@@ -14,8 +14,34 @@ namespace Shatranj.Level
     {
         [SerializeField] private Transform defaultSpawn;
 
+        // ---- Music hooks (Prompt 17; ids listed in Docs/AUDIO_HOOKS.md) ----
+        public const string MusicPhase1 = "music_phase1", MusicPhase2 = "music_phase2";
+        public const string MusicBoss = "music_boss", MusicFinalBoss = "music_final_boss";
+
+        private void OnEnable()
+        {
+            GameEvents.OnBossStarted += HandleBossStarted;
+            GameEvents.OnBossDefeated += HandleBossEnded;
+            GameEvents.OnBossReset += HandleBossEnded;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.OnBossStarted -= HandleBossStarted;
+            GameEvents.OnBossDefeated -= HandleBossEnded;
+            GameEvents.OnBossReset -= HandleBossEnded;
+        }
+
+        private static string PhaseMusic => GameManager.HasInstance && GameManager.Instance.Phase >= GameConstants.Phase2 ? MusicPhase2 : MusicPhase1;
+
+        private void HandleBossStarted(string bossId, string displayName, float[] stages) =>
+            AudioManager.PlayMusic(bossId == "zulmat" ? MusicFinalBoss : MusicBoss);
+
+        private void HandleBossEnded(string bossId) => AudioManager.PlayMusic(PhaseMusic);
+
         private void Start()
         {
+            AudioManager.PlayMusic(PhaseMusic);
             PlayerController player = FindFirstObjectByType<PlayerController>();
             if (player == null) return;
             var health = player.GetComponent<PlayerHealth>();

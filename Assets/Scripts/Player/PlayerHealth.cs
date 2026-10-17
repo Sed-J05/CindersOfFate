@@ -137,6 +137,7 @@ namespace Shatranj.Player
         {
             HitStop.Do(config.hurtHitStop);
             ScreenShake.Shake(config.hurtShakeAmplitude, config.hurtShakeDuration);
+            Feel.RumbleOnly(FeelEvent.PlayerHurt);
             AudioManager.Play("player_hurt");
             GameEvents.RaisePlayerDamaged(info);
 
@@ -146,6 +147,9 @@ namespace Shatranj.Player
             var knockback = new Vector2(dirX * config.hurtKnockbackX, config.hurtKnockbackY);
             controller.ApplyHurt(knockback, config.hurtStunTime);
             if (animator != null) animator.StartBlink(config.hurtInvulnerabilityTime, config.hurtBlinkHz);
+
+            if (info.type == DamageType.Hazard) AudioManager.Play("hazard_spikes");
+            else if (info.type == DamageType.Lava) AudioManager.Play("hazard_lava");
 
             if (info.type == DamageType.Hazard)
             {
@@ -213,6 +217,7 @@ namespace Shatranj.Player
             if (animator != null) animator.StopBlink();
             if (GameManager.HasInstance) GameManager.Instance.SetState(GameState.Dead);
             AudioManager.Play("player_death");
+            Feel.Play(FeelEvent.PlayerDeath);
             GameEvents.RaisePlayerDied();
             StartCoroutine(DeathFlow());
         }

@@ -1,4 +1,5 @@
 using System;
+using Shatranj.Core;
 using Shatranj.Data;
 using TMPro;
 using UnityEngine;
@@ -97,7 +98,8 @@ namespace Shatranj.UI
                 cb.selectedColor = cb.highlightedColor;
                 button.colors = cb;
             }
-            button.onClick.AddListener(() => onClick?.Invoke());
+            button.onClick.AddListener(() => { AudioManager.Play("ui_confirm"); onClick?.Invoke(); });
+            r.gameObject.AddComponent<MenuButtonFeedback>();   // select scale + "ui_move" (Prompt 17)
             TextMeshProUGUI t = Text("Label", r, label, 34, TextAlignmentOptions.Center, Ink);
             t.fontStyle = FontStyles.Bold;
             return button;
