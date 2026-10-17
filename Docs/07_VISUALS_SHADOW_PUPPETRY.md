@@ -29,13 +29,13 @@ Render stack (back → front):
 ### Phase 2 — "Inverted theatre" (flame = blue) — *literal inversion of Phase 1*
 | Role | Hex |
 |---|---|
-| Parchment base | `#0E1424` (navy-black) |
-| Parchment burnt edge | `#03050A` |
+| Parchment base | `#7D8A9C` grey-blue (beige paper texture × tint `#8AA2DB`) — changed from navy `#0E1424` by the team, D-154 |
+| Parchment burnt edge | `#3A4350` |
 | Environment light (inverted dark) | `#D8DEE9` |
 | Environment mid | `#A7B0C4` |
 | Environment accent (inverted muted red) | `#5E86A8` |
 | Enemy base (white) | `#F2F8FF` · blue `#6EC1FF` · deep blue `#2C6FD1` |
-| Protagonist | unchanged **+ bright rim outline `#FFFFFF` and soft cyan glow** for contrast |
+| Protagonist | **black/red** (team decision, D-154): painted white body → black `#0D0809`, blue → red `#C8232C`, deep blue → deep red `#5A0D12`, recoloured by shader |
 | **Zulmat (final boss)** | black `#0A0305` + crimson rim `#FF2A3A` (inverse of current enemies) |
 | Flame core / glow | `#CFEAFF` / `#3EA0FF` |
 ### Ending — flame = purple `#9B4DFF` core `#E5CCFF`; parchment base shifts to `#1A1030`.

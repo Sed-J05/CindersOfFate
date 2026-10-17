@@ -67,7 +67,7 @@ Map, shops, currency, charms, multiple endings, pogo, wall-jump, swimming, onlin
 2. "Protag health +2 after phase 1 (was 5)" → **7 hearts** in Phase 2.
 3. Fireball and dash unlock **at the start of Phase 2** (after cutscene 2). Healing exists from the start.
 4. "Final boss always has inverted colours" → the boss is always the **inverse palette of the current regular enemies** — i.e. red/black in Phase 2 (where regular enemies are white/blue). In cutscene 2 he appears as a red-black silhouette with glowing eyes.
-5. In Phase 2 the **protagonist stays blue/white** but gets a bright outline/glow so he stays readable against white/blue enemies.
+5. ~~In Phase 2 the protagonist stays blue/white with an outline/glow.~~ **Changed by the team (D-154): in Phase 2 the protagonist turns black/red** (reads clearly against white/blue enemies on grey-blue paper).
 6. Phase 1 flame is orange, **slow and cosmetic** (enemies don't scale). Phase 2 flame is the **blue fast arc** that scales enemies.
 7. Phase 2 enemy "size increase" applies to sprite **and** collider (fair hitboxes), max ×1.4, pivot at feet. Protagonist never scales. Bosses never scale with flame.
 8. Phase 2 flame progress is saved at benches; **dying restores bench's flame progress** (deaths don't compound the size penalty).

@@ -13,6 +13,29 @@ namespace Shatranj.EditorTools
     /// </summary>
     public static class PlayerFactory
     {
+        public const string ProtagonistMaterialPath = EnemyPrefabFactory.MaterialsFolder + "/SpriteProtagonistLit.mat";
+        public const string ProtagonistShaderName = "Shatranj/SpriteProtagonistLit";
+
+        /// <summary>
+        /// Sprite-Lit material with the theme recolour (D-154: black/red protagonist in Phase 2). Created once; falls back
+        /// to URP Sprite-Lit-Default (no recolour) if the shader has not imported yet.
+        /// </summary>
+        public static Material GetOrCreateProtagonistMaterial()
+        {
+            var mat = AssetDatabase.LoadAssetAtPath<Material>(ProtagonistMaterialPath);
+            if (mat != null) return mat;
+            Shader shader = Shader.Find(ProtagonistShaderName);
+            if (shader == null)
+            {
+                Debug.LogWarning($"PlayerFactory: shader '{ProtagonistShaderName}' not found — protagonist uses Sprite-Lit-Default (no Phase 2 recolour) until it imports.");
+                return SceneBuildUtil.SpriteLitMaterial();
+            }
+            GenerateConfigs.EnsureFolder(EnemyPrefabFactory.MaterialsFolder);
+            mat = new Material(shader) { name = "SpriteProtagonistLit" };
+            AssetDatabase.CreateAsset(mat, ProtagonistMaterialPath);
+            return mat;
+        }
+
         public static GameObject Build(PlayerConfig config, Vector2 position, Transform respawnPoint = null)
         {
             Sprite sprite = SceneBuildUtil.GetOrCreateWhiteSprite();
@@ -52,7 +75,8 @@ namespace Shatranj.EditorTools
             sr.sprite = hasClips ? animSet.Find("Idle")?.frames[0] : sprite;
             sr.color = hasClips ? Color.white : PlayerAnimator.TintFor(PlayerState.Idle);
             sr.sortingLayerName = GameLayers.Sorting.Player;
-            if (lit != null) sr.sharedMaterial = lit;
+            Material protagonist = GetOrCreateProtagonistMaterial();
+            if (protagonist != null) sr.sharedMaterial = protagonist;
             var spriteAnimator = visual.AddComponent<SpriteAnimator>();
             visual.AddComponent<PuppetShadow>();   // Docs/07 §5
             if (hasClips) SceneBuildUtil.SetReference(spriteAnimator, "set", animSet);

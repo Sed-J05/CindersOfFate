@@ -228,8 +228,19 @@ namespace Shatranj.EditorTools
         // Themes (Docs/07 §2)
         // ------------------------------------------------------------------
 
+        /// <summary>
+        /// Bump when theme defaults change: VisualRigFactory re-applies these defaults (colours and numbers only, never
+        /// sprite slots) to theme assets whose <c>defaultsRevision</c> is older. 2 = Phase 2 grey-blue paper + black/red protagonist.
+        /// </summary>
+        public const int ThemeRevision = 2;
+
+        /// <summary>Phase 2 paper: the beige parchment texture multiplied by this tint reads grey-blue (≈ #7D8A9C).</summary>
+        public static readonly Color Phase2ParchmentTint = ThemeConfig.Hex("#8AA2DB");
+        public static readonly Color EndingParchmentTint = new Color(0.78f, 0.62f, 1f);
+
         public static void ThemePhase1Beige(ThemeConfig t)
         {
+            t.defaultsRevision = ThemeRevision;
             t.id = "Phase1_Beige"; t.tileTheme = "Cave";
             t.parchmentBase = ThemeConfig.Hex("#E8D9B5"); t.parchmentEdge = ThemeConfig.Hex("#9C8460"); t.frameTint = ThemeConfig.Hex("#9C8460");
             t.environmentDark = ThemeConfig.Hex("#26262A"); t.environmentMid = ThemeConfig.Hex("#4A4A52"); t.environmentAccent = ThemeConfig.Hex("#6B3A3A");
@@ -243,12 +254,20 @@ namespace Shatranj.EditorTools
 
         public static void ThemePhase2Inverted(ThemeConfig t)
         {
+            t.defaultsRevision = ThemeRevision;
             t.id = "Phase2_Inverted"; t.tileTheme = "Castle";
-            t.parchmentBase = ThemeConfig.Hex("#0E1424"); t.parchmentEdge = ThemeConfig.Hex("#03050A"); t.frameTint = ThemeConfig.Hex("#03050A");
+            // D-154: grey-blue paper (beige texture × tint) instead of the dark navy of Docs/07 §2.
+            t.parchmentBase = ThemeConfig.Hex("#7D8A9C"); t.parchmentEdge = ThemeConfig.Hex("#3A4350"); t.frameTint = ThemeConfig.Hex("#3A4350");
+            t.parchmentSpriteTint = Phase2ParchmentTint;
             t.environmentDark = ThemeConfig.Hex("#D8DEE9"); t.environmentMid = ThemeConfig.Hex("#A7B0C4"); t.environmentAccent = ThemeConfig.Hex("#5E86A8");
             t.enemyBase = ThemeConfig.Hex("#F2F8FF"); t.enemyPrimary = ThemeConfig.Hex("#6EC1FF"); t.enemyAccent = ThemeConfig.Hex("#2C6FD1");
             t.protagonistWhite = ThemeConfig.Hex("#EAF6FF"); t.protagonistBlue = ThemeConfig.Hex("#4FA3FF"); t.protagonistDeepBlue = ThemeConfig.Hex("#1B4F9C");
             t.protagonistOutline = true; t.protagonistOutlineColor = Color.white; t.protagonistGlowColor = new Color(0.4f, 1f, 1f, 0.6f);
+            // D-154: protagonist turns black/red in Phase 2 (painted white body → black, blue → red, deep blue → deep red).
+            t.protagonistRecolor = 1f;
+            t.protagonistRecolorLight = ThemeConfig.Hex("#0D0809");
+            t.protagonistRecolorMid = ThemeConfig.Hex("#C8232C");
+            t.protagonistRecolorDark = ThemeConfig.Hex("#5A0D12");
             t.flameCore = ThemeConfig.Hex("#CFEAFF"); t.flameGlow = ThemeConfig.Hex("#3EA0FF");
             t.flameLightIntensity = 1.3f; t.globalLightColor = ThemeConfig.Hex("#C9D8FF"); t.globalLightIntensity = 0.55f;
             t.shadowAlpha = 0.35f; t.contrastBoost = 0.1f;
@@ -259,6 +278,7 @@ namespace Shatranj.EditorTools
             ThemePhase2Inverted(t);
             t.id = "Ending_Purple";
             t.parchmentBase = ThemeConfig.Hex("#1A1030"); t.parchmentEdge = ThemeConfig.Hex("#07030F"); t.frameTint = ThemeConfig.Hex("#07030F");
+            t.parchmentSpriteTint = EndingParchmentTint;
             t.flameCore = ThemeConfig.Hex("#E5CCFF"); t.flameGlow = ThemeConfig.Hex("#9B4DFF");
             t.globalLightColor = ThemeConfig.Hex("#D8C6FF");
         }

@@ -9,7 +9,7 @@ namespace Shatranj.Visuals
     /// <summary>
     /// Docs/07 §7: applies a <see cref="ThemeConfig"/> to the whole stage and cross-fades between themes —
     /// parchment texture (two-renderer cross-fade) and tint, burnt-edge frame, BG layer sprites, Global Light 2D,
-    /// flame light / glow / core colours, drop-shadow alpha and the Volume's colour grade. Follows the game phase
+    /// flame light / glow / core colours, drop-shadow alpha, the protagonist recolour and the Volume's colour grade. Follows the game phase
     /// (Phase1_Beige ↔ Phase2_Inverted); cutscenes call <see cref="Apply(string, float)"/> directly.
     /// </summary>
     [DisallowMultipleComponent]
@@ -60,6 +60,7 @@ namespace Shatranj.Visuals
         private void OnDestroy()
         {
             if (Instance == this) Instance = null;
+            ProtagonistPalette.Reset();   // globals outlive scenes / play mode
         }
 
         private void OnEnable() => GameEvents.OnPhaseChanged += HandlePhaseChanged;
@@ -231,6 +232,7 @@ namespace Shatranj.Visuals
             if (targetCamera != null) targetCamera.backgroundColor = Color.Lerp(a.parchmentBase, b.parchmentBase, k);
 
             PuppetShadow.ThemeAlpha = Mathf.Lerp(a.shadowAlpha, b.shadowAlpha, k);
+            ProtagonistPalette.Apply(a, b, k);   // Phase 2: protagonist black/red (D-154)
 
             if (colorAdjustments != null)
             {

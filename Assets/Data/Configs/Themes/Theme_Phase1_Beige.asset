@@ -39,6 +39,10 @@ MonoBehaviour:
   protagonistOutline: 0
   protagonistOutlineColor: {r: 1, g: 1, b: 1, a: 1}
   protagonistGlowColor: {r: 0.4, g: 1, b: 1, a: 0.5}
+  protagonistRecolor: 0
+  protagonistRecolorDark: {r: 0.3529412, g: 0.050980393, b: 0.07058824, a: 1}
+  protagonistRecolorMid: {r: 0.78431374, g: 0.13725491, b: 0.17254902, a: 1}
+  protagonistRecolorLight: {r: 0.050980393, g: 0.03137255, b: 0.03529412, a: 1}
   flameCore: {r: 1, g: 0.8235294, b: 0.47843137, a: 1}
   flameGlow: {r: 1, g: 0.5411765, b: 0.16862746, a: 1}
   flameLightIntensity: 1.2
@@ -52,3 +56,4 @@ MonoBehaviour:
   volumeProfile: {fileID: 0}
   uiTint: {r: 1, g: 1, b: 1, a: 1}
   contrastBoost: 0
+  defaultsRevision: 2

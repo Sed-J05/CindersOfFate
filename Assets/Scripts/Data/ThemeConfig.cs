@@ -50,6 +50,14 @@ namespace Shatranj.Data
         public bool protagonistOutline = false;
         public Color protagonistOutlineColor = Color.white;
         public Color protagonistGlowColor = new Color(0.4f, 1f, 1f, 0.5f);
+        [Range(0f, 1f), Tooltip("0 = protagonist drawn as painted. 1 = recoloured by brightness: the painted deep blue / blue / white become the three colours below (Phase 2 black/red). Needs the Shatranj/SpriteProtagonistLit shader.")]
+        public float protagonistRecolor = 0f;
+        [Tooltip("Replaces the painted deep blue (shading).")]
+        public Color protagonistRecolorDark = Hex("#5A0D12");
+        [Tooltip("Replaces the painted blue (accents).")]
+        public Color protagonistRecolorMid = Hex("#C8232C");
+        [Tooltip("Replaces the painted white (the body).")]
+        public Color protagonistRecolorLight = Hex("#0D0809");
 
         [Header("Flame & lights (Docs/07 §3)")]
         public Color flameCore = Hex("#FFD27A");
@@ -70,6 +78,9 @@ namespace Shatranj.Data
         public VolumeProfile volumeProfile;
         public Color uiTint = Color.white;
         public float contrastBoost = 0f;
+
+        [HideInInspector, Tooltip("Version of the generator defaults this asset was last filled with (see ConfigDefaults.ThemeRevision).")]
+        public int defaultsRevision;
 
         /// <summary>"#RRGGBB" or "#RRGGBBAA" → Color. Falls back to magenta on a bad string so mistakes are visible.</summary>
         public static Color Hex(string hex)

@@ -142,11 +142,34 @@ namespace Shatranj.EditorTools
         /// <summary>Fills empty sprite slots on the four theme assets (never overwrites a sprite set by hand).</summary>
         private static void FillThemeSprites(StringBuilder report)
         {
+            UpgradeTheme("Phase1_Beige", ConfigDefaults.ThemePhase1Beige, report);
+            UpgradeTheme("Phase2_Inverted", ConfigDefaults.ThemePhase2Inverted, report);
+            UpgradeTheme("Ending_Purple", ConfigDefaults.ThemeEndingPurple, report);
+            UpgradeTheme("Cutscene", ConfigDefaults.ThemeCutscene, report);
+
             Fill("Phase1_Beige", "Parchment_Beige", "BG_Cave_Far", "BG_Cave_Mid", Color.white);
-            Fill("Phase2_Inverted", "Parchment_Inverted", "BG_Castle_Far", "BG_Castle_Mid", Color.white);
-            Fill("Ending_Purple", "Parchment_Inverted", "BG_Castle_Far", "BG_Castle_Mid", new Color(0.78f, 0.62f, 1f));
+            // D-154: Phase 2 paper is the beige texture tinted grey-blue (Parchment_Inverted.png stays untouched, unused).
+            Fill("Phase2_Inverted", "Parchment_Beige", "BG_Castle_Far", "BG_Castle_Mid", ConfigDefaults.Phase2ParchmentTint);
+            Fill("Ending_Purple", "Parchment_Inverted", "BG_Castle_Far", "BG_Castle_Mid", ConfigDefaults.EndingParchmentTint);
             Fill("Cutscene", "Parchment_Beige", "BG_Cave_Far", "BG_Cave_Mid", new Color(0.88f, 0.86f, 0.82f));
             AssetDatabase.SaveAssets();
+        }
+
+        /// <summary>
+        /// Re-applies the generator defaults (colours and numbers, never sprite slots) to a theme asset made by an older
+        /// generator (<c>defaultsRevision</c> &lt; <see cref="ConfigDefaults.ThemeRevision"/>). Revision 2 also moves the
+        /// Phase 2 paper from the navy Parchment_Inverted placeholder to the tinted beige texture.
+        /// </summary>
+        private static void UpgradeTheme(string theme, System.Action<ThemeConfig> defaults, StringBuilder report)
+        {
+            var t = AssetDatabase.LoadAssetAtPath<ThemeConfig>(GenerateConfigs.ThemePath(theme));
+            if (t == null || t.defaultsRevision >= ConfigDefaults.ThemeRevision) return;
+            int was = t.defaultsRevision;
+            defaults(t);
+            if (theme == "Phase2_Inverted" && t.parchmentSprite == Sprite(Backgrounds + "Parchment_Inverted.png"))
+                t.parchmentSprite = Sprite(Backgrounds + "Parchment_Beige.png");
+            EditorUtility.SetDirty(t);
+            report?.AppendLine($"  theme  {theme}: defaults revision {was} → {ConfigDefaults.ThemeRevision}");
         }
 
         private static void Fill(string theme, string parchment, string far, string mid, Color tint)
