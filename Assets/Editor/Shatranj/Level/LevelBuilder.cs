@@ -384,7 +384,9 @@ namespace Shatranj.EditorTools.Level
             var col = go.AddComponent<TilemapCollider2D>();
             col.compositeOperation = Collider2D.CompositeOperation.Merge;
             var comp = go.AddComponent<CompositeCollider2D>();
-            comp.geometryType = CompositeCollider2D.GeometryType.Polygons;
+            // D-111: solid ground uses Outlines (edge chains, no polygon decomposition that can silently fail on a
+            // level-sized shape with room holes). Hazard triggers keep Polygons so "standing inside" is detected.
+            comp.geometryType = trigger ? CompositeCollider2D.GeometryType.Polygons : CompositeCollider2D.GeometryType.Outlines;
             comp.generationType = CompositeCollider2D.GenerationType.Synchronous;
             comp.isTrigger = trigger;
 

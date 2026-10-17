@@ -91,8 +91,21 @@ namespace Shatranj.Player
             GameEvents.RaiseHealthChanged(health.CurrentHp, health.MaxHp);
         }
 
+        private const float OutOfWorldMargin = 4f;
+
         private void Update()
         {
+            // Safety net: fell below every room (collision hole / bad geometry) → back to safe ground, logged.
+            if (!dying && hazardRoutine == null && Level.RoomManager.Instance != null
+                && transform.position.y < Level.RoomManager.Instance.WorldBottom - OutOfWorldMargin)
+            {
+                Debug.LogWarning($"PlayerHealth: fell out of the level near x={transform.position.x:0.0} — returning to safe ground. Check the collision in that room.");
+                controller.Respawn(lastSafePosition);
+                if (Level.RoomManager.Instance != null) Level.RoomManager.Instance.LocatePlayer(instant: true);
+                if (CameraController.Main != null) CameraController.Main.SnapToTarget();
+                return;
+            }
+
             // Docs/03 §7: safe ground = standing grounded for 0.5 s outside hazards (hurt/hazard states don't count).
             PlayerState s = controller.State;
             bool calm = controller.IsGrounded && (s == PlayerState.Idle || s == PlayerState.Run || s == PlayerState.Land) && !TouchingHazard();

@@ -28,6 +28,9 @@ namespace Shatranj.Level
         private PlayerController player;
 
         public RoomBounds Current { get; private set; }
+
+        /// <summary>Lowest world y of any room; anything below it has fallen out of the level.</summary>
+        public float WorldBottom { get; private set; } = float.NegativeInfinity;
         public IReadOnlyList<RoomBounds> Rooms => rooms;
         public event Action<RoomBounds> OnRoomChanged;
 
@@ -37,6 +40,12 @@ namespace Shatranj.Level
             rooms.AddRange(FindObjectsByType<RoomBounds>(FindObjectsSortMode.None));
             rooms.Sort((a, b) => a.OrderIndex.CompareTo(b.OrderIndex));
             foreach (RoomBounds r in rooms) roomsById[r.RoomId] = r;
+            if (rooms.Count > 0)
+            {
+                float bottom = float.PositiveInfinity;
+                foreach (RoomBounds r in rooms) bottom = Mathf.Min(bottom, r.WorldRect.yMin);
+                WorldBottom = bottom;
+            }
 
             foreach (EnemySpawner s in FindObjectsByType<EnemySpawner>(FindObjectsSortMode.None))
             {

@@ -15,7 +15,7 @@ Tile = 0.5 u. Map scale: 1 character = 4 tiles horizontally and vertically. Room
 | 6 | `P1_MB1` | The Warden Gate | 40×22 | 320,22 | A | 0 | boss:kage_warden |
 
 - Section **A**: 15/15 enemies ✔
-- Section **B**: 0/20 enemies (pending)
+- Section **B**: 0/20 enemies ✘
 
 ```
                                    ########################################################
@@ -36,5 +36,3 @@ Tile = 0.5 u. Map scale: 1 character = 4 tiles horizontally and vertically. Room
 
 _No rooms authored yet._
 
-- Section **C**: 0/20 enemies (pending)
-- Section **D**: 0/30 enemies (pending)
