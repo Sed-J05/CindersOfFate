@@ -91,9 +91,13 @@ namespace Shatranj.Enemies
             Init();
             int n = Physics2D.CircleCast(from, Mathf.Max(0.02f, radius), dir, wall, hits, distance);
             float allowed = distance;
+            bool blocked = false;
             for (int i = 0; i < n; i++)
-                if (hits[i].distance < allowed) allowed = hits[i].distance;
-            return Mathf.Max(0f, allowed - 0.01f);
+            {
+                if (hits[i].distance < allowed) { allowed = hits[i].distance; blocked = true; }
+            }
+            // Keep a small skin only when something is actually in the way; a free path returns the full distance.
+            return blocked ? Mathf.Max(0f, allowed - 0.01f) : distance;
         }
     }
 }
