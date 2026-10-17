@@ -1,0 +1,147 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40f57d98f5fb62946a7e121da6890dfc, type: 3}
+  m_Name: Boss_KageCaller
+  m_EditorClassIdentifier: 
+  id: kage_caller
+  displayName: Kage Caller
+  epithet: Summoner of Shadows
+  phase: 1
+  bodySize: {x: 1.5, y: 2.3}
+  colliderSize: {x: 1.1, y: 2.1}
+  canvasSize: {x: 384, y: 384}
+  maxHp: 30
+  contactDamage: 1
+  attackDamage: 1
+  moveSpeed: 3.5
+  neverStaggers: 1
+  hitFlashDuration: 0.08
+  deathSlowmoTime: 1.2
+  deathSlowmoScale: 0.25
+  introDuration: 1.5
+  stageThresholds: []
+  stageTransitionInvulnerability: 1.5
+  enrageBelowFraction: 0.5
+  enrageTelegraphReduction: 0.1
+  enrageSpeedMultiplier: 1.25
+  enrageCooldownMultiplier: 1
+  noImmediateRepeat: 1
+  maxSameMoveInRow: 1
+  fairnessGap: 0.4
+  advanceTimeMin: 0.8
+  advanceTimeMax: 1.4
+  backstepDistance: 3
+  backstepTime: 0.35
+  blockDuration: 0
+  blockPushback: 2
+  blockMinHitsToTrigger: 2
+  blockHitWindow: 2
+  blockRandomChance: 0.2
+  counterSlashRange: 2.5
+  summonCount: 2
+  summonCountEnraged: 3
+  summonCap: 3
+  summonCooldown: 12
+  summonCooldownEnraged: 8
+  summonEnemyIds:
+  - crawler
+  - lunger
+  projectileSpeed: 11
+  projectileSize: {x: 1.4, y: 0.6}
+  projectileCanvas: {x: 192, y: 96}
+  projectileLifetime: 2
+  projectileSecondBelowFraction: 0.66
+  projectileSecondDelay: 0.5
+  shrinkScale: 1
+  giantScale: 1
+  transformTime: 0
+  maxLavaZones: 0
+  lavaDuration: 0
+  arenaWidthTiles: 50
+  arenaHeightTiles: 22
+  flameParksDuringFight: 0
+  moves:
+  - name: Advance
+    telegraph: 0
+    active: 0
+    recovery: 0
+    reach: 0
+    speed: 3.5
+    duration: 1.1
+    damage: 0
+    cooldown: 0
+    weight: 1
+    minStage: 1
+    hits: 1
+    hitGap: 0
+    distanceBand: 0
+    extra: 0
+  - name: SlashCombo
+    telegraph: 0.35
+    active: 0.1
+    recovery: 0.6
+    reach: 2.2
+    speed: 0
+    duration: 0
+    damage: 1
+    cooldown: 0
+    weight: 2
+    minStage: 1
+    hits: 2
+    hitGap: 0.25
+    distanceBand: 0
+    extra: 0
+  - name: BlackSlash
+    telegraph: 0.5
+    active: 0.1
+    recovery: 0.6
+    reach: 0
+    speed: 11
+    duration: 0
+    damage: 1
+    cooldown: 0
+    weight: 2
+    minStage: 1
+    hits: 1
+    hitGap: 0
+    distanceBand: 0
+    extra: 0
+  - name: Summon
+    telegraph: 0.8
+    active: 0.1
+    recovery: 0.8
+    reach: 0
+    speed: 0
+    duration: 0
+    damage: 0
+    cooldown: 12
+    weight: 1
+    minStage: 1
+    hits: 1
+    hitGap: 0
+    distanceBand: 0
+    extra: 0
+  - name: BackStep
+    telegraph: 0
+    active: 0
+    recovery: 0
+    reach: 3
+    speed: 0
+    duration: 0.35
+    damage: 0
+    cooldown: 0
+    weight: 1
+    minStage: 1
+    hits: 1
+    hitGap: 0
+    distanceBand: 0
+    extra: 0

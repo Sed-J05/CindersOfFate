@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 495dbc34a36c71245963e711dee5c8e1, type: 3}
+  m_Name: Theme_Phase1_Beige
+  m_EditorClassIdentifier: 
+  id: Phase1_Beige
+  tileTheme: Cave
+  parchmentBase: {r: 0.9098039, g: 0.8509804, b: 0.70980394, a: 1}
+  parchmentEdge: {r: 0.6117647, g: 0.5176471, b: 0.3764706, a: 1}
+  frameTint: {r: 0.6117647, g: 0.5176471, b: 0.3764706, a: 1}
+  parchmentSprite: {fileID: 0}
+  frameSprite: {fileID: 0}
+  environmentDark: {r: 0.14901961, g: 0.14901961, b: 0.16470589, a: 1}
+  environmentMid: {r: 0.2901961, g: 0.2901961, b: 0.32156864, a: 1}
+  environmentAccent: {r: 0.41960785, g: 0.22745098, b: 0.22745098, a: 1}
+  backgroundFar: {fileID: 0}
+  backgroundMid: {fileID: 0}
+  parallaxFar: 0.1
+  parallaxMid: 0.3
+  enemyBase: {r: 0.08627451, g: 0.03529412, b: 0.039215688, a: 1}
+  enemyPrimary: {r: 0.75686276, g: 0.15294118, b: 0.1764706, a: 1}
+  enemyAccent: {r: 1, g: 0.29411766, b: 0.24313726, a: 1}
+  enemyAccentTint: {r: 1, g: 1, b: 1, a: 1}
+  protagonistWhite: {r: 0.91764706, g: 0.9647059, b: 1, a: 1}
+  protagonistBlue: {r: 0.30980393, g: 0.6392157, b: 1, a: 1}
+  protagonistDeepBlue: {r: 0.105882354, g: 0.30980393, b: 0.6117647, a: 1}
+  protagonistOutline: 0
+  protagonistOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  protagonistGlowColor: {r: 0.4, g: 1, b: 1, a: 0.5}
+  flameCore: {r: 1, g: 0.8235294, b: 0.47843137, a: 1}
+  flameGlow: {r: 1, g: 0.5411765, b: 0.16862746, a: 1}
+  flameLightIntensity: 1.2
+  flameLightRadiusScreenMultiplier: 1.6
+  flameLightFalloff: 0.6
+  globalLightColor: {r: 1, g: 0.95686275, b: 0.8784314, a: 1}
+  globalLightIntensity: 0.55
+  shadowAlpha: 0.3
+  shadowOffsetBase: 0.1
+  shadowOffsetMax: 0.35
+  volumeProfile: {fileID: 0}
+  uiTint: {r: 1, g: 1, b: 1, a: 1}
+  contrastBoost: 0

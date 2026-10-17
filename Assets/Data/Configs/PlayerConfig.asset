@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad768f246f558e4aa4a8129f338049e, type: 3}
+  m_Name: PlayerConfig
+  m_EditorClassIdentifier: 
+  colliderSize: {x: 0.7, y: 1.5}
+  colliderOffset: {x: 0, y: 0.75}
+  canvasSize: {x: 256, y: 256}
+  runSpeed: 7.5
+  accelTime: 0.05
+  decelTime: 0.04
+  airControl: 0.9
+  jumpApexHeight: 3.2
+  jumpApexTime: 0.4
+  jumpReleaseMultiplier: 0.4
+  fallGravityMultiplier: 1.5
+  maxFallSpeed: 22
+  coyoteTime: 0.1
+  jumpBufferTime: 0.12
+  airJumps: 0
+  landSquashTime: 0.08
+  attackDamage: 1
+  attackCooldown: 0.4
+  attackBufferTime: 0.15
+  sideHitboxSize: {x: 1.6, y: 1.2}
+  sideHitboxOffset: {x: 1.1, y: 0.95}
+  upHitboxSize: {x: 1.4, y: 1.6}
+  upHitboxOffset: {x: 0, y: 2}
+  hitboxStartDelay: 0.06
+  hitboxActiveTime: 0.08
+  recoilSpeed: 2
+  recoilTime: 0.08
+  hitStopOnHit: 0.05
+  hitStopOnBossHit: 0.1
+  slashFxLifetime: 0.12
+  soulMax: 99
+  soulPerHit: 11
+  soulOrbTravelTime: 0.25
+  healCost: 33
+  healHoldTime: 0.9
+  healAmount: 1
+  spellTapWindow: 0.18
+  fireballCost: 33
+  fireballCastTime: 0.25
+  fireballSize: {x: 1.2, y: 0.8}
+  fireballSpeed: 14
+  fireballLifetime: 1.2
+  fireballDamage: 3
+  fireballPierces: 1
+  fireballSpawnOffset: {x: 0.8, y: 1}
+  dashSpeed: 20
+  dashDuration: 0.18
+  dashCooldown: 0.5
+  airDashesPerAirtime: 1
+  dashGhostCount: 4
+  dashGhostFadeTime: 0.3
+  heartsPhase1: 5
+  heartsPhase2: 7
+  hurtKnockbackX: 6
+  hurtKnockbackY: 5
+  hurtKnockbackTime: 0.2
+  hurtStunTime: 0.25
+  hurtInvulnerabilityTime: 1.2
+  hurtBlinkHz: 10
+  hurtHitStop: 0.12
+  hurtShakeAmplitude: 0.3
+  hurtShakeDuration: 0.2
+  safeGroundRecordTime: 0.5
+  deathSlowmoDuration: 0.6
+  deathSlowmoScale: 0.3
+  deathFadeTime: 0.6
+  benchRestTime: 0.8

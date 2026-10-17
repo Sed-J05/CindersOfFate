@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b37db9d9200b0342a1b7069ba5cefc3, type: 3}
+  m_Name: Enemy_Thrower
+  m_EditorClassIdentifier: 
+  id: thrower
+  displayName: Thrower
+  glyph: t
+  phase: 2
+  locomotion: 0
+  bodySize: {x: 1, y: 1.8}
+  colliderShape: 0
+  colliderSize: {x: 0.7, y: 1.6}
+  colliderRadius: 0
+  canvasSize: {x: 256, y: 256}
+  pivotAtFeet: 1
+  maxHp: 4
+  contactDamage: 1
+  attackDamage: 1
+  hitFlashDuration: 0.08
+  knockbackSpeed: 3
+  knockbackDuration: 0.15
+  knockbackImmuneDuringAttack: 0
+  deathAnimTime: 0.5
+  detectRange: 12
+  verticalTolerance: 1.5
+  requiresLineOfSight: 1
+  loseTrackTime: 3
+  patrolSpeed: 2.5
+  chaseSpeed: 2.5
+  turnsAtLedges: 1
+  preferredDistance: 7.5
+  retreatIfCloserThan: 5
+  advanceIfFartherThan: 10
+  retreatDistance: 0
+  retreatTime: 0
+  feintChance: 0
+  waitIfPlayerAboveHeight: 0
+  separationRadius: 1
+  hopDodgeDistance: 1.5
+  attackName: Throw
+  telegraphTime: 0.4
+  attackActiveTime: 0.1
+  attackRecoveryTime: 0.3
+  attackCooldown: 0
+  attackSpeed: 0
+  attackMaxDistance: 0
+  attackReach: 0
+  comboHits: 1
+  comboGap: 0
+  attackInterval: 2.2
+  desyncOffset: 0
+  showExclamation: 0
+  hoverAmplitude: 0
+  hoverFrequency: 0
+  hoverHeightAbovePlayer: 0
+  returnSpeed: 0
+  wanderSpeed: 0
+  circleRadiusMin: 0
+  circleRadiusMax: 0
+  startsAsleep: 0
+  wakeTime: 0
+  wallStunTime: 0
+  projectileSpeed: 10
+  projectileSize: {x: 0.9, y: 0.2}
+  projectileCanvas: {x: 128, y: 32}
+  projectileLifetime: 3
+  projectileLeadTime: 0.3
+  projectileArcs: 1
+  projectileDamage: 1
+  scalesWithFlame: 1
+  scalePivotCenter: 0
+  projectileScaleFactor: 0.5

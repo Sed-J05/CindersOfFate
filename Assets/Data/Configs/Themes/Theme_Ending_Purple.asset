@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 495dbc34a36c71245963e711dee5c8e1, type: 3}
+  m_Name: Theme_Ending_Purple
+  m_EditorClassIdentifier: 
+  id: Ending_Purple
+  tileTheme: Castle
+  parchmentBase: {r: 0.101960786, g: 0.0627451, b: 0.1882353, a: 1}
+  parchmentEdge: {r: 0.02745098, g: 0.011764706, b: 0.05882353, a: 1}
+  frameTint: {r: 0.02745098, g: 0.011764706, b: 0.05882353, a: 1}
+  parchmentSprite: {fileID: 0}
+  frameSprite: {fileID: 0}
+  environmentDark: {r: 0.84705883, g: 0.87058824, b: 0.9137255, a: 1}
+  environmentMid: {r: 0.654902, g: 0.6901961, b: 0.76862746, a: 1}
+  environmentAccent: {r: 0.36862746, g: 0.5254902, b: 0.65882355, a: 1}
+  backgroundFar: {fileID: 0}
+  backgroundMid: {fileID: 0}
+  parallaxFar: 0.1
+  parallaxMid: 0.3
+  enemyBase: {r: 0.9490196, g: 0.972549, b: 1, a: 1}
+  enemyPrimary: {r: 0.43137255, g: 0.75686276, b: 1, a: 1}
+  enemyAccent: {r: 0.17254902, g: 0.43529412, b: 0.81960785, a: 1}
+  enemyAccentTint: {r: 1, g: 1, b: 1, a: 1}
+  protagonistWhite: {r: 0.91764706, g: 0.9647059, b: 1, a: 1}
+  protagonistBlue: {r: 0.30980393, g: 0.6392157, b: 1, a: 1}
+  protagonistDeepBlue: {r: 0.105882354, g: 0.30980393, b: 0.6117647, a: 1}
+  protagonistOutline: 1
+  protagonistOutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  protagonistGlowColor: {r: 0.4, g: 1, b: 1, a: 0.6}
+  flameCore: {r: 0.8980392, g: 0.8, b: 1, a: 1}
+  flameGlow: {r: 0.60784316, g: 0.3019608, b: 1, a: 1}
+  flameLightIntensity: 1.3
+  flameLightRadiusScreenMultiplier: 1.6
+  flameLightFalloff: 0.6
+  globalLightColor: {r: 0.84705883, g: 0.7764706, b: 1, a: 1}
+  globalLightIntensity: 0.55
+  shadowAlpha: 0.35
+  shadowOffsetBase: 0.1
+  shadowOffsetMax: 0.35
+  volumeProfile: {fileID: 0}
+  uiTint: {r: 1, g: 1, b: 1, a: 1}
+  contrastBoost: 0.1

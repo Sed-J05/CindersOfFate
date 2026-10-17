@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b37db9d9200b0342a1b7069ba5cefc3, type: 3}
+  m_Name: Enemy_ShadowKite
+  m_EditorClassIdentifier: 
+  id: shadow_kite
+  displayName: Shadow Kite
+  glyph: f
+  phase: 1
+  locomotion: 1
+  bodySize: {x: 1, y: 0.8}
+  colliderShape: 1
+  colliderSize: {x: 0.7, y: 0.6}
+  colliderRadius: 0.4
+  canvasSize: {x: 128, y: 128}
+  pivotAtFeet: 0
+  maxHp: 2
+  contactDamage: 1
+  attackDamage: 1
+  hitFlashDuration: 0.08
+  knockbackSpeed: 4
+  knockbackDuration: 0.15
+  knockbackImmuneDuringAttack: 0
+  deathAnimTime: 0.5
+  detectRange: 9
+  verticalTolerance: 1.5
+  requiresLineOfSight: 0
+  loseTrackTime: 0
+  patrolSpeed: 0
+  chaseSpeed: 2.5
+  turnsAtLedges: 0
+  preferredDistance: 0
+  retreatIfCloserThan: 0
+  advanceIfFartherThan: 0
+  retreatDistance: 0
+  retreatTime: 0
+  feintChance: 0
+  waitIfPlayerAboveHeight: 0
+  separationRadius: 1
+  hopDodgeDistance: 0
+  attackName: Dive
+  telegraphTime: 0.5
+  attackActiveTime: 0.7
+  attackRecoveryTime: 0.3
+  attackCooldown: 0
+  attackSpeed: 9
+  attackMaxDistance: 6
+  attackReach: 0
+  comboHits: 1
+  comboGap: 0
+  attackInterval: 3
+  desyncOffset: 0
+  showExclamation: 0
+  hoverAmplitude: 0.4
+  hoverFrequency: 1.5
+  hoverHeightAbovePlayer: 3
+  returnSpeed: 3
+  wanderSpeed: 0
+  circleRadiusMin: 0
+  circleRadiusMax: 0
+  startsAsleep: 0
+  wakeTime: 0
+  wallStunTime: 0
+  projectileSpeed: 0
+  projectileSize: {x: 0, y: 0}
+  projectileCanvas: {x: 0, y: 0}
+  projectileLifetime: 0
+  projectileLeadTime: 0
+  projectileArcs: 0
+  projectileDamage: 1
+  scalesWithFlame: 0
+  scalePivotCenter: 0
+  projectileScaleFactor: 0.5
