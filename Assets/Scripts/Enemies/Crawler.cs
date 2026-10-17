@@ -4,11 +4,15 @@ using UnityEngine;
 namespace Shatranj.Enemies
 {
     /// <summary>
-    /// Docs/04 §A1 Shade Crawler: patrols at 2.5 u/s, turning at walls and ledges. If the player is within 6 u on
-    /// the same platform (±1.5 u vertical) it chases at 3.5 u/s, still refusing to walk off ledges. Contact damage only.
+    /// Docs/04 §A1 Shade Crawler: patrols its own route, turning at walls and ledges. It only tracks the player when
+    /// the player is on its level (feet within <c>verticalTolerance</c>, clear line of sight, within detect range);
+    /// it keeps the chase for <c>trackMemoryTime</c> after that so a jump doesn't break it. Never walks off ledges.
+    /// Contact damage only.
     /// </summary>
     public class Crawler : EnemyBase
     {
+        private float lastSameLevelTime = float.NegativeInfinity;
+
         protected override void Start()
         {
             base.Start();
@@ -23,25 +27,37 @@ namespace Shatranj.Enemies
                 return;
             }
 
-            if (TryGetPlayer(out PlayerController p) && EnemySensors.WithinBox(Feet, p.Position, config.detectRange, config.verticalTolerance))
+            if (TryGetPlayer(out PlayerController p))
             {
                 float dx = p.Position.x - Feet.x;
-                int dir = dx >= 0f ? 1 : -1;
-                SetFacing(dir);
-                if (Mathf.Abs(dx) < 0.1f || Blocked(dir))
+                bool inRange = Mathf.Abs(dx) <= config.detectRange;
+                bool sameLevel = inRange
+                                 && Mathf.Abs(p.Position.y - Feet.y) <= config.verticalTolerance
+                                 && EnemySensors.LineOfSight(BodyCenter, PlayerChest(p));
+                if (sameLevel) lastSameLevelTime = Time.time;
+
+                if (inRange && Time.time - lastSameLevelTime <= config.trackMemoryTime)
                 {
-                    SetVelocityX(0f);
-                    SetAnim("Idle");
+                    Chase(dx);
+                    return;
                 }
-                else
-                {
-                    SetVelocityX(dir * config.chaseSpeed);
-                    SetAnim("Walk");
-                }
-                return;
             }
 
             Patrol(config.patrolSpeed);
+        }
+
+        private void Chase(float dx)
+        {
+            int dir = dx >= 0f ? 1 : -1;
+            SetFacing(dir);
+            if (Mathf.Abs(dx) < 0.1f || Blocked(dir))
+            {
+                SetVelocityX(0f);
+                SetAnim("Idle");
+                return;
+            }
+            SetVelocityX(dir * config.chaseSpeed);
+            SetAnim("Walk");
         }
 
         private void Patrol(float speed)

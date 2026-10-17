@@ -32,8 +32,8 @@ MonoBehaviour:
   knockbackImmuneDuringAttack: 0
   deathAnimTime: 0.5
   detectRange: 6
-  verticalTolerance: 1.5
-  requiresLineOfSight: 0
+  verticalTolerance: 0.4
+  requiresLineOfSight: 1
   loseTrackTime: 0
   patrolSpeed: 2
   chaseSpeed: 2.8

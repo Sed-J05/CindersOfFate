@@ -56,6 +56,8 @@ namespace Shatranj.Data
         public bool requiresLineOfSight = false;
         [Tooltip("Phase 2: seconds without line-of-sight before losing the player (0 = never).")]
         public float loseTrackTime = 0f;
+        [Tooltip("Keeps chasing this long after the player leaves its level (so a jump doesn't end the chase).")]
+        public float trackMemoryTime = 0.6f;
 
         [Header("Movement")]
         public float patrolSpeed = 2.5f;

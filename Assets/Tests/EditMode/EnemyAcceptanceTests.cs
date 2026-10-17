@@ -92,7 +92,7 @@ namespace Shatranj.Tests
             Assert.AreEqual(2.0f, c.patrolSpeed); // tuned D-113 (doc 2.5)
             Assert.AreEqual(2.8f, c.chaseSpeed); // tuned D-113 (doc 3.5)
             Assert.AreEqual(6f, c.detectRange);
-            Assert.AreEqual(1.5f, c.verticalTolerance);
+            Assert.AreEqual(0.4f, c.verticalTolerance); // D-114: same level only (doc ±1.5 u)
             Assert.IsTrue(c.turnsAtLedges);
             Assert.IsFalse(c.HasAttack, "Crawler deals contact damage only");
             Assert.AreEqual(3f, c.knockbackSpeed);

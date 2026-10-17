@@ -21,7 +21,7 @@ namespace Shatranj.EditorTools
             c.canvasSize = new Vector2Int(128, 128); c.pivotAtFeet = true;
             c.maxHp = 2; c.contactDamage = 1; c.attackDamage = 1;
             c.knockbackSpeed = 3f; c.knockbackDuration = 0.15f;
-            c.detectRange = 6f; c.verticalTolerance = 1.5f; c.requiresLineOfSight = false;
+            c.detectRange = 6f; c.verticalTolerance = 0.4f; c.requiresLineOfSight = true; // D-114: tracks only on its own level
             c.patrolSpeed = 2.0f; c.chaseSpeed = 2.8f; c.turnsAtLedges = true; // tuned D-113 (doc 2.5 / 3.5)
             c.attackName = "";
         }
