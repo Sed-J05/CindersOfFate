@@ -115,10 +115,15 @@ namespace Shatranj.EditorTools.Level
             var gridGo = new GameObject("Level");
             var grid = gridGo.AddComponent<Grid>();
             grid.cellSize = new Vector3(RoomData.TileSize, RoomData.TileSize, 0f);
-            Tilemap ground = MakeTilemap(grid.transform, "Ground", GameLayers.Ground, 0, false, false, null);
-            Tilemap oneWay = MakeTilemap(grid.transform, "OneWay", GameLayers.OneWay, 1, false, true, null);
-            Tilemap spikes = MakeTilemap(grid.transform, "Spikes", GameLayers.Hazard, 2, true, false, DamageType.Hazard);
-            Tilemap lava = MakeTilemap(grid.transform, "Lava", GameLayers.Hazard, 2, true, false, DamageType.Lava);
+            // Tilemaps are visuals only; collision is baked into boxes below (D-112).
+            Tilemap ground = MakeTilemap(grid.transform, "Ground", 0);
+            Tilemap oneWay = MakeTilemap(grid.transform, "OneWay", 1);
+            Tilemap spikes = MakeTilemap(grid.transform, "Spikes", 2);
+            Tilemap lava = MakeTilemap(grid.transform, "Lava", 2);
+            var groundCells = new HashSet<Vector2Int>();
+            var oneWayCells = new HashSet<Vector2Int>();
+            var spikeCells = new HashSet<Vector2Int>();
+            var lavaCells = new HashSet<Vector2Int>();
 
             Transform roomsRoot = new GameObject("Rooms").transform;
             var sectionCounts = new Dictionary<string, int>();
@@ -139,10 +144,11 @@ namespace Shatranj.EditorTools.Level
                     {
                         char g = room.cells[x, y];
                         var cell = new Vector3Int(room.originX + x, room.originY + y, 0);
-                        if (g == Glyphs.Solid) { ground.SetTile(cell, t.bitmask[BitmaskIndex(room, x, y)]); tiles++; }
-                        else if (g == Glyphs.OneWay) { oneWay.SetTile(cell, t.OneWay(OneWayKind(room, x, y))); tiles++; }
-                        else if (g == Glyphs.Spikes) { spikes.SetTile(cell, t.spikes); tiles++; }
-                        else if (g == Glyphs.Lava) { lava.SetTile(cell, t.lava != null ? t.lava : t.spikes); tiles++; }
+                        var key = new Vector2Int(cell.x, cell.y);
+                        if (g == Glyphs.Solid) { ground.SetTile(cell, t.bitmask[BitmaskIndex(room, x, y)]); groundCells.Add(key); tiles++; }
+                        else if (g == Glyphs.OneWay) { oneWay.SetTile(cell, t.OneWay(OneWayKind(room, x, y))); oneWayCells.Add(key); tiles++; }
+                        else if (g == Glyphs.Spikes) { spikes.SetTile(cell, t.spikes); spikeCells.Add(key); tiles++; }
+                        else if (g == Glyphs.Lava) { lava.SetTile(cell, t.lava != null ? t.lava : t.spikes); lavaCells.Add(key); tiles++; }
                     }
                 }
 
@@ -264,6 +270,16 @@ namespace Shatranj.EditorTools.Level
                 sectionCounts[room.section] = count + room.CountEnemies();
             }
 
+            // --- Collision (D-112) ---
+            var collisionRoot = new GameObject("Collision").transform;
+            ColliderBaker.Bake("Ground", collisionRoot, groundCells, GameLayers.Ground, false, false, out int groundBoxes);
+            ColliderBaker.Bake("OneWay", collisionRoot, oneWayCells, GameLayers.OneWay, false, true, out int oneWayBoxes);
+            if (spikeCells.Count > 0)
+                ColliderBaker.Bake("Spikes", collisionRoot, spikeCells, GameLayers.Hazard, true, false, out _).AddComponent<DamageDealer>().Configure(1, DamageType.Hazard);
+            if (lavaCells.Count > 0)
+                ColliderBaker.Bake("Lava", collisionRoot, lavaCells, GameLayers.Hazard, true, false, out _).AddComponent<DamageDealer>().Configure(1, DamageType.Lava);
+            report.AppendLine($"  collision: {groundCells.Count} solid tiles → {groundBoxes} boxes, {oneWayCells.Count} one-way tiles → {oneWayBoxes} boxes");
+
             if (startRoom == null)
             {
                 RoomData first = rooms[0];
@@ -369,38 +385,16 @@ namespace Shatranj.EditorTools.Level
             return room.WorldCenter;
         }
 
-        private static Tilemap MakeTilemap(Transform parent, string name, int layer, int order, bool trigger, bool oneWay, DamageType? hazard)
+        /// <summary>Visual-only tilemap (no collider; collision is baked separately).</summary>
+        private static Tilemap MakeTilemap(Transform parent, string name, int order)
         {
             var go = new GameObject(name);
             go.transform.SetParent(parent, false);
-            go.layer = layer;
+            go.layer = GameLayers.Ignore;
             var tm = go.AddComponent<Tilemap>();
             var tr = go.AddComponent<TilemapRenderer>();
             tr.sortingLayerName = GameLayers.Sorting.Tiles;
             tr.sortingOrder = order;
-
-            var rb = go.AddComponent<Rigidbody2D>();
-            rb.bodyType = RigidbodyType2D.Static;
-            var col = go.AddComponent<TilemapCollider2D>();
-            col.compositeOperation = Collider2D.CompositeOperation.Merge;
-            var comp = go.AddComponent<CompositeCollider2D>();
-            // D-111: solid ground uses Outlines (edge chains, no polygon decomposition that can silently fail on a
-            // level-sized shape with room holes). Hazard triggers keep Polygons so "standing inside" is detected.
-            comp.geometryType = trigger ? CompositeCollider2D.GeometryType.Polygons : CompositeCollider2D.GeometryType.Outlines;
-            comp.generationType = CompositeCollider2D.GenerationType.Synchronous;
-            comp.isTrigger = trigger;
-
-            if (oneWay)
-            {
-                var eff = go.AddComponent<PlatformEffector2D>();
-                eff.useOneWay = true;
-                eff.useOneWayGrouping = true;
-                eff.surfaceArc = 170f;
-                eff.useSideFriction = false;
-                eff.useSideBounce = false;
-                comp.usedByEffector = true;
-            }
-            if (hazard.HasValue) go.AddComponent<DamageDealer>().Configure(1, hazard.Value);
             return tm;
         }
 
