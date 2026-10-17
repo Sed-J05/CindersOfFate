@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9fd0473a9aa2cd458f8c899a01eb79f, type: 3}
+  m_Name: SpriteCatalog
+  m_EditorClassIdentifier: 
+  sprites:
+  - name: CS1_CaveMouth
+    sprite: {fileID: 21300000, guid: 459f14d64ea3feb4db4349cef289badd, type: 3}
+  - name: CS1_Village_Far
+    sprite: {fileID: 21300000, guid: c14dd111b1ce1b349a2a4d1b34b03622, type: 3}
+  - name: CS1_Village_Mid
+    sprite: {fileID: 21300000, guid: 4a58b5e93eb28704c87ba3cd97d67210, type: 3}
+  - name: CS1_Village_Near
+    sprite: {fileID: 21300000, guid: 327d792351765d748b2df40759c705af, type: 3}
+  - name: CS2_Castle_Silhouette
+    sprite: {fileID: 21300000, guid: ca4ab12820b2c1d4fb11c522277fd834, type: 3}
+  - name: CS2_Memory_01
+    sprite: {fileID: 21300000, guid: 73dfea48cfeb6814a9982c9009e1d79c, type: 3}
+  - name: CS2_Memory_02
+    sprite: {fileID: 21300000, guid: ff2b374a9f682d04287ee741b90fcdaa, type: 3}
+  - name: CS2_Memory_03
+    sprite: {fileID: 21300000, guid: 64b567bdd6c8957409561e1205c0c725, type: 3}
+  - name: CS2_Memory_04
+    sprite: {fileID: 21300000, guid: 945ea430be5434d48be292b681dd24ab, type: 3}
+  - name: CS2_Memory_05
+    sprite: {fileID: 21300000, guid: 0d3e264b7caa8a641b388ebf7e3ecc86, type: 3}
+  - name: CS2_Memory_06
+    sprite: {fileID: 21300000, guid: e37e666144846dd4091c2af598e26ef9, type: 3}
+  - name: CS2_Zulmat_Eyes
+    sprite: {fileID: 21300000, guid: 271e8a3e61f892e40baa14a052649eba, type: 3}
+  - name: CS3_GodsStab
+    sprite: {fileID: 21300000, guid: d89b89ac6cef4334d81fa6f7e760c6e4, type: 3}
+  - name: CS3_Merge_01
+    sprite: {fileID: 21300000, guid: eec0df191a10ddf48a437d84cfc11092, type: 3}
+  - name: CS3_Merge_02
+    sprite: {fileID: 21300000, guid: 6bd31e947cf5a37488332a09396830c1, type: 3}
+  - name: CS3_Merge_03
+    sprite: {fileID: 21300000, guid: 1681721ae434ff0418d1ad732fcc7c4f, type: 3}
+  - name: CS3_Split
+    sprite: {fileID: 21300000, guid: 0b912f9cd2e4a234886ab2f2e4bd0ca2, type: 3}
+  - name: God_A
+    sprite: {fileID: 21300000, guid: d52e1a3df61e4394b9ce7a4489809d87, type: 3}
+  - name: God_B
+    sprite: {fileID: 21300000, guid: 37e5a21929503e844b012437666ba70c, type: 3}
+  - name: God_C
+    sprite: {fileID: 21300000, guid: dbe420f6ec2dad848960594dae3cbd77, type: 3}
+  - name: Ability_Icon_Dash
+    sprite: {fileID: 21300000, guid: 9fcc8a843699fb0429cfef0dfc7c75fc, type: 3}
+  - name: Ability_Icon_Fireball
+    sprite: {fileID: 21300000, guid: 61e90eaffe2afe440a615b357af5480e, type: 3}
+  - name: BossBar_Fill
+    sprite: {fileID: 21300000, guid: 5a761ff825312c84cb82578b56cc3490, type: 3}
+  - name: BossBar_Frame
+    sprite: {fileID: 21300000, guid: 7b7c89020cd937e40b1570bcc4af8fea, type: 3}
+  - name: Button_Hover
+    sprite: {fileID: 21300000, guid: 958e83a152a465e4c9d4b2792cacfbe1, type: 3}
+  - name: Button_Normal
+    sprite: {fileID: 21300000, guid: f40a3c01e4fa33e4185a6d6c2c6feb36, type: 3}
+  - name: Cursor
+    sprite: {fileID: 21300000, guid: 6caae39d8f263584f8411cf6b7562fc1, type: 3}
+  - name: Heart_Break_00
+    sprite: {fileID: 21300000, guid: ddaec85d6ffee064f97494159998518b, type: 3}
+  - name: Heart_Break_01
+    sprite: {fileID: 21300000, guid: c0dab86bab343864c95b4a6a199fb25c, type: 3}
+  - name: Heart_Break_02
+    sprite: {fileID: 21300000, guid: 6f4dd8cc03b76574491a9bc4212b8d87, type: 3}
+  - name: Heart_Break_03
+    sprite: {fileID: 21300000, guid: afb021d98536ca745ad74e8d4bc45be5, type: 3}
+  - name: Heart_Empty
+    sprite: {fileID: 21300000, guid: 609f3db8b5695ed468a0cfbfee6088e2, type: 3}
+  - name: Heart_Full
+    sprite: {fileID: 21300000, guid: d4bbfe3b740098340af64f883d4a182e, type: 3}
+  - name: Soul_Fill
+    sprite: {fileID: 21300000, guid: 60e0aeb63e51b434f83d972cf31d937a, type: 3}
+  - name: Soul_Frame
+    sprite: {fileID: 21300000, guid: b15087028a1d9f641ae94ddda66c4ade, type: 3}
+  - name: Soul_Glow
+    sprite: {fileID: 21300000, guid: 73a58db74bdc1d14da73d7e420d3fae0, type: 3}
+  - name: Title_Logo
+    sprite: {fileID: 21300000, guid: 8869893f22b9cc248b775c32d5023a82, type: 3}
+  - name: BG_Castle_Far
+    sprite: {fileID: 21300000, guid: ce2cba4964371314d824abc0e45c3705, type: 3}
+  - name: BG_Castle_Mid
+    sprite: {fileID: 21300000, guid: 33411a25e05eba642b12cae67ecceff9, type: 3}
+  - name: BG_Cave_Far
+    sprite: {fileID: 21300000, guid: 3468f5990cbd8fd49a3437ac67cc88af, type: 3}
+  - name: BG_Cave_Mid
+    sprite: {fileID: 21300000, guid: 9c340721a43acc6469fad19201da9e0f, type: 3}
+  - name: FlameCore_00
+    sprite: {fileID: 21300000, guid: 0f991586d201d6047ae1abf2c474c998, type: 3}
+  - name: FlameCore_01
+    sprite: {fileID: 21300000, guid: f0d4a25c5bb47fe4ca56ca635fea2e07, type: 3}
+  - name: FlameCore_02
+    sprite: {fileID: 21300000, guid: 318e663370c92904eb93cd396a768c4b, type: 3}
+  - name: FlameCore_03
+    sprite: {fileID: 21300000, guid: cda95e899882b79459f2f6ca7b4ce719, type: 3}
+  - name: FlameCore_04
+    sprite: {fileID: 21300000, guid: 9fd3b44d9469129418d637b19ddbe952, type: 3}
+  - name: FlameCore_05
+    sprite: {fileID: 21300000, guid: 773850c38c81d954ba14f86c3e3eb3e3, type: 3}
+  - name: FlameGlow
+    sprite: {fileID: 21300000, guid: c665a90edf359794396dddeac9355143, type: 3}
+  - name: ParchmentFrame
+    sprite: {fileID: 21300000, guid: 47462db8276139d4eab93e175e38ae80, type: 3}
+  - name: Parchment_Beige
+    sprite: {fileID: 21300000, guid: 28ebed0e2e7f2b14294ee622b5de1669, type: 3}
+  - name: Parchment_Inverted
+    sprite: {fileID: 21300000, guid: 5d18e821a7d0c15429c40d77d5a20a76, type: 3}
+  cutscenes:
+  - id: cs1_intro
+    json: {fileID: 4900000, guid: 96e181a3913ec0849a8e3176bcbc6448, type: 3}
+  - id: cs2_orb
+    json: {fileID: 4900000, guid: 51d7cc97fdc8d3a489dac96a6f15771d, type: 3}
+  unlitMaterial: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
