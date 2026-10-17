@@ -248,10 +248,29 @@ namespace Shatranj.Enemies
         /// <summary>Wall in front, or (for ledge-aware enemies on the ground) no floor in front.</summary>
         protected bool Blocked(int dir) => WallAhead(dir) || (config.turnsAtLedges && IsGrounded && LedgeAhead(dir));
 
-        protected static bool TryGetPlayer(out PlayerController player)
+        private RoomBounds cachedRoom;
+        private float nextRoomCheck;
+        private const float RoomCheckInterval = 0.2f;
+
+        /// <summary>
+        /// The live player, but only when the player is in the same room as this enemy (D-136): enemies in neighbouring
+        /// rooms stay active (so they never freeze in view) yet can't see or chase the player through a doorway.
+        /// Without a RoomManager (Sandbox) the room rule is skipped.
+        /// </summary>
+        protected bool TryGetPlayer(out PlayerController player)
         {
             player = PlayerController.Active;
-            return player != null && player.State != PlayerState.Dead;
+            if (player == null || player.State == PlayerState.Dead) return false;
+
+            RoomManager rooms = RoomManager.Instance;
+            if (rooms == null || rooms.Current == null) return true;
+            if (Time.time >= nextRoomCheck)
+            {
+                nextRoomCheck = Time.time + RoomCheckInterval;
+                RoomBounds here = rooms.RoomAt(BodyCenter);
+                if (here != null) cachedRoom = here;   // keep the last room while standing exactly in a doorway seam
+            }
+            return cachedRoom == null || cachedRoom == rooms.Current;
         }
 
         protected static Vector2 PlayerChest(PlayerController p)
