@@ -31,6 +31,8 @@ namespace Shatranj.Player
         private bool alternate;
 
         public bool IsSwinging => swinging;
+        /// <summary>Which side swing the current/last attack used (Attack_Side_A vs _B).</summary>
+        public bool LastSwingWasB => alternate;
         public bool HitboxActive => swinging && swingTimer >= config.hitboxStartDelay && swingTimer < config.hitboxStartDelay + config.hitboxActiveTime;
 
         private void Awake()

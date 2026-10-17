@@ -108,7 +108,11 @@ namespace Shatranj.Player
             soul.Spend(config.healCost);
             health.HealHearts(config.healAmount);
             AudioManager.Play("player_heal");
-            if (animator != null) animator.SetHealAura(false);
+            if (animator != null)
+            {
+                animator.SetHealAura(false);
+                animator.PlayOverride("Heal_Release");
+            }
 
             // Chain while still held and affordable; otherwise return to neutral.
             if (healHeld && TryStartHeal()) return;

@@ -1,6 +1,7 @@
 using Shatranj.Core;
 using Shatranj.Data;
 using Shatranj.Player;
+using Shatranj.Visuals;
 using UnityEditor;
 using UnityEngine;
 
@@ -38,19 +39,26 @@ namespace Shatranj.EditorTools
             capsule.offset = config.colliderOffset;
             capsule.sharedMaterial = zeroFriction;
 
-            // --- Visual child: coloured box, feet on y = 0, flipped by localScale.x ---
+            // --- Visual child, flipped by localScale.x. Real sprites (Prompt 4) → scale 1 at the feet;
+            //     otherwise a coloured 1.1×1.7 box with its feet on y = 0. ---
+            var animSet = AssetDatabase.LoadAssetAtPath<SpriteAnimationSet>(Art.RebuildAnimations.SetPath(PlayerAnimator.ProtagonistSetName));
+            bool hasClips = animSet != null && animSet.HasAnyFrames;
+
             var visual = new GameObject("Visual");
             visual.transform.SetParent(root.transform, false);
-            visual.transform.localPosition = new Vector3(0f, 0.85f, 0f);
-            visual.transform.localScale = new Vector3(1.1f, 1.7f, 1f);
+            visual.transform.localPosition = hasClips ? Vector3.zero : new Vector3(0f, 0.85f, 0f);
+            visual.transform.localScale = hasClips ? Vector3.one : new Vector3(1.1f, 1.7f, 1f);
             var sr = visual.AddComponent<SpriteRenderer>();
-            sr.sprite = sprite;
-            sr.color = PlayerAnimator.TintFor(PlayerState.Idle);
+            sr.sprite = hasClips ? animSet.Find("Idle")?.frames[0] : sprite;
+            sr.color = hasClips ? Color.white : PlayerAnimator.TintFor(PlayerState.Idle);
             sr.sortingLayerName = GameLayers.Sorting.Player;
             if (lit != null) sr.sharedMaterial = lit;
+            var spriteAnimator = visual.AddComponent<SpriteAnimator>();
+            if (hasClips) SceneBuildUtil.SetReference(spriteAnimator, "set", animSet);
 
-            // Simple "eye" so facing is readable on the placeholder.
+            // Simple "eye" so facing is readable on the placeholder box (hidden when real clips exist).
             var eye = new GameObject("Eye");
+            eye.SetActive(!hasClips);
             eye.transform.SetParent(visual.transform, false);
             eye.transform.localPosition = new Vector3(0.3f, 0.3f, 0f);
             eye.transform.localScale = new Vector3(0.12f, 0.08f, 1f);
@@ -93,6 +101,8 @@ namespace Shatranj.EditorTools
             SceneBuildUtil.SetReference(animator, "controller", controller);
             SceneBuildUtil.SetReference(animator, "visualRoot", visual.transform);
             SceneBuildUtil.SetReference(animator, "spriteRenderer", sr);
+            SceneBuildUtil.SetReference(animator, "spriteAnimator", spriteAnimator);
+            if (hasClips) SceneBuildUtil.SetReference(animator, "animationSet", animSet);
 
             SceneBuildUtil.SetInt(health, "maxHp", config.heartsPhase1);
             SceneBuildUtil.SetFloat(health, "invulnerabilityDuration", config.hurtInvulnerabilityTime);

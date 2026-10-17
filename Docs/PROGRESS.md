@@ -8,7 +8,7 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 | 1 | Core framework | ✅ done (2026-10-17) | `Scripts/Core`: GameManager, GameEvents, SaveSystem, SceneFlow, HitStop, ScreenShake, ObjectPool, Tween, AudioManager, DebugHotkeys/DebugCommands, Health/DamageInfo/DamageType/IDamageable. `Scripts/Data`: Player/Enemy/Boss/Theme/Flame/ArtStyle configs. `Shatranj/Generate Config Assets` + ConfigDefaults. 3 asmdefs. EditMode tests (Health 16, DamageInfo 10, SaveSystem 9). All compiled offline against Unity 6000.0.32f1. |
 | 2 | Player movement, input, camera, sandbox | ✅ done (2026-10-17) | `Scripts/Player`: PlayerState, PlayerInput (code-built actions, buffers, K tap/hold), PlayerMotor (custom gravity, checks), PlayerController (state machine, all 14 states), PlayerAnimator (tint fallback, squash/stretch), PlayerDebugHud. `Scripts/Visuals`: ICameraTarget, CameraController. `Scripts/Level`: RoomBounds. `Scripts/Core`: SceneBootstrap. `Data`: CameraConfig + check fields on PlayerConfig. Editor: `Shatranj/Build Sandbox Scene`, SceneBuildUtil, PlayerFactory. Compiled offline. |
 | 3 | Player combat, soul, heal, dash, fireball | ✅ done (2026-10-17) | `Scripts/Player`: PlayerCombat (side/up, A/B, timed hitbox, recoil, hit-stop, soul), PlayerHealth (hearts, hurt, blink, spikes → safe ground, death flow), PlayerHurtbox, PlayerSoul (+orb FX), PlayerSpells (heal hold / fireball tap), PlayerDash (Time Slip, ghosts), PlayerFxPools, SoulOrbFx, FireballProjectile. `Core`: DamageDealer, IBossTarget. `Visuals`: PlaceholderSprites, SpriteFx. `Enemies`: DamageableDummy. Sandbox: 4 dummies + 2 spike strips. F4 toggles phase abilities; F7 gizmos. |
-| 4 | Placeholder art + animation pipeline | ⬜ not started | |
+| 4 | Placeholder art + animation pipeline | ✅ done (2026-10-17) | `Data`: ArtManifest classes, SpriteAnimationSet. `Visuals`: SpriteAnimator (no Unity Animator, D-057). Editor `Art/`: manifest tables + IO, PixelFont, PixelCanvas, PlaceholderPainter, `Generate Animation Manifest`, `Generate Placeholder Art`, `Import & Rebuild Animations`, ShatranjSpriteImporter postprocessor. PlayerAnimator plays Docs/06 clips per state with tint fallback; PlayerFactory wires SpriteAnimator. |
 | 5 | HUD | ⬜ not started | |
 | 6 | Level pipeline | ⬜ not started | includes `Validate Project` |
 | 7 | Enemy framework + Phase 1 enemies | ⬜ not started | |
@@ -30,8 +30,9 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 - Project folder/product name is `cinders of fate` (D-002). Git repo initialised on branch `main`, first commit 2026-10-17.
 
 ## Pending human steps (carry forward until done)
-1. Run **Shatranj → Build Sandbox Scene** (adds dummies + spikes, rewires the player), press Play, test combat (see Prompt 3 checklist in the chat / README).
-2. In the Game view, turn on the **Gizmos** toggle so F7 hitboxes are visible.
+1. Run **Shatranj → Generate Placeholder Art** (≈ 800 PNGs; the first run takes a minute, large backgrounds included).
+2. Run **Shatranj → Import & Rebuild Animations**, then press Play in the Sandbox: the player is animated. (Build Sandbox Scene again is optional; the animator also binds at runtime.)
+3. Commit `Assets/Art`, `Assets/Resources/Animations` and `Assets/Data/AnimationManifest.json`.
 
 ## Next up
-Prompt 4 — Placeholder art generator + animation pipeline (`Docs/09_BUILD_PROMPTS.md`).
+Prompt 5 — HUD (`Docs/09_BUILD_PROMPTS.md`).

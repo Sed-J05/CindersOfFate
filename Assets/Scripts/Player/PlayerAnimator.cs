@@ -1,11 +1,14 @@
 using Shatranj.Core;
+using Shatranj.Data;
+using Shatranj.Visuals;
 using UnityEngine;
 
 namespace Shatranj.Player
 {
     /// <summary>
-    /// Visual driver. Until Prompt 4 wires real sprite animations, it tints the placeholder sprite per state,
-    /// flips the visual child by facing and squashes on landing so playback is readable.
+    /// Visual driver. With a Protagonist <see cref="SpriteAnimationSet"/> (Prompt 4) it plays the Docs/06 clips per
+    /// state; without one it falls back to tinting the placeholder box. Also: facing flip on the visual child,
+    /// land squash / jump stretch, i-frame blink, heal aura.
     /// </summary>
     [DisallowMultipleComponent]
     public class PlayerAnimator : MonoBehaviour
@@ -13,24 +16,56 @@ namespace Shatranj.Player
         [SerializeField] private PlayerController controller;
         [SerializeField] private Transform visualRoot;
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private SpriteAnimator spriteAnimator;
+        [SerializeField] private SpriteAnimationSet animationSet;
         [SerializeField] private float landSquashTime = 0.08f;
         [SerializeField] private Vector3 landSquashScale = new Vector3(1.15f, 0.8f, 1f);
         [SerializeField] private Vector3 jumpStretchScale = new Vector3(0.9f, 1.12f, 1f);
 
+        public const string ProtagonistSetName = "Protagonist";
+
+        private PlayerCombat combat;
         private Vector3 baseScale = Vector3.one;
         private int facing = 1;
         private float blinkRemaining;
         private float blinkHz = 10f;
         private GameObject healAura;
+        private string overrideClip;
 
-        /// <summary>True once real animation clips are driving the sprite (Prompt 4 sets this).</summary>
-        public bool HasClips { get; set; }
+        /// <summary>True once real animation clips drive the sprite; tint fallback is then off.</summary>
+        public bool HasClips { get; private set; }
 
         private void Awake()
         {
             if (controller == null) controller = GetComponent<PlayerController>();
+            combat = GetComponent<PlayerCombat>();
             if (visualRoot == null && spriteRenderer != null) visualRoot = spriteRenderer.transform;
+            if (spriteRenderer == null && visualRoot != null) spriteRenderer = visualRoot.GetComponent<SpriteRenderer>();
             if (visualRoot != null) baseScale = visualRoot.localScale;
+
+            TryBindClips();
+        }
+
+        /// <summary>Finds the animation set (serialized or Resources/Animations/Protagonist) and switches to clip mode.</summary>
+        private void TryBindClips()
+        {
+            if (visualRoot == null || spriteRenderer == null) return;
+
+            if (animationSet == null) animationSet = SpriteAnimationSet.Load(ProtagonistSetName);
+            if (animationSet == null || !animationSet.HasAnyFrames) return;
+
+            if (spriteAnimator == null) spriteAnimator = visualRoot.GetComponent<SpriteAnimator>();
+            if (spriteAnimator == null) spriteAnimator = visualRoot.gameObject.AddComponent<SpriteAnimator>();
+            spriteAnimator.Set = animationSet;
+            spriteAnimator.OnClipFinished += HandleClipFinished;
+
+            // Real sprites: 256×256 canvas at 100 PPU with a bottom pivot → scale 1, feet at the root.
+            visualRoot.localPosition = Vector3.zero;
+            baseScale = Vector3.one;
+            ApplyScale(baseScale);
+            spriteRenderer.color = Color.white;
+            for (int i = 0; i < visualRoot.childCount; i++) visualRoot.GetChild(i).gameObject.SetActive(false); // placeholder eye
+            HasClips = true;
         }
 
         private void OnEnable()
@@ -40,7 +75,7 @@ namespace Shatranj.Player
                 controller.OnStateChanged += HandleStateChanged;
                 controller.OnLanded += HandleLanded;
                 controller.OnJumped += HandleJumped;
-                ApplyStateTint(controller.State);
+                ApplyState(controller.State);
             }
         }
 
@@ -54,10 +89,9 @@ namespace Shatranj.Player
             }
         }
 
-        public void SetFacing(int direction)
+        private void OnDestroy()
         {
-            facing = direction >= 0 ? 1 : -1;
-            ApplyScale(baseScale);
+            if (spriteAnimator != null) spriteAnimator.OnClipFinished -= HandleClipFinished;
         }
 
         private void Update()
@@ -73,6 +107,117 @@ namespace Shatranj.Player
             bool visible = Mathf.FloorToInt(blinkRemaining * blinkHz * 2f) % 2 == 0;
             if (visualRoot.gameObject.activeSelf != visible) visualRoot.gameObject.SetActive(visible);
         }
+
+        // ------------------------------------------------------------------
+        // Facing / squash
+        // ------------------------------------------------------------------
+
+        public void SetFacing(int direction)
+        {
+            facing = direction >= 0 ? 1 : -1;
+            ApplyScale(baseScale);
+        }
+
+        private void ApplyScale(Vector3 scale)
+        {
+            if (visualRoot == null) return;
+            scale.x = Mathf.Abs(scale.x) * facing;
+            visualRoot.localScale = scale;
+        }
+
+        private Vector3 Flip(Vector3 scale)
+        {
+            scale.x = Mathf.Abs(scale.x) * facing;
+            return scale;
+        }
+
+        private void HandleLanded()
+        {
+            if (visualRoot == null) return;
+            Tween.KillTweensOf(visualRoot);
+            ApplyScale(Vector3.Scale(baseScale, landSquashScale));
+            Tween.Scale(visualRoot, Flip(baseScale), landSquashTime, Ease.OutQuad);
+        }
+
+        private void HandleJumped()
+        {
+            if (visualRoot == null) return;
+            Tween.KillTweensOf(visualRoot);
+            ApplyScale(Vector3.Scale(baseScale, jumpStretchScale));
+            Tween.Scale(visualRoot, Flip(baseScale), 0.12f, Ease.OutQuad);
+        }
+
+        // ------------------------------------------------------------------
+        // State → clip / tint
+        // ------------------------------------------------------------------
+
+        private void HandleStateChanged(PlayerState previous, PlayerState next) => ApplyState(next);
+
+        private void ApplyState(PlayerState state)
+        {
+            if (HasClips) PlayClipForState(state);
+            else if (spriteRenderer != null) spriteRenderer.color = TintFor(state);
+        }
+
+        private void PlayClipForState(PlayerState state)
+        {
+            overrideClip = null;
+            string clip = ClipFor(state, out bool restart);
+            if (!spriteAnimator.Play(clip, restart) && clip != "Idle") spriteAnimator.Play("Idle");
+        }
+
+        /// <summary>Docs/06 §3.1 clip names per Docs/03 §8 state.</summary>
+        private string ClipFor(PlayerState state, out bool restart)
+        {
+            restart = false;
+            switch (state)
+            {
+                case PlayerState.Idle:       return "Idle";
+                case PlayerState.Run:        return "Run";
+                case PlayerState.JumpRise:   restart = true; return "Jump_Rise";
+                case PlayerState.Fall:       return "Jump_Fall";
+                case PlayerState.Land:       restart = true; return "Land";
+                case PlayerState.AttackSide: restart = true; return combat != null && combat.LastSwingWasB ? "Attack_Side_B" : "Attack_Side_A";
+                case PlayerState.AttackUp:   restart = true; return "Attack_Up";
+                case PlayerState.Cast:       restart = true; return "Cast";
+                case PlayerState.HealCharge: restart = true; return "Heal_Charge";
+                case PlayerState.Dash:       restart = true; return "Dash";
+                case PlayerState.Hurt:       restart = true; return "Hurt";
+                case PlayerState.Dead:       restart = true; return "Death";
+                case PlayerState.Resting:    return "Rest";
+                case PlayerState.Cutscene:   return "Idle";
+                default:                     return "Idle";
+            }
+        }
+
+        /// <summary>Plays a one-shot clip (e.g. Heal_Release); the state clip resumes when it ends.</summary>
+        public void PlayOverride(string clipName)
+        {
+            if (!HasClips || !spriteAnimator.HasClip(clipName)) return;
+            overrideClip = clipName;
+            spriteAnimator.Play(clipName, restart: true);
+        }
+
+        /// <summary>Cutscene hook: play any protagonist clip directly (loops stay until the next request).</summary>
+        public bool PlayClip(string clipName, bool restart = false)
+        {
+            if (!HasClips) return false;
+            overrideClip = null;
+            return spriteAnimator.Play(clipName, restart);
+        }
+
+        private void HandleClipFinished(string clipName)
+        {
+            if (overrideClip != null && clipName == overrideClip)
+            {
+                overrideClip = null;
+                if (controller != null) PlayClipForState(controller.State);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // Blink / aura
+        // ------------------------------------------------------------------
 
         /// <summary>Starts the i-frame blink.</summary>
         public void StartBlink(float duration, float hz)
@@ -97,7 +242,7 @@ namespace Shatranj.Player
                 healAura.transform.localPosition = new Vector3(0f, 0.85f, 0f);
                 healAura.transform.localScale = Vector3.one * 2.4f;
                 var sr = healAura.AddComponent<SpriteRenderer>();
-                sr.sprite = Visuals.PlaceholderSprites.Circle;
+                sr.sprite = PlaceholderSprites.Circle;
                 sr.color = new Color(0.45f, 1f, 0.65f, 0.28f);
                 sr.sortingLayerName = GameLayers.Sorting.FX;
                 sr.sortingOrder = -1;
@@ -112,43 +257,6 @@ namespace Shatranj.Player
                     Tween.Scale(healAura.transform, 2.6f, 0.9f, Ease.OutQuad);
                 }
             }
-        }
-
-        private void ApplyScale(Vector3 scale)
-        {
-            if (visualRoot == null) return;
-            scale.x = Mathf.Abs(scale.x) * facing;
-            visualRoot.localScale = scale;
-        }
-
-        private void HandleStateChanged(PlayerState previous, PlayerState next) => ApplyStateTint(next);
-
-        private void HandleLanded()
-        {
-            if (visualRoot == null) return;
-            Tween.KillTweensOf(visualRoot);
-            ApplyScale(Vector3.Scale(baseScale, landSquashScale));
-            Tween.Scale(visualRoot, Flip(baseScale), landSquashTime, Ease.OutQuad);
-        }
-
-        private void HandleJumped()
-        {
-            if (visualRoot == null) return;
-            Tween.KillTweensOf(visualRoot);
-            ApplyScale(Vector3.Scale(baseScale, jumpStretchScale));
-            Tween.Scale(visualRoot, Flip(baseScale), 0.12f, Ease.OutQuad);
-        }
-
-        private Vector3 Flip(Vector3 scale)
-        {
-            scale.x = Mathf.Abs(scale.x) * facing;
-            return scale;
-        }
-
-        private void ApplyStateTint(PlayerState state)
-        {
-            if (HasClips || spriteRenderer == null) return;
-            spriteRenderer.color = TintFor(state);
         }
 
         /// <summary>Placeholder palette: protagonist blue/white family, with clear reads for special states.</summary>
