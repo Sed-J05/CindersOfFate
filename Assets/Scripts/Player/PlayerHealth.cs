@@ -232,6 +232,7 @@ namespace Shatranj.Player
             safeTimer = 0f;
             dying = false;
             if (GameManager.HasInstance) GameManager.Instance.SetState(GameState.Playing);
+            if (Level.RoomManager.Instance != null) Level.RoomManager.Instance.LocatePlayer(instant: true);
             if (CameraController.Main != null) CameraController.Main.SnapToTarget();
         }
     }

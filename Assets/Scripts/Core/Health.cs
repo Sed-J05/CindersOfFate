@@ -36,6 +36,12 @@ namespace Shatranj.Core
         /// <summary>External override (god mode, dash i-frames, boss stage transition).</summary>
         public bool Invulnerable { get; set; }
 
+        /// <summary>Optional gate run on every hit attempt that passed the i-frame check. Return false to block it (boss guard).</summary>
+        public Func<DamageInfo, bool> DamageFilter { get; set; }
+
+        /// <summary>Fired when <see cref="DamageFilter"/> rejected a hit.</summary>
+        public event Action<DamageInfo> OnBlocked;
+
         public int MaxHp => maxHp;
         public int CurrentHp { get { EnsureInit(); return currentHp; } }
         public bool IsAlive => !dead;
@@ -96,6 +102,11 @@ namespace Shatranj.Core
             EnsureInit();
             if (dead || info.amount <= 0) return false;
             if (!info.ignoreInvulnerability && IsInvulnerable) return false;
+            if (!info.ignoreInvulnerability && DamageFilter != null && !DamageFilter(info))
+            {
+                OnBlocked?.Invoke(info);
+                return false;
+            }
 
             currentHp = Mathf.Max(0, currentHp - info.amount);
             if (invulnerabilityDuration > 0f)

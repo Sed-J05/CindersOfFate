@@ -26,6 +26,10 @@ namespace Shatranj.Core
         /// <summary>(bossId, currentHp, maxHp)</summary>
         public static event Action<string, int, int> OnBossHealthChanged;
         public static event Action<string> OnBossDefeated;
+        /// <summary>The fight was abandoned (player died / boss removed): hide the bar without a victory.</summary>
+        public static event Action<string> OnBossReset;
+        /// <summary>(displayName, epithet) — Docs/08 §7 boss intro card.</summary>
+        public static event Action<string, string> OnBossIntroCard;
         public static event Action OnFinalBossDefeated;
 
         // --- World / flow ---
@@ -69,6 +73,8 @@ namespace Shatranj.Core
             => OnBossStarted?.Invoke(bossId, displayName, stageThresholds ?? System.Array.Empty<float>());
         public static void RaiseBossHealthChanged(string bossId, int current, int max) => OnBossHealthChanged?.Invoke(bossId, current, max);
         public static void RaiseBossDefeated(string bossId) => OnBossDefeated?.Invoke(bossId);
+        public static void RaiseBossReset(string bossId) => OnBossReset?.Invoke(bossId);
+        public static void RaiseBossIntroCard(string displayName, string epithet) => OnBossIntroCard?.Invoke(displayName, epithet);
         public static void RaiseFinalBossDefeated() => OnFinalBossDefeated?.Invoke();
 
         public static void RaiseRoomEntered(string roomId) => OnRoomEntered?.Invoke(roomId);
@@ -103,6 +109,8 @@ namespace Shatranj.Core
             OnBossStarted = null;
             OnBossHealthChanged = null;
             OnBossDefeated = null;
+            OnBossReset = null;
+            OnBossIntroCard = null;
             OnFinalBossDefeated = null;
             OnRoomEntered = null;
             OnBenchRested = null;

@@ -124,6 +124,23 @@ namespace Shatranj.EditorTools
             SceneBuildUtil.SetReference(bossUi, "nameText", bossName);
             SceneBuildUtil.SetReference(bossUi, "ticksContainer", ticks);
 
+            // --- Boss intro card (Docs/08 §7): centre-upper, name + epithet slide in for 1.5 s ---
+            RectTransform cardRoot = Rect("BossIntroCard", canvasRect, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 220f), new Vector2(1200f, 160f));
+            var cardGroup = cardRoot.gameObject.AddComponent<CanvasGroup>();
+            cardGroup.alpha = 0f;
+            RectTransform cardSlider = Rect("Slider", cardRoot, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
+            TextMeshProUGUI cardName = Text("Name", cardSlider, "BOSS", 72, TextAlignmentOptions.Center, new Vector2(0f, 0.5f), new Vector2(1f, 1f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
+            cardName.fontStyle = FontStyles.Bold;
+            cardName.color = new Color(0.12f, 0.1f, 0.1f);
+            TextMeshProUGUI cardEpithet = Text("Epithet", cardSlider, "— epithet", 34, TextAlignmentOptions.Center, new Vector2(0f, 0f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
+            cardEpithet.fontStyle = FontStyles.Italic;
+            cardEpithet.color = new Color(0.45f, 0.15f, 0.15f);
+            var cardUi = cardRoot.gameObject.AddComponent<BossIntroCardUI>();
+            SceneBuildUtil.SetReference(cardUi, "group", cardGroup);
+            SceneBuildUtil.SetReference(cardUi, "slider", cardSlider);
+            SceneBuildUtil.SetReference(cardUi, "nameText", cardName);
+            SceneBuildUtil.SetReference(cardUi, "epithetText", cardEpithet);
+
             // --- Flame arc: 200×60 top-centre (Phase 2) ---
             RectTransform arcRoot = Rect("FlameArc", canvasRect, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -24f), new Vector2(200f, 60f));
             var arcGroup = arcRoot.gameObject.AddComponent<CanvasGroup>();

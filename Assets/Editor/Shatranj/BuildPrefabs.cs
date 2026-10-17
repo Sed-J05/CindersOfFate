@@ -32,9 +32,49 @@ namespace Shatranj.EditorTools
             report.AppendLine("=== Shatranj / Build Prefabs ===");
             EnsureLevelProps(force: true, report);
             EnsureEnemyPrefabs(force: true, report);
+            EnsureBossPrefabs(force: true, report);
             AssetDatabase.SaveAssets();
-            report.AppendLine("Boss prefabs: Prompt 8+.");
             Debug.Log(report.ToString());
+        }
+
+        /// <summary>(prefab / set name, BossConfig asset name, boss id, behaviour) for every boss built so far.</summary>
+        public static readonly (string name, string config, string bossId, System.Type behaviour)[] BossTypes =
+        {
+            ("KageWarden", "KageWarden", "kage_warden", typeof(Shatranj.Bosses.KageWarden)),
+        };
+
+        /// <summary>Prefab path for a boss id ("kage_warden" → Assets/Prefabs/Bosses/KageWarden.prefab), or null if not built yet.</summary>
+        public static string BossPrefabPathForId(string bossId)
+        {
+            foreach (var b in BossTypes) if (b.bossId == bossId) return BossPrefabPath(b.name);
+            return null;
+        }
+
+        /// <summary>Builds the boss prefabs if any is missing (or always when <paramref name="force"/>). Call before NewScene (D-044).</summary>
+        public static void EnsureBossPrefabs(bool force = false, StringBuilder report = null)
+        {
+            bool allExist = true;
+            foreach (var b in BossTypes)
+                if (AssetDatabase.LoadAssetAtPath<GameObject>(BossPrefabPath(b.name)) == null) { allExist = false; break; }
+            if (allExist && !force) return;
+
+            GenerateConfigs.EnsureFolder(BossesFolder);
+            foreach (var b in BossTypes)
+            {
+                var cfg = AssetDatabase.LoadAssetAtPath<BossConfig>(GenerateConfigs.BossPath(b.config));
+                if (cfg == null)
+                {
+                    GenerateConfigs.Run();
+                    cfg = AssetDatabase.LoadAssetAtPath<BossConfig>(GenerateConfigs.BossPath(b.config));
+                }
+                if (cfg == null) { report?.AppendLine($"  FAILED {b.name}: no BossConfig at {GenerateConfigs.BossPath(b.config)}"); continue; }
+
+                GameObject root = BossPrefabFactory.Build(b.name, cfg, b.behaviour);
+                string path = BossPrefabPath(b.name);
+                PrefabUtility.SaveAsPrefabAsset(root, path, out bool ok);
+                Object.DestroyImmediate(root);
+                report?.AppendLine((ok ? "  saved  " : "  FAILED ") + path + $"  (HP {cfg.maxHp})");
+            }
         }
 
         /// <summary>(prefab / set name, config name, behaviour) for every regular enemy built so far.</summary>

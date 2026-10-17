@@ -64,8 +64,13 @@ namespace Shatranj.EditorTools.Level
                 int phaseTotal = 0;
                 foreach (LevelManifestSection s in phase.sections)
                 {
-                    int found = 0;
-                    foreach (RoomData room in rooms) if (room.section == s.id) found += room.CountEnemies();
+                    int found = 0, sectionRooms = 0;
+                    foreach (RoomData room in rooms) if (room.section == s.id) { found += room.CountEnemies(); sectionRooms++; }
+                    if (sectionRooms == 0)
+                    {
+                        r.Line($"  [PENDING] {phase.id}/{s.id}: expected {s.expectedEnemies}, no rooms authored yet");
+                        continue;
+                    }
                     phaseTotal += found;
                     bool ok = found == s.expectedEnemies;
                     r.Line($"  [{(ok ? "PASS" : "FAIL")}] {phase.id}/{s.id}: {found}/{s.expectedEnemies}", !ok);
@@ -174,7 +179,7 @@ namespace Shatranj.EditorTools.Level
                     for (int x = 1; x < room.width - 1; x++)
                     {
                         bool standable = Glyphs.IsPassable(room.Get(x, y)) && Glyphs.IsStandable(room.Get(x, y - 1));
-                        bool pit = Glyphs.IsPassable(room.Get(x, y)) && !Glyphs.IsStandable(room.Get(x, y - 1)) && !Glyphs.IsSolid(room.Get(x, y - 1));
+                        bool pit = Glyphs.IsPassable(room.Get(x, y)) && !Glyphs.IsStandable(room.Get(x, y - 1)) && DangerousBelow(room, x, y);
                         if (standable)
                         {
                             if (inGap)
@@ -190,6 +195,18 @@ namespace Shatranj.EditorTools.Level
                 }
             }
             r.Line("  (vertical reach is not checked automatically — Docs/05 §2: ≤ 5 tiles up per jump)");
+        }
+
+        /// <summary>A gap only counts if falling in is punished: the first non-empty cell below is spikes/lava, or there is no floor (D-101).</summary>
+        private static bool DangerousBelow(RoomData room, int x, int y)
+        {
+            for (int yy = y - 1; yy >= 0; yy--)
+            {
+                char c = room.Get(x, yy);
+                if (c == Glyphs.Spikes || c == Glyphs.Lava) return true;
+                if (Glyphs.IsStandable(c)) return false;
+            }
+            return true;
         }
 
         private static RoomData RoomAtTile(List<RoomData> rooms, int tx, int ty, RoomData exclude)

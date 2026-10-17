@@ -93,9 +93,17 @@ namespace Shatranj.Data
         public float backstepDistance = 3f;
         public float backstepTime = 0.35f;
 
+        [Header("Telegraph (Docs/04 global rules)")]
+        public float telegraphFlashTime = 0.1f;
+        public Color telegraphFlashColor = new Color(1f, 0.35f, 0.3f, 1f);
+        [Tooltip("Gravity scale of the boss body (Physics2D gravity is −9.81).")]
+        public float gravityScale = 3f;
+
         [Header("Block")]
         public float blockDuration = 0f;
         public float blockPushback = 2f;
+        [Tooltip("How long the 2 u/s pushback lasts when the player hits a raised guard.")]
+        public float blockPushbackTime = 0.15f;
         public int blockMinHitsToTrigger = 2;
         public float blockHitWindow = 2f;
         [Range(0f, 1f)] public float blockRandomChance = 0.2f;

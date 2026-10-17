@@ -6,7 +6,71 @@
       "phase": 1,
       "scene": "Phase1_Cave",
       "theme": "cave",
-      "rooms": [],
+      "rooms": [
+        {
+          "id": "P1_A0",
+          "file": "P1_A0.txt",
+          "section": "A",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_A1",
+          "file": "P1_A1.txt",
+          "section": "A",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_A2",
+          "file": "P1_A2.txt",
+          "section": "A",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_A3",
+          "file": "P1_A3.txt",
+          "section": "A",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_A4",
+          "file": "P1_A4.txt",
+          "section": "A",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_A5",
+          "file": "P1_A5.txt",
+          "section": "A",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P1_MB1",
+          "file": "P1_MB1.txt",
+          "section": "A",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        }
+      ],
       "sections": [
         {
           "id": "A",

@@ -94,6 +94,7 @@ namespace Shatranj.EditorTools.Level
 
             BuildPrefabs.EnsureLevelProps(false, report);
             BuildPrefabs.EnsureEnemyPrefabs(false, report);
+            BuildPrefabs.EnsureBossPrefabs(false, report);
 
             // D-044: create the scene before loading any asset we will reference.
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -251,7 +252,12 @@ namespace Shatranj.EditorTools.Level
                     var arenaGo = new GameObject("BossArena_" + (string.IsNullOrEmpty(room.bossId) ? room.id : room.bossId), typeof(BossArena));
                     arenaGo.transform.SetParent(roomGo.transform, false);
                     arenaGo.transform.position = bossSpawn;
-                    arenaGo.GetComponent<BossArena>().Configure(room.bossId, room.id, bossSpawn, slots, gates);
+                    var arena = arenaGo.GetComponent<BossArena>();
+                    arena.Configure(room.bossId, room.id, bossSpawn, slots, gates);
+                    string bossPath = BuildPrefabs.BossPrefabPathForId(room.bossId);
+                    GameObject bossPrefab = bossPath != null ? AssetDatabase.LoadAssetAtPath<GameObject>(bossPath) : null;
+                    if (bossPrefab != null) SceneBuildUtil.SetReference(arena, "bossPrefab", bossPrefab);
+                    else report.AppendLine($"  note  {room.id}: boss '{room.bossId}' has no prefab yet — the arena locks but nothing spawns.");
                 }
 
                 sectionCounts.TryGetValue(room.section, out int count);
@@ -295,7 +301,11 @@ namespace Shatranj.EditorTools.Level
             bool allPass = true;
             foreach (LevelManifestSection section in phase.sections)
             {
-                sectionCounts.TryGetValue(section.id, out int found);
+                if (!sectionCounts.TryGetValue(section.id, out int found))
+                {
+                    report.AppendLine($"  section {section.id}: PENDING (no rooms yet, expects {section.expectedEnemies})");
+                    continue;
+                }
                 bool pass = found == section.expectedEnemies;
                 allPass &= pass;
                 report.AppendLine($"  section {section.id}: {found}/{section.expectedEnemies} enemies  {(pass ? "PASS" : "FAIL")}");

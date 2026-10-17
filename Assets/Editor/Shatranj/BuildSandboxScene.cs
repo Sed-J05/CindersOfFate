@@ -39,6 +39,7 @@ namespace Shatranj.EditorTools
 
             // Prefab building uses temporary objects, so it happens before the new scene exists.
             BuildPrefabs.EnsureEnemyPrefabs(false, report);
+            BuildPrefabs.EnsureBossPrefabs(false, report);
 
             // Create the scene FIRST: NewScene(Single) unloads unused assets, which would turn config
             // objects loaded before this call into dead references (saved as null). See D-044.
@@ -85,13 +86,16 @@ namespace Shatranj.EditorTools
             report.AppendLine("Targets: 4 dummies (10/10/10/20 HP). Hazards: floor spikes at x≈5, pit spikes at x≈32.5.");
 
             // --- Enemy spawn keys (Prompt 7): 1 Crawler, 2 Lunger, 3 Kite, 0 clear — at the mouse cursor ---
-            var enemyPrefabs = new Object[BuildPrefabs.EnemyTypes.Length];
-            for (int i = 0; i < enemyPrefabs.Length; i++)
+            int enemyCount = BuildPrefabs.EnemyTypes.Length;
+            var enemyPrefabs = new Object[enemyCount + BuildPrefabs.BossTypes.Length];
+            for (int i = 0; i < enemyCount; i++)
                 enemyPrefabs[i] = AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.EnemyPrefabPath(BuildPrefabs.EnemyTypes[i].name));
+            for (int i = 0; i < BuildPrefabs.BossTypes.Length; i++)
+                enemyPrefabs[enemyCount + i] = AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.BossPrefabPath(BuildPrefabs.BossTypes[i].name));
             var spawnerGo = new GameObject("[SandboxEnemySpawner]");
             var sandboxSpawner = spawnerGo.AddComponent<Shatranj.Enemies.SandboxEnemySpawner>();
             SceneBuildUtil.SetObjectArray(sandboxSpawner, "prefabs", enemyPrefabs);
-            report.AppendLine("Enemy keys: 1 Crawler, 2 Lunger, 3 Shadow Kite (at the mouse cursor), 0 clear.");
+            report.AppendLine("Enemy keys: 1 Crawler, 2 Lunger, 3 Shadow Kite, 4 Kage Warden (at the mouse cursor), 0 clear.");
 
             // --- Camera rig ---
             Camera cam = SceneBuildUtil.CreateMainCamera(new Vector3(0f, cameraConfig.verticalOffset, -10f), cameraConfig.orthographicSize, ParchmentColor);

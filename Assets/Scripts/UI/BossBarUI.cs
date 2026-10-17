@@ -42,6 +42,7 @@ namespace Shatranj.UI
             GameEvents.OnBossStarted += HandleBossStarted;
             GameEvents.OnBossHealthChanged += HandleBossHealth;
             GameEvents.OnBossDefeated += HandleBossDefeated;
+            GameEvents.OnBossReset += HandleBossReset;
             if (group != null) group.alpha = 0f;
         }
 
@@ -50,6 +51,13 @@ namespace Shatranj.UI
             GameEvents.OnBossStarted -= HandleBossStarted;
             GameEvents.OnBossHealthChanged -= HandleBossHealth;
             GameEvents.OnBossDefeated -= HandleBossDefeated;
+            GameEvents.OnBossReset -= HandleBossReset;
+        }
+
+        private void HandleBossReset(string id)
+        {
+            if (id != bossId) return;
+            fadeT = 0f;
         }
 
         private void HandleBossStarted(string id, string displayName, float[] stageThresholds)

@@ -91,16 +91,43 @@ namespace Shatranj.Level
             return true;
         }
 
+        private Bosses.BossBase instance;
+
+        public Bosses.BossBase Instance => instance;
+
         public void Engage()
         {
             engaged = true;
             for (int i = 0; i < gates.Count; i++) if (gates[i] != null) gates[i].Close();
+            SpawnBoss();
             OnEngaged?.Invoke(this);
+        }
+
+        /// <summary>Spawns a fresh boss at the 'M'/'Z' marker (a fresh instance is also how the boss "resets").</summary>
+        private void SpawnBoss()
+        {
+            if (bossPrefab == null) return;
+            if (instance != null) Destroy(instance.gameObject);
+            GameObject go = Instantiate(bossPrefab, bossSpawnPoint, Quaternion.identity, transform);
+            instance = go.GetComponent<Bosses.BossBase>();
+            if (instance != null)
+            {
+                instance.Bind(this);
+                instance.Begin();
+            }
+        }
+
+        private void DespawnBoss()
+        {
+            if (instance == null) return;
+            Destroy(instance.gameObject);
+            instance = null;
         }
 
         private void HandleBossDefeated(string id)
         {
             if (id != bossId) return;
+            instance = null; // the boss destroys itself after its death animation
             if (GameManager.HasInstance)
             {
                 GameManager.Instance.Save.MarkDefeated(bossId);
@@ -113,6 +140,7 @@ namespace Shatranj.Level
         {
             if (!engaged) return;
             engaged = false;
+            DespawnBoss();   // Docs/01 §10: bosses reset — the next engage spawns a fresh one
             for (int i = 0; i < gates.Count; i++) if (gates[i] != null) gates[i].Open();
             OnResetRequested?.Invoke(this);
         }
