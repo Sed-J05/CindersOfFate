@@ -35,6 +35,7 @@ namespace Shatranj.Bosses
         private readonly RaycastHit2D[] floorHits = new RaycastHit2D[2];
 
         private const string ProjectileSet = "BlackSlash_Fly";
+        private const float MinionCeilingClearance = 0.2f;
 
         protected override void Awake()
         {
@@ -242,7 +243,12 @@ namespace Shatranj.Bosses
         {
             GameObject prefab = minionPrefabs[Random.Range(0, minionPrefabs.Length)];
             if (prefab == null) return;
-            GameObject go = Instantiate(prefab, at, Quaternion.identity, transform.parent);
+            // D-125: drop slots sit in the row under the ceiling; spawning the feet there put the body inside the
+            // ceiling and physics pushed it out on top. Lower the feet so the whole body starts in open air.
+            var template = prefab.GetComponent<EnemyBase>();
+            float bodyHeight = template != null && template.Config != null ? template.Config.bodySize.y : 1f;
+            Vector2 feet = at - new Vector2(0f, 0.25f + bodyHeight + MinionCeilingClearance);
+            GameObject go = Instantiate(prefab, feet, Quaternion.identity, transform.parent);
             var enemy = go.GetComponent<EnemyBase>();
             if (enemy != null) minions.Add(enemy);
         }

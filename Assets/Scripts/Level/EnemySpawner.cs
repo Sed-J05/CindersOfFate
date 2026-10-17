@@ -43,7 +43,11 @@ namespace Shatranj.Level
         {
             roomActive = active;
             if (active && instance == null && prefab != null && !IsKilled) Spawn();
-            if (instance != null) ApplyActivation(active);
+            if (instance == null) return;
+            // D-124: an enemy that wandered (or lunged) into an active room stays active even if its home room isn't,
+            // so it never freezes — colliders off — in front of the player.
+            bool effective = active || (RoomManager.Instance != null && RoomManager.Instance.IsPointActive(instance.transform.position));
+            ApplyActivation(effective);
         }
 
         private void Spawn()

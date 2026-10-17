@@ -333,6 +333,10 @@ namespace Shatranj.Enemies
             OnDeath();
             dying = true;
             deathTimer = config.deathAnimTime;
+            // D-124 insurance: the corpse is removed even if the death timer were ever interrupted.
+            Destroy(gameObject, config.deathAnimTime + 1f);
+            // A dead body must keep animating and counting down wherever it is.
+            SetRoomActive(true);
         }
 
         protected virtual void OnDeath() { }

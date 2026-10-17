@@ -103,6 +103,36 @@ namespace Shatranj.Level
         /// <summary>Called by RoomBounds triggers.</summary>
         public void NotifyPlayerEntered(RoomBounds room) => Enter(room, instant: false);
 
+        /// <summary>True when <paramref name="point"/> lies in a room that is currently active (current or adjacent).</summary>
+        public bool IsPointActive(Vector2 point)
+        {
+            RoomBounds r = RoomAt(point);
+            return r != null && activeRoomIds.Contains(r.RoomId);
+        }
+
+        private void Update()
+        {
+            // D-124: self-correcting room tracking. Triggers can miss a teleport (respawn, hazard return, debug keys),
+            // so whenever the player is outside the current room, locate them. A jump to a non-neighbouring room
+            // (teleport) snaps the camera; walking into a neighbour blends as usual.
+            if (player == null) { player = PlayerController.Active; if (player == null) return; }
+            Vector2 p = player.Position + new Vector2(0f, 0.2f);
+            if (Current != null && Current.Contains(p)) return;
+            RoomBounds room = RoomAt(p);
+            if (room == null || room == Current) return;
+            bool neighbour = Current != null && IsAdjacent(Current, room);
+            Enter(room, instant: !neighbour);
+            if (!neighbour && CameraController.Main != null) CameraController.Main.SnapToTarget();
+        }
+
+        private bool IsAdjacent(RoomBounds a, RoomBounds b)
+        {
+            Rect expanded = a.WorldRect;
+            expanded.xMin -= adjacencyMargin; expanded.xMax += adjacencyMargin;
+            expanded.yMin -= adjacencyMargin; expanded.yMax += adjacencyMargin;
+            return b.WorldRect.Overlaps(expanded);
+        }
+
         private void Enter(RoomBounds room, bool instant)
         {
             if (room == null || room == Current) return;
@@ -111,11 +141,8 @@ namespace Shatranj.Level
 
             activeRoomIds.Clear();
             activeRoomIds.Add(room.RoomId);
-            Rect expanded = room.WorldRect;
-            expanded.xMin -= adjacencyMargin; expanded.xMax += adjacencyMargin;
-            expanded.yMin -= adjacencyMargin; expanded.yMax += adjacencyMargin;
             for (int i = 0; i < rooms.Count; i++)
-                if (rooms[i] != room && rooms[i].WorldRect.Overlaps(expanded)) activeRoomIds.Add(rooms[i].RoomId);
+                if (rooms[i] != room && IsAdjacent(room, rooms[i])) activeRoomIds.Add(rooms[i].RoomId);
 
             foreach (KeyValuePair<string, List<EnemySpawner>> kv in spawnersByRoom)
             {

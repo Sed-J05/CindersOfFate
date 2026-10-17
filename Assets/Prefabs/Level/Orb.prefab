@@ -86,6 +86,9 @@ MonoBehaviour:
   requiresKey: 1
   promptOffset: {x: 0, y: 0.2}
   animator: {fileID: 4296739497769051567}
+  runPlaceholderSequence: 1
+  touchHoldTime: 1
+  fadeTime: 0.8
 --- !u!1 &4724559291608789061
 GameObject:
   m_ObjectHideFlags: 0
