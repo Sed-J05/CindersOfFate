@@ -22,6 +22,8 @@ namespace Shatranj.EditorTools.Level
             public Tile oneWayL, oneWayM, oneWayR;
             public Tile spikes;
             public Tile lava;
+            /// <summary>Lava animation frames Tile_Castle_Lava_00..03 (animated at runtime by LavaSurface).</summary>
+            public Tile[] lavaFrames = new Tile[0];
             public int missing;
 
             /// <summary>kind: -1 left end, 0 middle, +1 right end.</summary>
@@ -49,7 +51,13 @@ namespace Shatranj.EditorTools.Level
             t.oneWayM = GetOrCreate(theme, $"Tile_{theme}_OneWay_M", Tile.ColliderType.Grid, t);
             t.oneWayR = GetOrCreate(theme, $"Tile_{theme}_OneWay_R", Tile.ColliderType.Grid, t);
             t.spikes = GetOrCreate(theme, $"Tile_{theme}_Spikes", Tile.ColliderType.Grid, t);
-            t.lava = theme == "Castle" ? GetOrCreate(theme, "Tile_Castle_Lava_00", Tile.ColliderType.Grid, t) : null;
+            if (theme == "Castle")
+            {
+                t.lavaFrames = new Tile[4];
+                for (int i = 0; i < t.lavaFrames.Length; i++) t.lavaFrames[i] = GetOrCreate(theme, $"Tile_Castle_Lava_{i:00}", Tile.ColliderType.Grid, t);
+                t.lava = t.lavaFrames[0];
+            }
+            else t.lava = null;
 
             if (t.missing > 0) report?.AppendLine($"  ! {t.missing} tile sprite(s) missing for theme {theme}");
             return t;

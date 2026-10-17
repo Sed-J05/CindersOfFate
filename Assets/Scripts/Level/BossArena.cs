@@ -70,7 +70,8 @@ namespace Shatranj.Level
 
         private void Update()
         {
-            if (!playerInRoom || engaged || IsDefeated) return;
+            // No boss prefab yet (e.g. the throne room before Prompt 15): never lock the player in an empty arena.
+            if (!playerInRoom || engaged || IsDefeated || bossPrefab == null) return;
             if (player == null) player = FindFirstObjectByType<Player.PlayerController>();
             if (player == null) return;
             if (PlayerIsInsideGates(player.Position)) Engage();

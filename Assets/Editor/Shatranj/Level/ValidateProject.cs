@@ -173,6 +173,12 @@ namespace Shatranj.EditorTools.Level
 
                 ValidateEnemyPlacement(room, phase, r);
 
+                // Static lava (Docs/04 §F): a pit needs a floor, or the player falls through the hazard trigger.
+                for (int y = 0; y < room.height; y++)
+                    for (int x = 0; x < room.width; x++)
+                        if (room.cells[x, y] == Glyphs.Lava && !Glyphs.IsSolid(room.Get(x, y - 1)) && room.Get(x, y - 1) != Glyphs.Lava)
+                            r.Line($"  [FAIL] {room.id}: lava at ({x},{y}) has no floor under it", true);
+
                 // Benches never in boss arenas (rule 6).
                 if (room.IsBossRoom && room.Contains(Glyphs.Bench))
                     r.Line($"  [FAIL] {room.id}: bench inside a boss arena", true);

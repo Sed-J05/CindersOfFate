@@ -124,6 +124,7 @@ namespace Shatranj.EditorTools.Level
             var oneWayCells = new HashSet<Vector2Int>();
             var spikeCells = new HashSet<Vector2Int>();
             var lavaCells = new HashSet<Vector2Int>();
+            TileAssets.ThemeTiles lavaTheme = null;
 
             Transform roomsRoot = new GameObject("Rooms").transform;
             var sectionCounts = new Dictionary<string, int>();
@@ -149,7 +150,7 @@ namespace Shatranj.EditorTools.Level
                         if (g == Glyphs.Solid) { ground.SetTile(cell, t.bitmask[BitmaskIndex(room, x, y)]); groundCells.Add(key); tiles++; }
                         else if (g == Glyphs.OneWay) { oneWay.SetTile(cell, t.OneWay(OneWayKind(room, x, y))); oneWayCells.Add(key); tiles++; }
                         else if (g == Glyphs.Spikes) { spikes.SetTile(cell, t.spikes); spikeCells.Add(key); tiles++; }
-                        else if (g == Glyphs.Lava) { lava.SetTile(cell, t.lava != null ? t.lava : t.spikes); lavaCells.Add(key); tiles++; }
+                        else if (g == Glyphs.Lava) { lava.SetTile(cell, t.lava != null ? t.lava : t.spikes); lavaCells.Add(key); tiles++; if (t.lava != null) lavaTheme = t; }
                     }
                 }
 
@@ -264,7 +265,8 @@ namespace Shatranj.EditorTools.Level
                     string bossPath = BuildPrefabs.BossPrefabPathForId(room.bossId);
                     GameObject bossPrefab = bossPath != null ? AssetDatabase.LoadAssetAtPath<GameObject>(bossPath) : null;
                     if (bossPrefab != null) SceneBuildUtil.SetReference(arena, "bossPrefab", bossPrefab);
-                    else report.AppendLine($"  note  {room.id}: boss '{room.bossId}' has no prefab yet — the arena locks but nothing spawns.");
+                    else report.AppendLine($"  note  {room.id}: boss '{room.bossId}' has no prefab yet — the arena stays open (nothing to fight).");
+                    if (room.Contains(Glyphs.FinalBoss)) PlaceThroneTorches(room, roomGo.transform);
                 }
 
                 sectionCounts.TryGetValue(room.section, out int count);
@@ -279,7 +281,13 @@ namespace Shatranj.EditorTools.Level
             if (spikeCells.Count > 0)
                 ColliderBaker.Bake("Spikes", collisionRoot, spikeCells, GameLayers.Hazard, true, false, out _).AddComponent<DamageDealer>().Configure(1, DamageType.Hazard);
             if (lavaCells.Count > 0)
-                ColliderBaker.Bake("Lava", collisionRoot, lavaCells, GameLayers.Hazard, true, false, out _).AddComponent<DamageDealer>().Configure(1, DamageType.Lava);
+            {
+                // Docs/04 §F static lava: 1 heart per touch with i-frames, no teleport; knockback away from the surface
+                // (not sideways) so the hurt bounce lifts the player out of the pit.
+                ColliderBaker.Bake("Lava", collisionRoot, lavaCells, GameLayers.Hazard, true, false, out _)
+                    .AddComponent<DamageDealer>().Configure(1, DamageType.Lava, null, horizontal: false);
+                SetupLavaSurface(lava, lavaTheme);
+            }
             report.AppendLine($"  collision: {groundCells.Count} solid tiles → {groundBoxes} boxes, {oneWayCells.Count} one-way tiles → {oneWayBoxes} boxes");
 
             if (startRoom == null)
@@ -389,6 +397,56 @@ namespace Shatranj.EditorTools.Level
         }
 
         /// <summary>Visual-only tilemap (no collider; collision is baked separately).</summary>
+        /// <summary>Lava glows (unlit, ignores the dim Phase 2 lighting) and animates its 4 frames (LavaSurface).</summary>
+        private static void SetupLavaSurface(Tilemap lava, TileAssets.ThemeTiles theme)
+        {
+            Material unlit = SceneBuildUtil.SpriteUnlitMaterial();
+            var renderer = lava.GetComponent<TilemapRenderer>();
+            if (unlit != null && renderer != null) renderer.sharedMaterial = unlit;
+            var surface = lava.gameObject.AddComponent<LavaSurface>();
+            if (theme != null && theme.lavaFrames != null && theme.lavaFrames.Length > 1)
+                SceneBuildUtil.SetObjectArray(surface, "frames", theme.lavaFrames);
+        }
+
+        private static readonly int[] ThroneTorchColumns = { 10, 22, 34, 44 };
+        private const int ThroneTorchRow = 7;
+
+        /// <summary>
+        /// Docs/05 §5 P2_THRONE "torch props": animated Torch sprites (Docs/06 §5.3, 96×192, 4 @ 8 fps) along the back
+        /// wall with a small warm Point Light 2D each. Decoration only — no collider, no glyph.
+        /// </summary>
+        private static void PlaceThroneTorches(RoomData room, Transform parent)
+        {
+            var set = AssetDatabase.LoadAssetAtPath<SpriteAnimationSet>(Art.RebuildAnimations.SetPath("Torch"));
+            Material unlit = SceneBuildUtil.SpriteUnlitMaterial();
+            foreach (int x in ThroneTorchColumns)
+            {
+                if (x <= 0 || x >= room.width - 1 || room.IsSolid(x, ThroneTorchRow)) continue;
+                var go = new GameObject($"Torch_{x}");
+                go.layer = GameLayers.Ignore;
+                go.transform.SetParent(parent, false);
+                go.transform.position = room.CellCenter(x, ThroneTorchRow);
+                var sr = go.AddComponent<SpriteRenderer>();
+                sr.sortingLayerName = GameLayers.Sorting.Props;
+                if (unlit != null) sr.sharedMaterial = unlit;
+                SpriteClip clip = set != null ? set.Find(Visuals.FxPool.DefaultClip) : null;
+                sr.sprite = clip != null && clip.IsValid ? clip.frames[0] : null;
+                var anim = go.AddComponent<SpriteAnimator>();
+                if (set != null) SceneBuildUtil.SetReference(anim, "set", set);
+                SceneBuildUtil.SetString(anim, "defaultClip", Visuals.FxPool.DefaultClip);
+
+                var lightGo = new GameObject("Glow");
+                lightGo.transform.SetParent(go.transform, false);
+                lightGo.transform.localPosition = new Vector3(0f, 0.5f, 0f);
+                var light = lightGo.AddComponent<UnityEngine.Rendering.Universal.Light2D>();
+                light.lightType = UnityEngine.Rendering.Universal.Light2D.LightType.Point;
+                light.color = new Color(1f, 0.62f, 0.3f);
+                light.intensity = 0.8f;
+                light.pointLightOuterRadius = 3f;
+                light.pointLightInnerRadius = 0.4f;
+            }
+        }
+
         private static Tilemap MakeTilemap(Transform parent, string name, int order)
         {
             var go = new GameObject(name);

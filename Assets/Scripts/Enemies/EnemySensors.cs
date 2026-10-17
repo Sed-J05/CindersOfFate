@@ -11,7 +11,7 @@ namespace Shatranj.Enemies
     {
         private static readonly RaycastHit2D[] hits = new RaycastHit2D[4];
         private static readonly Collider2D[] overlaps = new Collider2D[16];
-        private static ContactFilter2D walkable, wall, enemies;
+        private static ContactFilter2D walkable, wall, enemies, hazards;
         private static bool initialized;
 
         private static void Init()
@@ -21,6 +21,8 @@ namespace Shatranj.Enemies
             walkable = Filter(GameLayers.WalkableMask);
             wall = Filter(GameLayers.WallMask);
             enemies = Filter(GameLayers.EnemyMask);
+            hazards = Filter(GameLayers.HazardMask);
+            hazards.useTriggers = true;   // spikes and lava are triggers
         }
 
         private static ContactFilter2D Filter(int mask)
@@ -39,11 +41,15 @@ namespace Shatranj.Enemies
             return Physics2D.BoxCast(feet + new Vector2(0f, 0.05f), box, 0f, Vector2.down, walkable, hits, 0.1f) > 0;
         }
 
-        /// <summary>Is there floor just beyond the front foot? False = ledge.</summary>
+        /// <summary>
+        /// Is there safe floor just beyond the front foot? False = ledge. Spikes or lava ahead (at or just below foot
+        /// level) count as a ledge too, so ground enemies turn back instead of walking into hazards (Prompt 14).
+        /// </summary>
         public static bool GroundAhead(Vector2 feet, int dir, float halfWidth, float probe)
         {
             Init();
             var origin = new Vector2(feet.x + dir * (halfWidth + 0.08f), feet.y + 0.1f);
+            if (Physics2D.OverlapBox(origin + new Vector2(0f, -0.15f), new Vector2(0.1f, 0.3f), 0f, hazards, overlaps) > 0) return false;
             return Physics2D.Raycast(origin, Vector2.down, walkable, hits, 0.1f + probe) > 0;
         }
 

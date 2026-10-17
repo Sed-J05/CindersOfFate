@@ -233,6 +233,87 @@
           "useManifestOrigin": false,
           "originX": 0,
           "originY": 0
+        },
+        {
+          "id": "P2_D1",
+          "file": "P2_D1.txt",
+          "section": "D",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P2_D2",
+          "file": "P2_D2.txt",
+          "section": "D",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P2_D3",
+          "file": "P2_D3.txt",
+          "section": "D",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P2_D4",
+          "file": "P2_D4.txt",
+          "section": "D",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P2_D5",
+          "file": "P2_D5.txt",
+          "section": "D",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P2_D6",
+          "file": "P2_D6.txt",
+          "section": "D",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P2_D7",
+          "file": "P2_D7.txt",
+          "section": "D",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P2_D8",
+          "file": "P2_D8.txt",
+          "section": "D",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
+        },
+        {
+          "id": "P2_THRONE",
+          "file": "P2_THRONE.txt",
+          "section": "D",
+          "bossId": "",
+          "useManifestOrigin": false,
+          "originX": 0,
+          "originY": 0
         }
       ],
       "sections": [
