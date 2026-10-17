@@ -224,6 +224,18 @@ namespace Shatranj.Player
             yield return new WaitForSecondsRealtime(config.deathSlowmoDuration);
             Time.timeScale = 1f;
 
+            // Docs/07 §6: death uses the burn wipe (orange-rimmed circle closing on the puppet); plain fade as fallback.
+            ScreenWipe wipe = ScreenWipe.Instance;
+            if (wipe != null)
+            {
+                yield return wipe.BurnClose(transform.position, config.deathFadeTime);
+                yield return new WaitForSecondsRealtime(0.05f);
+                Respawn();
+                yield return null;
+                yield return wipe.BurnOpen(transform.position, config.deathFadeTime);
+                yield break;
+            }
+
             SceneFlow flow = SceneFlow.Instance;
             flow.FadeTo(1f, config.deathFadeTime);
             yield return new WaitForSecondsRealtime(config.deathFadeTime + 0.05f);

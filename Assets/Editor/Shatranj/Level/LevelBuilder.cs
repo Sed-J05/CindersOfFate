@@ -300,7 +300,7 @@ namespace Shatranj.EditorTools.Level
             SceneBuildUtil.SetReference(camController, "config", cameraConfig);
             SceneBuildUtil.SetReference(camController, "targetBehaviour", controller);
             SceneBuildUtil.SetReference(camController, "initialRoom", startRoom);
-            SceneBuildUtil.CreateGlobalLight("Global Light 2D", Color.white, 1f);
+            VisualRigFactory.Build(cam, report);   // Prompt 10: parchment, flame, lights, PostFX, themes, wipes
 
             GameObject hudPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(BuildUIPrefabs.HudPrefabPath);
             if (hudPrefab == null && BuildUIPrefabs.TmpEssentialsPresent()) { BuildUIPrefabs.Run(); hudPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(BuildUIPrefabs.HudPrefabPath); }

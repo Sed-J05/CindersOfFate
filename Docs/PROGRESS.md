@@ -14,7 +14,7 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 | 7 | Enemy framework + Phase 1 enemies | ✅ done (2026-10-17) | `Scripts/Enemies`: EnemyBase (Health, white flash via silhouette shader, knockback, Hurt/Death clips, Death_Smoke, contact DamageDealer, room activation, spawner kill-save, telegraph flash + '!', flame-scale hook), EnemySensors (ground/ledge/wall/LOS/separation/sweep), Crawler, Lunger, ShadowKite, SandboxEnemySpawner (1/2/3 at cursor, 0 clear). `Visuals`: FxPool + PooledFx. Shader `Shatranj/SpriteSilhouette`. Editor: EnemyPrefabFactory, Build Prefabs builds the 3 enemies; Sandbox + Level builders ensure them. Tests: EnemyAcceptanceTests (6). |
 | 8 | Phase 1 Section A + MB1 | ✅ done (2026-10-18) | Rooms P1_A0–A5 + P1_MB1 (15 enemies, all jumps checked) in `LevelManifest.json`; `Docs/LEVEL_OVERVIEW.md`. `Scripts/Bosses`: BossBase (intro + card, bar events, stages/enrage, hit windows, guard filter, slow-mo death, reset), KageWarden (advance, combo with turn-around, back-step, block + clink + pushback, counter-slash). BossArena spawns/despawns the boss. Health.DamageFilter; GameEvents OnBossReset/OnBossIntroCard; BossIntroCardUI. Editor: BossPrefabFactory, Build Prefabs boss, Sandbox key 4, `Build All Scenes`. Validate: hazard-only pits, PENDING sections. Tests: BossAcceptanceTests (2). |
 | 9 | Phase 1 Section B + MB2 + orb | ✅ done (2026-10-18) | Rooms P1_B1–B6, P1_MB2, P1_ORB (20 enemies incl. 8 kites; Phase 1 = 35); MB1 east opened; every gate/door now in a 6-tile doorway. `Scripts/Bosses`: SwordsmanBoss (shared advance / slash combo / back-step), KageWarden refactored onto it, KageCaller (faster combo, Black Slash 1→2 shots < 66 %, summon with '!' floor markers + ceiling-slot drops, cap 3, die with boss, enrage < 50 %, sets door_orb). `Enemies`: EnemyProjectile + ProjectilePool (runtime-built pools). Orb placeholder sequence + ToBeContinuedCard. Sandbox key 5. Tests: Kage Caller numbers. |
-| 10 | Shadow puppetry visuals | ⬜ not started | also picks up URP/quality tweaks deferred from Prompt 0 (D-011) |
+| 10 | Shadow puppetry visuals | ✅ done (2026-10-18) | `Scripts/Visuals`: FlameController (P1 ping-pong 480 s, P2 one-way 1200 s with save/death restore, park, flicker, hit spikes, publishes t), FlameLight (Point Light 2D), ParchmentRig (tiled parchment + cross-fade, FlameGlow, FlameCore, ParchmentFrame), ParallaxLayer (0.1 / 0.3), PuppetShadow (2 black copies offset from the flame), ThemeManager (4 themes, cross-fade, follows phase), ScreenWipe (room sweep, death burn), VisualDebugPanel (F11). Editor: VisualRigFactory (rig, lights, PostFX volume + profile, theme sprite slots) in Phase1/Sandbox/LevelTest builders; PuppetShadow on player/enemies/bosses. Tests: FlameMathTests (6). |
 | 11 | Cutscene system + CS1/CS2 + menus | ⬜ not started | |
 | 12 | Phase 2 systems + enemies | ⬜ not started | |
 | 13 | Phase 2 Section C + MB3 | ⬜ not started | |
@@ -30,10 +30,9 @@ Legend: ✅ done · 🔧 in progress · ⬜ not started · ⚠️ blocked
 - Project folder/product name is `cinders of fate` (D-002). Git repo initialised on branch `main`, first commit 2026-10-17.
 
 ## Pending human steps (carry forward until done)
-1. **Shatranj → Build Prefabs**, then **Shatranj → Build All Scenes**.
-2. **Shatranj → Validate Project**: Section A PASS 15, Section B PASS 20, P1 total 35.
-3. Play Phase1_Cave from the cave mouth to the orb. Test Runner → EditMode → Run All (57 tests).
-4. Art-swap test from Prompt 4 is still unverified.
+1. **Shatranj → Build Prefabs** (drop shadows on enemies/bosses), then **Shatranj → Build All Scenes**.
+2. Play Phase1_Cave; F11 opens the visuals panel. Test Runner → EditMode → Run All (63 tests).
+3. Art-swap test from Prompt 4 is still unverified.
 
 ## Next up
-Prompt 10 — Shadow puppetry visuals + themes + flame (`Docs/09_BUILD_PROMPTS.md`).
+Prompt 11 — Cutscene system + Cutscenes 1 & 2 + phase transition + menus (`Docs/09_BUILD_PROMPTS.md`).

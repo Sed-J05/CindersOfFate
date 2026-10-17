@@ -32,7 +32,8 @@ namespace Shatranj.Level
         /// <summary>Lowest world y of any room; anything below it has fallen out of the level.</summary>
         public float WorldBottom { get; private set; } = float.NegativeInfinity;
         public IReadOnlyList<RoomBounds> Rooms => rooms;
-        public event Action<RoomBounds> OnRoomChanged;
+        /// <summary>(room, instant) — instant = teleport/respawn rather than walking through a doorway.</summary>
+        public event Action<RoomBounds, bool> OnRoomChanged;
 
         private void Awake()
         {
@@ -156,7 +157,7 @@ namespace Shatranj.Level
             }
 
             GameEvents.RaiseRoomEntered(room.RoomId);
-            OnRoomChanged?.Invoke(room);
+            OnRoomChanged?.Invoke(room, instant);
         }
 
         // ------------------------------------------------------------------

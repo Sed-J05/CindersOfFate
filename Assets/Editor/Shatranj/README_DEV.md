@@ -25,7 +25,9 @@ Menu order (top → bottom) mirrors the build order. `Build Everything` runs the
 | `Shatranj/Build Everything` | planned (after Prompt 8) | `BuildEverything.cs` | Runs Setup Project → Generate Config Assets → Generate Placeholder Art → Import & Rebuild Animations → Build Prefabs → Build UI Prefabs → Build Levels → Build All Scenes → Validate Project. |
 
 Debug-only panels (runtime hotkeys, not menu items): F1–F9 per `CLAUDE.md` §6, F10 HUD fake-events (Prompt 5),
-F11 flame/theme scrub (Prompt 10), F12 flame-scale slider (Prompt 12).
+F11 visuals: `,`/`.` scrub flame t, M freeze, P park, G spike, T next theme, Y drop-shadows (Prompt 10), F12 flame-scale slider (Prompt 12).
+
+Scene builders (Sandbox, LevelTest, phase scenes) call `VisualRigFactory.Build` for the parchment stage, flame, lights, PostFX volume, themes and wipes.
 
 ## Assemblies
 - `Assets/Scripts/Shatranj.Runtime.asmdef` — all gameplay code (references Input System, TMP, UI, URP).

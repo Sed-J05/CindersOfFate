@@ -54,6 +54,7 @@ namespace Shatranj.EditorTools
             sr.sortingLayerName = GameLayers.Sorting.Player;
             if (lit != null) sr.sharedMaterial = lit;
             var spriteAnimator = visual.AddComponent<SpriteAnimator>();
+            visual.AddComponent<PuppetShadow>();   // Docs/07 §5
             if (hasClips) SceneBuildUtil.SetReference(spriteAnimator, "set", animSet);
 
             // Simple "eye" so facing is readable on the placeholder box (hidden when real clips exist).

@@ -75,6 +75,7 @@ namespace Shatranj.EditorTools
             SpriteClip first = set != null ? set.Find(defaultClip) : null;
             sr.sprite = first != null && first.IsValid ? first.frames[0] : null;
             var anim = visual.AddComponent<SpriteAnimator>();
+            visual.AddComponent<PuppetShadow>();   // Docs/07 §5
             if (set != null) SceneBuildUtil.SetReference(anim, "set", set);
             SceneBuildUtil.SetString(anim, "defaultClip", defaultClip);
 

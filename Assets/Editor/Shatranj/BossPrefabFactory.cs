@@ -51,6 +51,7 @@ namespace Shatranj.EditorTools
             SpriteClip idle = set != null ? set.Find("Idle") : null;
             sr.sprite = idle != null && idle.IsValid ? idle.frames[0] : null;
             var anim = visual.AddComponent<SpriteAnimator>();
+            visual.AddComponent<PuppetShadow>();   // Docs/07 §5
             if (set != null) SceneBuildUtil.SetReference(anim, "set", set);
             SceneBuildUtil.SetString(anim, "defaultClip", "Idle");
 

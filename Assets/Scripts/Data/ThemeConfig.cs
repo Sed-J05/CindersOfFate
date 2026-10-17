@@ -21,6 +21,12 @@ namespace Shatranj.Data
         public Color frameTint = Hex("#9C8460");
         public Sprite parchmentSprite;
         public Sprite frameSprite;
+        [Tooltip("Colour multiplied onto the parchment sprite (white = the texture as painted). Without a sprite, parchmentBase is used.")]
+        public Color parchmentSpriteTint = Color.white;
+        [Range(0f, 1f), Tooltip("Opacity of the soft flame glow drawn on the paper.")]
+        public float flameGlowAlpha = 0.55f;
+        [Range(0f, 1f), Tooltip("Opacity of the blurred flame core seen through the paper.")]
+        public float flameCoreAlpha = 0.35f;
 
         [Header("Environment")]
         public Color environmentDark = Hex("#26262A");
