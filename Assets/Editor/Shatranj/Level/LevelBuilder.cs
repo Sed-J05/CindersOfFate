@@ -309,7 +309,8 @@ namespace Shatranj.EditorTools.Level
             if (hudPrefab != null) ((GameObject)PrefabUtility.InstantiatePrefab(hudPrefab, scene)).name = "HUD";
             else report.AppendLine("  warn  HUD prefab missing (import TMP Essentials + Build UI Prefabs).");
 
-            new GameObject("[SceneBootstrap]").AddComponent<SceneBootstrap>();
+            var bootstrap = new GameObject("[SceneBootstrap]").AddComponent<SceneBootstrap>();
+            SceneBuildUtil.SetInt(bootstrap, "scenePhase", phase.phase);   // opened directly → correct phase + theme
             new GameObject("[RoomManager]").AddComponent<RoomManager>();
             var setup = new GameObject("[LevelSceneSetup]").AddComponent<LevelSceneSetup>();
             SceneBuildUtil.SetReference(setup, "defaultSpawn", spawnTransform);

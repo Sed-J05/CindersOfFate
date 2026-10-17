@@ -9,18 +9,21 @@ using UnityEngine.InputSystem;
 namespace Shatranj.Enemies
 {
     /// <summary>
-    /// Sandbox only (Docs/02 §13): number keys spawn prefabs at the mouse cursor (1 = first prefab …), 0 clears.
-    /// Ground enemies drop onto the floor below the cursor. Stands down while the F10 HUD panel uses the digits.
+    /// Sandbox only (Docs/02 §13): number keys spawn prefabs at the mouse cursor (1 = first prefab …), Shift + number
+    /// spawns from the second page (bosses), 0 clears. Ground enemies drop onto the floor below the cursor.
+    /// Stands down while the F10 HUD panel uses the digits.
     /// </summary>
     public class SandboxEnemySpawner : MonoBehaviour
     {
         [SerializeField] private GameObject[] prefabs = new GameObject[0];
+        [SerializeField] private GameObject[] shiftPrefabs = new GameObject[0];
         [SerializeField] private float dropSearchDistance = 30f;
 
         private readonly List<GameObject> spawned = new List<GameObject>();
         private readonly RaycastHit2D[] hits = new RaycastHit2D[2];
 
         public IReadOnlyList<GameObject> Prefabs => prefabs;
+        public IReadOnlyList<GameObject> ShiftPrefabs => shiftPrefabs;
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         private void Update()
@@ -28,16 +31,17 @@ namespace Shatranj.Enemies
             Keyboard kb = Keyboard.current;
             if (kb == null || UI.HudDebugPanel.IsOpen) return;
 
-            int count = Mathf.Min(prefabs.Length, 9);
+            bool shift = kb.leftShiftKey.isPressed || kb.rightShiftKey.isPressed;
+            GameObject[] page = shift ? shiftPrefabs : prefabs;
+            int count = Mathf.Min(page.Length, 9);
             for (int i = 0; i < count; i++)
-                if (kb[(Key)((int)Key.Digit1 + i)].wasPressedThisFrame) Spawn(i);
+                if (kb[(Key)((int)Key.Digit1 + i)].wasPressedThisFrame) Spawn(page[i]);
 
             if (kb.digit0Key.wasPressedThisFrame) Clear();
         }
 
-        private void Spawn(int index)
+        private void Spawn(GameObject prefab)
         {
-            GameObject prefab = prefabs[index];
             if (prefab == null) return;
 
             Vector2 pos = CursorWorld();

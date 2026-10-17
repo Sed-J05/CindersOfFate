@@ -23,6 +23,8 @@ namespace Shatranj.Enemies
             public float gravity;
             public string breakFx;
             public GameObject owner;
+            /// <summary>Visual scale multiplier (Thrower knives grow with the flame). 0 = 1.</summary>
+            public float visualScale;
         }
 
         private readonly Collider2D[] buffer = new Collider2D[4];
@@ -58,7 +60,9 @@ namespace Shatranj.Enemies
             velocity = s.velocity;
             elapsed = 0f;
             transform.position = position;
-            transform.localScale = new Vector3(velocity.x < 0f ? -1f : 1f, 1f, 1f);
+            float vs = s.visualScale > 0f ? s.visualScale : 1f;
+            transform.localScale = new Vector3(velocity.x < 0f ? -vs : vs, vs, 1f);
+            transform.rotation = Quaternion.identity;
             active = true;
         }
 

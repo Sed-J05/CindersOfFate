@@ -119,6 +119,8 @@ namespace Shatranj.Data
         [Tooltip("First-order lead: aim at player pos + vel × this.")]
         public float projectileLeadTime = 0f;
         public bool projectileArcs = false;
+        [Tooltip("Gravity for arcing projectiles (u/s²). 0 with projectileArcs = the default slight arc (6).")]
+        public float projectileGravity = 0f;
         public int projectileDamage = 1;
 
         [Header("Flame scaling (Docs/07 §4)")]

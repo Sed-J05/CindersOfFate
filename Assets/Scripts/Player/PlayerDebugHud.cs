@@ -69,7 +69,8 @@ namespace Shatranj.Player
             sb.Append("FPS      ").Append(fps.ToString("0")).Append("   timeScale ").Append(Time.timeScale.ToString("0.00")).Append('\n');
             sb.Append("A/D move  Space jump  J attack (W+J up)  K tap fireball / hold heal  L dash\n");
             sb.Append("F1 god  F2 soul  F4 phase toggle  F7 hitbox gizmos  F9 reload\n");
-            sb.Append("1 Crawler  2 Lunger  3 Kite  4 Kage Warden  5 Kage Caller (at cursor)  0 clear  F10 HUD debug");
+            sb.Append("1 Crawler 2 Lunger 3 Kite 4 Warden 5 Knight 6 Bat 7 Charger 8 Thrower  Shift+1 Warden Shift+2 Caller  0 clear\n");
+            sb.Append("F10 HUD debug  F11 visuals  F12 flame scale");
             text.text = sb.ToString();
         }
     }

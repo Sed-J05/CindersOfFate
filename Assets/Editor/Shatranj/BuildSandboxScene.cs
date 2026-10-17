@@ -85,17 +85,29 @@ namespace Shatranj.EditorTools
             SceneBuildUtil.CreateSpikes("Spikes_Pit", env.transform, new Vector2(32.5f, -2.8f), new Vector2(3f, 0.4f), SpikeColor);
             report.AppendLine("Targets: 4 dummies (10/10/10/20 HP). Hazards: floor spikes at x≈5, pit spikes at x≈32.5.");
 
-            // --- Enemy spawn keys (Prompt 7): 1 Crawler, 2 Lunger, 3 Kite, 0 clear — at the mouse cursor ---
-            int enemyCount = BuildPrefabs.EnemyTypes.Length;
-            var enemyPrefabs = new Object[enemyCount + BuildPrefabs.BossTypes.Length];
-            for (int i = 0; i < enemyCount; i++)
-                enemyPrefabs[i] = AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.EnemyPrefabPath(BuildPrefabs.EnemyTypes[i].name));
+            // --- Enemy spawn keys (Prompt 7/12) at the mouse cursor: 1 Crawler, 2 Lunger, 3 Kite, 4 Kage Warden,
+            //     5 Knight, 6 Bat, 7 Charger, 8 Thrower; Shift+1 Kage Warden, Shift+2 Kage Caller; 0 clear ---
+            string[] regularKeys = { "Crawler", "Lunger", "ShadowKite", null, "Knight", "Bat", "Charger", "Thrower" };
+            var enemyPrefabs = new Object[regularKeys.Length];
+            for (int i = 0; i < regularKeys.Length; i++)
+                enemyPrefabs[i] = regularKeys[i] != null
+                    ? AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.EnemyPrefabPath(regularKeys[i]))
+                    : AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.BossPrefabPath("KageWarden"));
+            var bossPrefabs = new Object[BuildPrefabs.BossTypes.Length];
             for (int i = 0; i < BuildPrefabs.BossTypes.Length; i++)
-                enemyPrefabs[enemyCount + i] = AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.BossPrefabPath(BuildPrefabs.BossTypes[i].name));
+                bossPrefabs[i] = AssetDatabase.LoadAssetAtPath<GameObject>(BuildPrefabs.BossPrefabPath(BuildPrefabs.BossTypes[i].name));
             var spawnerGo = new GameObject("[SandboxEnemySpawner]");
             var sandboxSpawner = spawnerGo.AddComponent<Shatranj.Enemies.SandboxEnemySpawner>();
             SceneBuildUtil.SetObjectArray(sandboxSpawner, "prefabs", enemyPrefabs);
-            report.AppendLine("Enemy keys: 1 Crawler, 2 Lunger, 3 Shadow Kite, 4 Kage Warden, 5 Kage Caller (at the mouse cursor), 0 clear.");
+            SceneBuildUtil.SetObjectArray(sandboxSpawner, "shiftPrefabs", bossPrefabs);
+            int missing = 0;
+            foreach (Object o in enemyPrefabs) if (o == null) missing++;
+            foreach (Object o in bossPrefabs) if (o == null) missing++;
+            report.AppendLine("Enemy keys: 1 Crawler, 2 Lunger, 3 Kite, 4 Kage Warden, 5 Knight, 6 Bat, 7 Charger, 8 Thrower; "
+                              + "Shift+1 Kage Warden, Shift+2 Kage Caller; 0 clear." + (missing > 0 ? $"  WARNING: {missing} prefab(s) missing" : ""));
+
+            // --- F12 flame-scale slider (Prompt 12) ---
+            new GameObject("[FlameScaleDebugPanel]").AddComponent<Shatranj.Visuals.FlameScaleDebugPanel>();
 
             // --- Camera rig ---
             Camera cam = SceneBuildUtil.CreateMainCamera(new Vector3(0f, cameraConfig.verticalOffset, -10f), cameraConfig.orthographicSize, ParchmentColor);

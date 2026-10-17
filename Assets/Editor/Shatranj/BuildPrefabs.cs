@@ -93,6 +93,10 @@ namespace Shatranj.EditorTools
             ("Crawler", "Crawler", typeof(Shatranj.Enemies.Crawler)),
             ("Lunger", "Lunger", typeof(Shatranj.Enemies.Lunger)),
             ("ShadowKite", "ShadowKite", typeof(Shatranj.Enemies.ShadowKite)),
+            ("Knight", "Knight", typeof(Shatranj.Enemies.Knight)),
+            ("Bat", "Bat", typeof(Shatranj.Enemies.Bat)),
+            ("Charger", "Charger", typeof(Shatranj.Enemies.Charger)),
+            ("Thrower", "Thrower", typeof(Shatranj.Enemies.Thrower)),
         };
 
         /// <summary>Builds the enemy prefabs if any is missing (or always when <paramref name="force"/>). Call before NewScene (D-044).</summary>

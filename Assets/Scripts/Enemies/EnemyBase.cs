@@ -319,6 +319,54 @@ namespace Shatranj.Enemies
             return cachedRoom == null || cachedRoom == rooms.Current;
         }
 
+        private ContactFilter2D playerHurtFilter;
+        private bool playerHurtFilterReady;
+        private readonly Collider2D[] hitBuffer = new Collider2D[4];
+
+        /// <summary>Melee hit check against the player's hurtbox (Phase 2 sword / bite windows). Returns true on a hit.</summary>
+        protected bool TryHitPlayer(Vector2 center, Vector2 size, int damage)
+        {
+            if (!playerHurtFilterReady)
+            {
+                playerHurtFilter = new ContactFilter2D();
+                playerHurtFilter.SetLayerMask(GameLayers.PlayerHurtboxMask);
+                playerHurtFilter.useTriggers = true;
+                playerHurtFilterReady = true;
+            }
+            int n = Physics2D.OverlapBox(center, size, 0f, playerHurtFilter, hitBuffer);
+            for (int i = 0; i < n; i++)
+            {
+                PlayerHealth ph = hitBuffer[i].GetComponentInParent<PlayerHealth>();
+                if (ph == null) continue;
+                float dir = ph.transform.position.x >= rb.position.x ? 1f : -1f;
+                ph.ReceiveHit(new DamageInfo(damage, new Vector2(dir, 0f), 1f, gameObject, DamageType.Melee));
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>Box in front of a ground enemy from <paramref name="near"/> to <paramref name="reach"/> (both × flame scale).</summary>
+        protected void FrontBox(float near, float reach, float height, out Vector2 center, out Vector2 size)
+        {
+            float s = FlameScale;
+            float width = Mathf.Max(0.1f, (reach - near) * s);
+            center = rb.position + new Vector2(facing * (near * s + width * 0.5f), height * s * 0.5f + 0.1f);
+            size = new Vector2(width, height * s);
+        }
+
+        /// <summary>Swept move of a flyer's anchor point, confined to the home room. Returns the distance moved.</summary>
+        protected float SweepMove(ref Vector2 anchor, Vector2 delta, float radius, float margin)
+        {
+            float dist = delta.magnitude;
+            if (dist < 1e-5f) return 0f;
+            Vector2 dir = delta / dist;
+            float allowed = EnemySensors.SweepDistance(anchor, radius, dir, dist);
+            Vector2 target = ClampToHome(anchor + dir * allowed, radius + margin);
+            float moved = (target - anchor).magnitude;
+            anchor = target;
+            return moved;
+        }
+
         protected static Vector2 PlayerChest(PlayerController p)
         {
             Vector2 offset = p.Config != null ? p.Config.colliderOffset : new Vector2(0f, 0.75f);

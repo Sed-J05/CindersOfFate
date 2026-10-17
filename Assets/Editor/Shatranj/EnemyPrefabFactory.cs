@@ -139,6 +139,7 @@ namespace Shatranj.EditorTools
             SceneBuildUtil.SetReference(enemy, "bodyCollider", bodyCol);
             SceneBuildUtil.SetReference(enemy, "hurtbox", hurt);
             SceneBuildUtil.SetReference(enemy, "contact", dealer);
+            if (cfg.scalesWithFlame) root.AddComponent<FlameScaler>();   // Docs/07 §4 (Phase 2 enemies grow with the flame)
             return root;
         }
 
