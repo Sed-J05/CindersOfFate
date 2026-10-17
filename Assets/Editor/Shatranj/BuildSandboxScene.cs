@@ -104,7 +104,7 @@ namespace Shatranj.EditorTools
             foreach (Object o in enemyPrefabs) if (o == null) missing++;
             foreach (Object o in bossPrefabs) if (o == null) missing++;
             report.AppendLine("Enemy keys: 1 Crawler, 2 Lunger, 3 Kite, 4 Kage Warden, 5 Knight, 6 Bat, 7 Charger, 8 Thrower; "
-                              + "Shift+1 Kage Warden, Shift+2 Kage Caller; 0 clear." + (missing > 0 ? $"  WARNING: {missing} prefab(s) missing" : ""));
+                              + "Shift+1 Kage Warden, Shift+2 Kage Caller, Shift+3 Iron Colossus; 0 clear." + (missing > 0 ? $"  WARNING: {missing} prefab(s) missing" : ""));
 
             // --- F12 flame-scale slider (Prompt 12) ---
             new GameObject("[FlameScaleDebugPanel]").AddComponent<Shatranj.Visuals.FlameScaleDebugPanel>();

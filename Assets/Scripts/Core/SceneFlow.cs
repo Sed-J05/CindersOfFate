@@ -28,6 +28,9 @@ namespace Shatranj.Core
 
         public static SceneFlow Instance => Ensure();
 
+        /// <summary>True while a scene load is in progress (does not create the SceneFlow object).</summary>
+        public static bool IsBusy => instance != null && instance.IsTransitioning;
+
         public static SceneFlow Ensure()
         {
             if (instance != null) return instance;

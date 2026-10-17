@@ -92,6 +92,12 @@ namespace Shatranj.Data
         public float advanceTimeMax = 1.4f;
         public float backstepDistance = 3f;
         public float backstepTime = 0.35f;
+        [Tooltip("Distance-based selection (Colossus): player closer than this = close band.")]
+        public float closeDistance = 3.5f;
+        [Tooltip("Distance-based selection (Colossus): player farther than this = far band; between = mid.")]
+        public float farDistance = 7f;
+        [Range(0f, 1f), Tooltip("Colossus: chance to walk toward a mid-range player (advanceTimeMin–Max) before choosing an attack. Never twice in a row.")]
+        public float walkChance = 0.35f;
 
         [Header("Telegraph (Docs/04 global rules)")]
         public float telegraphFlashTime = 0.1f;

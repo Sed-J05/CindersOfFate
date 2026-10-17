@@ -188,6 +188,8 @@ namespace Shatranj.EditorTools
             b.enrageBelowFraction = 0.4f; b.enrageTelegraphReduction = 0.15f; b.enrageSpeedMultiplier = 1f; b.enrageCooldownMultiplier = 1f;
             b.blockDuration = 2f; b.blockPushback = 2f;
             b.noImmediateRepeat = false; b.maxSameMoveInRow = 2; b.fairnessGap = 0.6f;
+            b.closeDistance = 3.5f; b.farDistance = 7f; b.walkChance = 0.35f; b.advanceTimeMin = 0.8f; b.advanceTimeMax = 1.4f;
+            b.blockPushbackTime = 0.15f;
             const int close = 1, mid = 2, far = 4;
             b.moves = new[]
             {

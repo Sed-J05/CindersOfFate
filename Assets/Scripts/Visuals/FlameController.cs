@@ -103,7 +103,10 @@ namespace Shatranj.Visuals
         private void Update()
         {
             float dt = Time.deltaTime;
-            bool advancing = !manualOverride && !parked && (!GameManager.HasInstance || GameManager.Instance.IsPlaying);
+            // Advances only while the player is in control: Playing state and no scene load in progress, so the
+            // Phase 2 arc starts at 0 when Phase2_Castle is revealed after Cutscene 2 (Prompt 13).
+            bool advancing = !manualOverride && !parked && !SceneFlow.IsBusy
+                             && (!GameManager.HasInstance || GameManager.Instance.IsPlaying);
 
             if (advancing)
             {

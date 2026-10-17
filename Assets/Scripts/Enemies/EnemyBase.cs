@@ -355,13 +355,18 @@ namespace Shatranj.Enemies
         }
 
         /// <summary>Swept move of a flyer's anchor point, confined to the home room. Returns the distance moved.</summary>
-        protected float SweepMove(ref Vector2 anchor, Vector2 delta, float radius, float margin)
+        protected float SweepMove(ref Vector2 anchor, Vector2 delta, float radius, float margin, bool slide = true)
         {
             float dist = delta.magnitude;
             if (dist < 1e-5f) return 0f;
-            Vector2 dir = delta / dist;
-            float allowed = EnemySensors.SweepDistance(anchor, radius, dir, dist);
-            Vector2 target = ClampToHome(anchor + dir * allowed, radius + margin);
+            Vector2 next;
+            if (slide) next = EnemySensors.SweepSlide(anchor, radius, delta);
+            else
+            {
+                Vector2 dir = delta / dist;
+                next = anchor + dir * EnemySensors.SweepDistance(anchor, radius, dir, dist);
+            }
+            Vector2 target = ClampToHome(next, radius + margin);
             float moved = (target - anchor).magnitude;
             anchor = target;
             return moved;

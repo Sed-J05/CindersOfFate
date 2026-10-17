@@ -10,11 +10,14 @@ namespace Shatranj.EditorTools.Level
     /// <summary>
     /// Menu: <c>Shatranj/Validate Project</c>. Layers, manifest + rooms, enemy counts per section vs Docs/01 §6,
     /// room overlaps, opening alignment and height, enemies near entrances, horizontal gaps vs Docs/05 §2,
+    /// enemy placement (ground enemies on ground, bats under a ceiling, Phase 2 ceiling clearance over patrol runs),
     /// missing prefabs, scenes in Build Settings. Readable PASS/FAIL report in the Console.
     /// </summary>
     public static class ValidateProject
     {
         private const int MaxGapNoDash = 11, SafeGapNoDash = 8, MaxGapDash = 16, SafeGapDash = 12;
+        /// <summary>Docs/05 §1: ceiling ≥ 8 tiles (4 u) wherever Phase 2 ground enemies walk, so ×1.4 knights (≈ 2.7 u) fit.</summary>
+        private const int Phase2CeilingClearance = 8;
 
         [MenuItem("Shatranj/Validate Project", false, 70)]
         public static void Run()
@@ -168,6 +171,8 @@ namespace Shatranj.EditorTools.Level
                             }
                     }
 
+                ValidateEnemyPlacement(room, phase, r);
+
                 // Benches never in boss arenas (rule 6).
                 if (room.IsBossRoom && room.Contains(Glyphs.Bench))
                     r.Line($"  [FAIL] {room.id}: bench inside a boss arena", true);
@@ -200,6 +205,47 @@ namespace Shatranj.EditorTools.Level
         }
 
         /// <summary>A gap only counts if falling in is punished: the first non-empty cell below is spikes/lava, or there is no floor (D-101).</summary>
+        /// <summary>
+        /// Docs/05 §3 rule 4 + §1: ground enemies stand on solid or one-way; bats hang directly under a solid ceiling or
+        /// beam; in Phase 2 every cell of a ground enemy's patrol run (same row, until a wall or drop) has at least
+        /// <see cref="Phase2CeilingClearance"/> free tiles above it (one-way platforms don't count as ceiling).
+        /// </summary>
+        private static void ValidateEnemyPlacement(RoomData room, LevelManifestPhase phase, Report r)
+        {
+            for (int y = 0; y < room.height; y++)
+                for (int x = 0; x < room.width; x++)
+                {
+                    char g = room.cells[x, y];
+                    if (!Glyphs.IsEnemy(g)) continue;
+                    bool flyer = g == Glyphs.Kite || g == Glyphs.Bat;
+                    if (!flyer && !Glyphs.IsStandable(room.Get(x, y - 1)))
+                        r.Line($"  [FAIL] {room.id}: ground enemy '{g}' at ({x},{y}) is not standing on ground", true);
+                    if (g == Glyphs.Bat && !Glyphs.IsSolid(room.Get(x, y + 1)))
+                        r.Line($"  [FAIL] {room.id}: bat at ({x},{y}) must hang directly under a ceiling or beam", true);
+                    if (flyer || phase.phase < 2) continue;
+
+                    int x0 = x, x1 = x;
+                    while (Glyphs.IsPassable(room.Get(x0 - 1, y)) && Glyphs.IsStandable(room.Get(x0 - 1, y - 1))) x0--;
+                    while (Glyphs.IsPassable(room.Get(x1 + 1, y)) && Glyphs.IsStandable(room.Get(x1 + 1, y - 1))) x1++;
+                    int low = int.MaxValue, lowX = x;
+                    for (int xx = x0; xx <= x1; xx++)
+                    {
+                        int c = Clearance(room, xx, y);
+                        if (c < low) { low = c; lowX = xx; }
+                    }
+                    if (low < Phase2CeilingClearance)
+                        r.Line($"  [FAIL] {room.id}: '{g}' at ({x},{y}) patrols under a {low}-tile ceiling at x={lowX} (Docs/05 §1: ≥ {Phase2CeilingClearance})", true);
+                }
+        }
+
+        /// <summary>Free tiles from (x, y) upward until solid terrain or the top of the room.</summary>
+        private static int Clearance(RoomData room, int x, int y)
+        {
+            int n = 0;
+            while (y + n < room.height && !Glyphs.IsSolid(room.Get(x, y + n))) n++;
+            return n;
+        }
+
         private static bool DangerousBelow(RoomData room, int x, int y)
         {
             for (int yy = y - 1; yy >= 0; yy--)

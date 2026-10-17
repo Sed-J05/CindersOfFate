@@ -42,6 +42,7 @@ namespace Shatranj.EditorTools
         {
             ("KageWarden", "KageWarden", "kage_warden", typeof(Shatranj.Bosses.KageWarden)),
             ("KageCaller", "KageCaller", "kage_caller", typeof(Shatranj.Bosses.KageCaller)),
+            ("IronColossus", "IronColossus", "iron_colossus", typeof(Shatranj.Bosses.IronColossus)),
         };
 
         /// <summary>Prefab path for a boss id ("kage_warden" → Assets/Prefabs/Bosses/KageWarden.prefab), or null if not built yet.</summary>

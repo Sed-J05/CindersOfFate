@@ -123,7 +123,7 @@ namespace Shatranj.Enemies
                 case State.Dive:
                 {
                     Vector2 step = diveDir * (config.attackSpeed * dt);
-                    float moved = SweepMove(ref anchor, step, Radius, 0f);
+                    float moved = SweepMove(ref anchor, step, Radius, 0f, slide: false);   // a dive ends on impact
                     travelled += moved;
                     if (moved < step.magnitude - 1e-4f || travelled >= config.attackMaxDistance) EnterRecover();
                     break;

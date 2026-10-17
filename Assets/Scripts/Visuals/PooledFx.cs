@@ -26,6 +26,9 @@ namespace Shatranj.Visuals
 
         private void HandleFinished(string clip) => Release?.Invoke(this);
 
+        /// <summary>Returns a looping effect (shield arc) to the pool; one-shot effects return by themselves.</summary>
+        public void ReleaseNow() => Release?.Invoke(this);
+
         public void OnSpawned() { }
 
         public void OnDespawned()

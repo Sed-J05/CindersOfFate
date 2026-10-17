@@ -85,19 +85,64 @@ namespace Shatranj.Enemies
             return push;
         }
 
+        private const float SweepSkin = 0.01f;
+
         /// <summary>How far a circle can travel along <paramref name="dir"/> before touching a solid tile (up to <paramref name="distance"/>).</summary>
-        public static float SweepDistance(Vector2 from, float radius, Vector2 dir, float distance)
+        public static float SweepDistance(Vector2 from, float radius, Vector2 dir, float distance) => Sweep(from, radius, dir, distance, out _);
+
+        /// <summary>
+        /// Swept circle against solid tiles. A surface the circle already touches or overlaps at the start (distance 0,
+        /// e.g. a flyer pressed against the ceiling, or one that just grew with the flame) only blocks a move INTO it;
+        /// moving away from it or along it is free, so flyers can never get stuck on contact. <paramref name="normal"/>
+        /// is the blocking surface normal (zero when the path is clear).
+        /// </summary>
+        public static float Sweep(Vector2 from, float radius, Vector2 dir, float distance, out Vector2 normal)
         {
             Init();
+            normal = Vector2.zero;
             int n = Physics2D.CircleCast(from, Mathf.Max(0.02f, radius), dir, wall, hits, distance);
             float allowed = distance;
             bool blocked = false;
             for (int i = 0; i < n; i++)
             {
-                if (hits[i].distance < allowed) { allowed = hits[i].distance; blocked = true; }
+                RaycastHit2D h = hits[i];
+                Vector2 nrm = h.normal;
+                if (h.distance <= 1e-4f)
+                {
+                    Vector2 away = from - h.collider.ClosestPoint(from);
+                    if (away.sqrMagnitude < 1e-8f) continue;           // centre inside the geometry: let it move out
+                    nrm = away.normalized;
+                    if (Vector2.Dot(nrm, dir) >= -1e-3f) continue;     // moving away from / along the surface
+                }
+                if (!blocked || h.distance < allowed) { allowed = h.distance; normal = nrm; blocked = true; }
             }
             // Keep a small skin only when something is actually in the way; a free path returns the full distance.
-            return blocked ? Mathf.Max(0f, allowed - 0.01f) : distance;
+            return blocked ? Mathf.Max(0f, allowed - SweepSkin) : distance;
+        }
+
+        /// <summary>
+        /// Swept move of a circle by <paramref name="delta"/>; when blocked, the rest of the move slides along the blocking
+        /// surface once (flyers glide along ceilings and walls instead of stopping dead). Returns the new position.
+        /// </summary>
+        public static Vector2 SweepSlide(Vector2 from, float radius, Vector2 delta)
+        {
+            float dist = delta.magnitude;
+            if (dist < 1e-5f) return from;
+            Vector2 dir = delta / dist;
+            float allowed = Sweep(from, radius, dir, dist, out Vector2 n);
+            Vector2 pos = from + dir * allowed;
+            if (allowed < dist - 1e-4f && n != Vector2.zero)
+            {
+                Vector2 rest = delta - dir * allowed;
+                Vector2 slide = rest - Vector2.Dot(rest, n) * n;
+                float sd = slide.magnitude;
+                if (sd > 1e-5f)
+                {
+                    Vector2 sdir = slide / sd;
+                    pos += sdir * Sweep(pos, radius, sdir, sd, out _);
+                }
+            }
+            return pos;
         }
     }
 }

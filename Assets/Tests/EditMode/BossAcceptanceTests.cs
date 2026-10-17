@@ -91,7 +91,9 @@ namespace Shatranj.Tests
         [Test]
         public void EveryDamagingBossMove_HasATelegraph()
         {
-            foreach (BossConfig b in new[] { Warden(), Caller() })
+            var colossus = ScriptableObject.CreateInstance<BossConfig>();
+            ConfigDefaults.IronColossus(colossus);
+            foreach (BossConfig b in new[] { Warden(), Caller(), colossus })
             {
                 foreach (BossMoveConfig m in b.moves)
                     if (m.damage > 0) Assert.Greater(m.telegraph - b.enrageTelegraphReduction, 0f, $"{b.id}/{m.name} (enraged)");

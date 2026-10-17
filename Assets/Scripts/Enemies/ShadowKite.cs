@@ -71,21 +71,26 @@ namespace Shatranj.Enemies
                 case State.Dive:
                 {
                     Vector2 step = diveDir * (config.attackSpeed * dt);
-                    float moved = Move(step);
+                    float moved = Move(step, slide: false);   // a dive ends on impact
                     travelled += moved;
                     if (moved < step.magnitude - 1e-4f || travelled >= config.attackMaxDistance) EnterReturn();
                     break;
                 }
 
                 case State.Return:
-                    Move(Vector2.MoveTowards(basePos, anchor, config.returnSpeed * dt) - basePos);
-                    if ((basePos - anchor).sqrMagnitude <= ArriveDistance * ArriveDistance)
+                {
+                    Vector2 want = Vector2.MoveTowards(basePos, anchor, config.returnSpeed * dt) - basePos;
+                    float progress = Move(want);
+                    // The hover point can sit inside a low ceiling: stop returning once it can't get any closer.
+                    bool stalled = want.sqrMagnitude > 1e-8f && progress < want.magnitude * 0.1f;
+                    if (stalled || (basePos - anchor).sqrMagnitude <= ArriveDistance * ArriveDistance)
                     {
                         state = State.Hover;
                         attackTimer = config.attackInterval;
                         SetAnim("Fly");
                     }
                     break;
+                }
             }
 
             // Sine bob only while hovering / telegraphing; blended so dives don't snap.
@@ -97,14 +102,15 @@ namespace Shatranj.Enemies
         }
 
         /// <summary>Swept move of the hover anchor point. Returns the distance actually moved.</summary>
-        private float Move(Vector2 delta)
+        private float Move(Vector2 delta, bool slide = true)
         {
             float dist = delta.magnitude;
             if (dist < 1e-5f) return 0f;
             Vector2 dir = delta / dist;
-            float allowed = EnemySensors.SweepDistance(basePos, Radius, dir, dist);
+            Vector2 next = slide ? EnemySensors.SweepSlide(basePos, Radius, delta)
+                                 : basePos + dir * EnemySensors.SweepDistance(basePos, Radius, dir, dist);
             // D-137: the home room's edges are walls too (bob amplitude included so the visible body stays inside).
-            Vector2 target = ClampToHome(basePos + dir * allowed, Radius + config.hoverAmplitude);
+            Vector2 target = ClampToHome(next, Radius + config.hoverAmplitude);
             float moved = (target - basePos).magnitude;
             basePos = target;
             return moved;
