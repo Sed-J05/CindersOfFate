@@ -19,7 +19,12 @@ namespace Shatranj.Level
         [SerializeField] private List<BossGate> gates = new List<BossGate>();
         [SerializeField] private GameObject bossPrefab;
 
+        [SerializeField, Tooltip("How far past a gate (toward the arena centre) the player must be before the gates close.")]
+        private float engageMargin = 0.8f;
+
         private bool engaged;
+        private bool playerInRoom;
+        private Player.PlayerController player;
 
         public string BossId => bossId;
         public string RoomId => roomId;
@@ -60,8 +65,30 @@ namespace Shatranj.Level
 
         private void HandleRoomEntered(string id)
         {
-            if (id != roomId || engaged || IsDefeated) return;
-            Engage();
+            playerInRoom = id == roomId;
+        }
+
+        private void Update()
+        {
+            if (!playerInRoom || engaged || IsDefeated) return;
+            if (player == null) player = FindFirstObjectByType<Player.PlayerController>();
+            if (player == null) return;
+            if (PlayerIsInsideGates(player.Position)) Engage();
+        }
+
+        /// <summary>True once the player is on the arena side of every gate, past the margin (so a gate never closes on them).</summary>
+        private bool PlayerIsInsideGates(Vector2 playerPos)
+        {
+            float centerX = bossSpawnPoint.x;
+            for (int i = 0; i < gates.Count; i++)
+            {
+                if (gates[i] == null) continue;
+                float gateX = gates[i].transform.position.x;
+                float inward = Mathf.Sign(centerX - gateX);            // direction from the gate toward the arena
+                if (Mathf.Approximately(inward, 0f)) continue;
+                if ((playerPos.x - gateX) * inward < engageMargin) return false;
+            }
+            return true;
         }
 
         public void Engage()
