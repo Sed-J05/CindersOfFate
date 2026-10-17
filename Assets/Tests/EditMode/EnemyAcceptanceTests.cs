@@ -72,16 +72,16 @@ namespace Shatranj.Tests
         public void Lunger_MatchesDocs04()
         {
             EnemyConfig c = Make(ConfigDefaults.Lunger);
-            Assert.AreEqual(2f, c.patrolSpeed);
+            Assert.AreEqual(1.6f, c.patrolSpeed); // tuned D-113 (doc 2)
             Assert.AreEqual(7f, c.detectRange);
             Assert.IsTrue(c.requiresLineOfSight);
             Assert.AreEqual(0.5f, c.telegraphTime);
             Assert.IsTrue(c.showExclamation, "Lunger telegraph shows '!'");
-            Assert.AreEqual(14f, c.attackSpeed);
+            Assert.AreEqual(11.5f, c.attackSpeed); // tuned D-113 (doc 14)
             Assert.AreEqual(0.35f, c.attackActiveTime);
             Assert.AreEqual(0.8f, c.attackRecoveryTime);
             Assert.AreEqual(1f, c.attackCooldown);
-            Assert.AreEqual(4.9f, c.attackSpeed * c.attackActiveTime, 0.01f, "≈ 5 u lunge");
+            Assert.AreEqual(4.0f, c.attackSpeed * c.attackActiveTime, 0.03f, "≈ 4 u lunge");
             Object.DestroyImmediate(c);
         }
 
@@ -89,8 +89,8 @@ namespace Shatranj.Tests
         public void Crawler_MatchesDocs04()
         {
             EnemyConfig c = Make(ConfigDefaults.Crawler);
-            Assert.AreEqual(2.5f, c.patrolSpeed);
-            Assert.AreEqual(3.5f, c.chaseSpeed);
+            Assert.AreEqual(2.0f, c.patrolSpeed); // tuned D-113 (doc 2.5)
+            Assert.AreEqual(2.8f, c.chaseSpeed); // tuned D-113 (doc 3.5)
             Assert.AreEqual(6f, c.detectRange);
             Assert.AreEqual(1.5f, c.verticalTolerance);
             Assert.IsTrue(c.turnsAtLedges);

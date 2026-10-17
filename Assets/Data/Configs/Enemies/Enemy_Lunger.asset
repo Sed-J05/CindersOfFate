@@ -35,8 +35,8 @@ MonoBehaviour:
   verticalTolerance: 1.5
   requiresLineOfSight: 1
   loseTrackTime: 0
-  patrolSpeed: 2
-  chaseSpeed: 2
+  patrolSpeed: 1.6
+  chaseSpeed: 1.6
   turnsAtLedges: 1
   preferredDistance: 0
   retreatIfCloserThan: 0
@@ -52,8 +52,8 @@ MonoBehaviour:
   attackActiveTime: 0.35
   attackRecoveryTime: 0.8
   attackCooldown: 1
-  attackSpeed: 14
-  attackMaxDistance: 5
+  attackSpeed: 11.5
+  attackMaxDistance: 4
   attackReach: 0
   comboHits: 1
   comboGap: 0

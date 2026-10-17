@@ -22,7 +22,7 @@ namespace Shatranj.EditorTools
             c.maxHp = 2; c.contactDamage = 1; c.attackDamage = 1;
             c.knockbackSpeed = 3f; c.knockbackDuration = 0.15f;
             c.detectRange = 6f; c.verticalTolerance = 1.5f; c.requiresLineOfSight = false;
-            c.patrolSpeed = 2.5f; c.chaseSpeed = 3.5f; c.turnsAtLedges = true;
+            c.patrolSpeed = 2.0f; c.chaseSpeed = 2.8f; c.turnsAtLedges = true; // tuned D-113 (doc 2.5 / 3.5)
             c.attackName = "";
         }
 
@@ -35,9 +35,9 @@ namespace Shatranj.EditorTools
             c.maxHp = 3; c.contactDamage = 1; c.attackDamage = 1;
             c.knockbackSpeed = 3f; c.knockbackDuration = 0.15f;
             c.detectRange = 7f; c.verticalTolerance = 1.5f; c.requiresLineOfSight = true;
-            c.patrolSpeed = 2f; c.chaseSpeed = 2f; c.turnsAtLedges = true;
-            c.attackName = "Lunge"; c.telegraphTime = 0.5f; c.attackSpeed = 14f; c.attackActiveTime = 0.35f;
-            c.attackMaxDistance = 5f; c.attackRecoveryTime = 0.8f; c.attackCooldown = 1f; c.showExclamation = true;
+            c.patrolSpeed = 1.6f; c.chaseSpeed = 1.6f; c.turnsAtLedges = true; // tuned D-113 (doc 2)
+            c.attackName = "Lunge"; c.telegraphTime = 0.5f; c.attackSpeed = 11.5f; c.attackActiveTime = 0.35f; // tuned D-113 (doc 14)
+            c.attackMaxDistance = 4f; c.attackRecoveryTime = 0.8f; c.attackCooldown = 1f; c.showExclamation = true;
         }
 
         public static void ShadowKite(EnemyConfig c)

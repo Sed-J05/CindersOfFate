@@ -13,6 +13,11 @@ namespace Shatranj.EditorTools.Level
     /// </summary>
     public static class ColliderBaker
     {
+        /// <summary>Fraction of a tile removed from the top of hazard boxes (spike tips sit low in the 50 px tile).</summary>
+        public const float HazardTopInset = 0.45f;
+        /// <summary>World units removed from each side of a hazard run.</summary>
+        public const float HazardSideInset = 0.1f;
+
         public struct Rect2i
         {
             public int x, y, w, h;
@@ -93,9 +98,19 @@ namespace Shatranj.EditorTools.Level
                 var box = new GameObject($"Box_{r.x}_{r.y}_{r.w}x{r.h}");
                 box.transform.SetParent(root.transform, false);
                 box.layer = layer;
-                box.transform.position = new Vector3((r.x + r.w * 0.5f) * t, (r.y + r.h * 0.5f) * t, 0f);
+
+                float left = r.x * t, bottom = r.y * t, width = r.w * t, height = r.h * t;
+                if (trigger)
+                {
+                    // D-113: hazards hurt only where the spikes are drawn — the lower part of the top tile, inset at
+                    // the sides — so standing on a neighbouring ledge or jumping off its edge is safe.
+                    height -= t * HazardTopInset;
+                    left += HazardSideInset;
+                    width = Mathf.Max(0.05f, width - 2f * HazardSideInset);
+                }
+                box.transform.position = new Vector3(left + width * 0.5f, bottom + height * 0.5f, 0f);
                 var col = box.AddComponent<BoxCollider2D>();
-                col.size = new Vector2(r.w * t, r.h * t);
+                col.size = new Vector2(width, height);
                 col.isTrigger = trigger;
                 if (!trigger) col.compositeOperation = Collider2D.CompositeOperation.Merge;
             }

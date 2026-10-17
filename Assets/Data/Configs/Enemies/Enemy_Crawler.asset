@@ -35,8 +35,8 @@ MonoBehaviour:
   verticalTolerance: 1.5
   requiresLineOfSight: 0
   loseTrackTime: 0
-  patrolSpeed: 2.5
-  chaseSpeed: 3.5
+  patrolSpeed: 2
+  chaseSpeed: 2.8
   turnsAtLedges: 1
   preferredDistance: 0
   retreatIfCloserThan: 0
