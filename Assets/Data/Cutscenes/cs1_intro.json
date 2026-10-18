@@ -46,7 +46,7 @@
     // 6. The protagonist looks toward the mountain
     { "type": "spawn", "id": "hero", "character": "Protagonist", "anim": "Idle", "pos": [-4.0, -4.6], "scale": 1.0 },
     { "type": "wait", "time": 0.6 },
-    { "type": "text", "voices": ["vo_cs1_04"], "style": "inner", "lines": ["The source of this lies in the cave."] },
+    { "type": "text", "style": "inner", "lines": ["The source of this lies in the cave."] },
 
     // 7. Runs right; the background slides to the cave mouth
     { "type": "anim", "id": "hero", "anim": "Run" },

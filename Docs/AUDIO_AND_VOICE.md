@@ -1,7 +1,7 @@
 # AUDIO & VOICE — Cinders of Fate
 
-Everything the game can play: **18 voice lines** and **87 sounds/music tracks**. 
-The hooks are already in the code: drop a file named exactly like the id into the folder shown and it plays. Missing files are simply silent, so you can add them one at a time.
+Everything the game can play: **8 voice lines** and **87 sounds/music tracks**. 
+**All of them are installed.** The voice clips are cut from the team's recordings; every sound effect and music track is generated from scratch (no samples, no third-party music) by `Tools/audiogen/` — run `python Tools/audiogen/build_audio.py` to rebuild them. To replace any sound, drop a file with the same id into the folder shown (it overrides the generated one when the generator isn't re-run).
 
 ## How to add a file
 
@@ -29,16 +29,16 @@ The hooks are already in the code: drop a file named exactly like the id into th
 
 ## Voice lines
 
+Recorded takes: `cut1.wav` (all Narrator lines) and `cut2.wav` (the Gods), split per line by `Tools/audiogen/voices.py`. Captions stay on screen until their voice ends, and the music ducks under every voice line. 
 Each cutscene caption line has its own id (stored in the `"voices"` list next to the `"lines"` in `Assets/Data/Cutscenes/*.json`). The voice starts with the caption and stops when the player advances. Skipping the cutscene stops it too.
 
 **Cast**
 
 | Voice | Who | Tone |
 |---|---|---|
-| Narrator | Storyteller of the shadow theatre | Warm, slow, older; reads like a fable. |
-| Protagonist (inner voice) | The white-blue hero — later revealed as the god's mercy | Young, quiet, thoughtful. Never shouts. |
-| Zulmat | Final boss — the god's cruelty | Deep, slow, bitter. Can be pitched down / layered. |
-| The Gods | Three hooded gods | Three voices in unison, cold and echoing. |
+| Narrator | Storyteller of the shadow theatre | Warm, slow, older; reads like a fable. **Recorded.** |
+| The Gods | Three hooded gods | Three voices in unison, cold and echoing (recorded once, doubled + hall in post). **Recorded.** |
+| Protagonist, Zulmat | — | **Silent by design**: their lines stay text-only captions. |
 
 ### Cutscene 1 — Intro (village → cave)
 
@@ -49,7 +49,6 @@ Plays on New Game (and each new cycle). Script: `Assets/Data/Cutscenes/cs1_intro
 | `vo_cs1_01` | Narrator | "…again." | Weary, almost a whisper — only heard on cycle 2+, the narrator realises it is happening again. | `Assets/Resources/Audio/Voice/vo_cs1_01.wav` |
 | `vo_cs1_02` | Narrator | "Our village slept beneath the mountain's shadow." | Calm storyteller, warm, slow. Like opening a fairy tale. | `Assets/Resources/Audio/Voice/vo_cs1_02.wav` |
 | `vo_cs1_03` | Narrator | "Then the shadows began to move." | Same voice, darker; slight pause after 'Then'. | `Assets/Resources/Audio/Voice/vo_cs1_03.wav` |
-| `vo_cs1_04` | Protagonist (inner voice) | "The source of this lies in the cave." | Young, quiet determination, said to themselves. | `Assets/Resources/Audio/Voice/vo_cs1_04.wav` |
 
 ### Cutscene 2 — The Orb (end of Phase 1)
 
@@ -57,10 +56,6 @@ Plays when the player touches the Orb. Script: `Assets/Data/Cutscenes/cs2_orb.js
 
 | id | Speaker | Line | Direction | File |
 |---|---|---|---|---|
-| `vo_cs2_01` | Protagonist (inner voice) | "I remember… a throne of light." | Dreamy, distant, remembering. Long pause on the '…'. | `Assets/Resources/Audio/Voice/vo_cs2_01.wav` |
-| `vo_cs2_02` | Protagonist (inner voice) | "I remember… something I cast away." | Uneasy, softer — something they regret. | `Assets/Resources/Audio/Voice/vo_cs2_02.wav` |
-| `vo_cs2_03` | Protagonist (inner voice) | "Its home is the castle beyond the cave." | Resolved, clearer: now they know where to go. | `Assets/Resources/Audio/Voice/vo_cs2_03.wav` |
-| `vo_cs2_04` | Zulmat (unseen, shown as '???') | "…You remember. Then I am awake." | Deep, slow, amused menace. Unseen. Could be layered/pitched down. | `Assets/Resources/Audio/Voice/vo_cs2_04.wav` |
 | `vo_cs2_05` | Narrator | "The light behind the screen changed. So did everything on it." | Narrator, hushed awe. | `Assets/Resources/Audio/Voice/vo_cs2_05.wav` |
 
 ### Cutscene 3 — Ending (after Zulmat)
@@ -69,11 +64,6 @@ Plays after the final boss. Script: `Assets/Data/Cutscenes/cs3_ending.json`.
 
 | id | Speaker | Line | Direction | File |
 |---|---|---|---|---|
-| `vo_cs3_01` | Zulmat | "Look at me. You know my face." | Zulmat, tired and bitter rather than angry. | `Assets/Resources/Audio/Voice/vo_cs3_01.wav` |
-| `vo_cs3_02` | Protagonist (inner voice) | "He is… me." | Protagonist, shocked whisper. Break on the '…'. | `Assets/Resources/Audio/Voice/vo_cs3_02.wav` |
-| `vo_cs3_03` | Protagonist (inner voice) | "I was a god." | Protagonist, steady, a confession. | `Assets/Resources/Audio/Voice/vo_cs3_03.wav` |
-| `vo_cs3_04` | Protagonist (inner voice) | "I tore out my cruelty, and it became him." | Harder, painful — 'him' with weight. | `Assets/Resources/Audio/Voice/vo_cs3_04.wav` |
-| `vo_cs3_05` | Protagonist (inner voice) | "I tore out my mercy, and it became me." | Quiet, final. | `Assets/Resources/Audio/Voice/vo_cs3_05.wav` |
 | `vo_cs3_06` | The Gods | "Whole, you are too much." | The Gods: three voices in unison, cold, echoing. | `Assets/Resources/Audio/Voice/vo_cs3_06.wav` |
 | `vo_cs3_07` | The Gods | "Be halved again." | Same three voices, a verdict. Short. | `Assets/Resources/Audio/Voice/vo_cs3_07.wav` |
 | `vo_cs3_08` | Narrator | "Two halves, each too weak to resist. Their memories locked away." | Narrator, sad and slow; let it trail off. | `Assets/Resources/Audio/Voice/vo_cs3_08.wav` |
@@ -226,5 +216,5 @@ The "Plays when" column says exactly when the game asks for the sound; "Code" is
 1. **Core feel:** `player_attack`, `player_hit_enemy`, `enemy_hit`, `enemy_death`, `player_hurt`, `player_jump`, `player_land`, `player_death`.
 2. **Telegraphs** (they warn the player): every `*_telegraph` id.
 3. **Music:** `music_menu`, `music_phase1`, `music_boss`, `music_phase2`, `music_final_boss`.
-4. **Voice:** the 17 cutscene lines + `vo_extinguished`.
+4. **Voice:** done (7 cutscene lines + `vo_extinguished`).
 5. Everything else (UI, world, boss move layers, cutscene music).

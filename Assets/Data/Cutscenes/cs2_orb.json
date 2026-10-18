@@ -43,7 +43,7 @@
       ] },
       { "type": "sequence", "beats": [
         { "type": "wait", "time": 0.6 },
-        { "type": "text", "voices": ["vo_cs2_01", "vo_cs2_02", "vo_cs2_03"], "style": "inner", "lines": [
+        { "type": "text", "style": "inner", "lines": [
           "I remember… a throne of light.",
           "I remember… something I cast away.",
           "Its home is the castle beyond the cave."
@@ -61,7 +61,7 @@
     { "type": "parallel", "beats": [
       { "type": "shake", "amp": 0.6, "time": 0.8 },
       { "type": "flame", "intensity": 1.6, "time": 0.4 },
-      { "type": "text", "voices": ["vo_cs2_04"], "speaker": "???", "style": "boss", "lines": ["…You remember. Then I am awake."] }
+      { "type": "text", "speaker": "???", "style": "boss", "lines": ["…You remember. Then I am awake."] }
     ] },
     { "type": "parallel", "beats": [
       { "type": "remove", "id": "castle", "fade": 0.6 },

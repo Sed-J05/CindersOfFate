@@ -92,6 +92,17 @@ namespace Shatranj.Core
             if (runner != null) runner.StopVoice();
         }
 
+        /// <summary>True while a voice line is playing (captions wait for it; music ducks under it).</summary>
+        public static bool IsVoicePlaying => runner != null && runner.VoicePlaying;
+
+        /// <summary>Length in seconds of a voice clip, or 0 when it doesn't exist.</summary>
+        public static float VoiceLength(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return 0f;
+            AudioClip clip = Find(id, VoiceFolder);
+            return clip != null ? clip.length : 0f;
+        }
+
         public static void StopMusic()
         {
             if (runner != null) runner.StopMusic();
@@ -130,6 +141,14 @@ namespace Shatranj.Core
             private AudioSource music;
             private AudioSource voice;
             private float musicBaseVolume = 1f;
+            private float master = 1f;
+            private float duck = 1f;
+
+            /// <summary>Music level while someone speaks (Docs/AUDIO_AND_VOICE.md).</summary>
+            private const float DuckedLevel = 0.4f;
+            private const float DuckSpeed = 4f;
+
+            public bool VoicePlaying => voice != null && voice.isPlaying;
 
             private void Awake()
             {
@@ -149,7 +168,7 @@ namespace Shatranj.Core
                 musicBaseVolume = volume;
                 music.clip = clip;
                 music.loop = loop;
-                music.volume = volume;
+                music.volume = volume * duck;
                 music.Play();
             }
 
@@ -165,7 +184,19 @@ namespace Shatranj.Core
 
             public void StopVoice() => voice.Stop();
 
-            public void ApplyMusicVolume(float master) => music.volume = musicBaseVolume * master;
+            public void ApplyMusicVolume(float masterVolume)
+            {
+                master = masterVolume;
+                music.volume = musicBaseVolume * master * duck;
+            }
+
+            private void Update()
+            {
+                float target = voice.isPlaying ? DuckedLevel : 1f;
+                if (Mathf.Approximately(duck, target)) return;
+                duck = Mathf.MoveTowards(duck, target, DuckSpeed * Time.unscaledDeltaTime);
+                music.volume = musicBaseVolume * master * duck;
+            }
 
             private void OnDestroy()
             {

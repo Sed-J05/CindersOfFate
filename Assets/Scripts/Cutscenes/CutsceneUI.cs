@@ -19,6 +19,8 @@ namespace Shatranj.Cutscenes
         [SerializeField] private float charsPerSecond = 35f;
         [SerializeField] private float autoAdvanceBase = 2.2f;
         [SerializeField] private float autoAdvancePerChar = 0.03f;
+        [SerializeField, Tooltip("Seconds a voiced line stays up after its voice ends.")] private float voiceTail = 0.35f;
+        private float VoiceTail => voiceTail;
 
         private RectTransform canvas;
         private CanvasGroup captionGroup;
@@ -131,10 +133,12 @@ namespace Shatranj.Cutscenes
 
             nextHint.enabled = true;
             float wait = autoAdvanceBase + autoAdvancePerChar * total;
-            for (float t = 0f; t < wait; t += Time.unscaledDeltaTime)
+            // A voiced line stays up until the voice has finished (plus a short beat), however short the text is.
+            for (float t = 0f, afterVoice = 0f; t < wait || afterVoice < VoiceTail; t += Time.unscaledDeltaTime)
             {
                 if (skipping() || advancePressed()) break;
                 nextHint.alpha = 0.5f + 0.5f * Mathf.Sin(t * 6f);
+                afterVoice = AudioManager.IsVoicePlaying ? 0f : afterVoice + Time.unscaledDeltaTime;
                 yield return null;
             }
             nextHint.enabled = false;

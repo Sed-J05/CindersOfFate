@@ -6,7 +6,7 @@ Open issues after Prompt 18 (QA & build). Severity: **High** = blocks a playthro
 
 | # | Severity | Area | Issue | Notes / workaround |
 |---|---|---|---|---|
-| 1 | Med | Audio | No sound, music or voice files exist yet — every hook is silent. | See `Docs/AUDIO_AND_VOICE.md` (all 18 voice lines + 87 sounds, folders and direction). Drop clips named after the ids into `Assets/Resources/Audio/` (sfx) or `Audio/Music/` (music); no code needed. |
+| 1 | Low | Audio | All audio is in (D-185, D-186), but SFX and music are synthesized and have only been checked by measurement (levels, lengths, loop seams), not by ear in game. | See `Docs/AUDIO_AND_VOICE.md` (all 18 voice lines + 87 sounds, folders and direction). Drop clips named after the ids into `Assets/Resources/Audio/` (sfx) or `Audio/Music/` (music); no code needed. |
 | 2 | Med | Art | All art is procedurally generated (`Tools/artgen`, D-180): readable and on-style, but simpler than hand-drawn art (stiff rig poses, simple cutscene panels, repeating tile texture). | Team art replaces them by file name (Docs/06); the art-swap test from Prompt 4 is still unverified. |
 | 3 | Med | Balance | Fight lengths are untested against Docs/04 §G. The Balance Report's punish-window estimates are well under target (Kage Caller ≈ 23 s vs 70–110 s is flagged). | Playtest with a stopwatch; tune HP / telegraphs in the configs and rerun `Shatranj → Balance Report`. |
 | 4 | Med | Difficulty | The Phase 2 difficulty pass (D-162) was an analysis of the room files, not a hands-on playtest. | Play Section C/D and move enemies (placement only) if a room spikes. |

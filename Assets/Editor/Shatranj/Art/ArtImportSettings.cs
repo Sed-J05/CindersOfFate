@@ -50,7 +50,8 @@ namespace Shatranj.EditorTools.Art
             if (importer.spriteImportMode != SpriteImportMode.Single) { importer.spriteImportMode = SpriteImportMode.Single; changed = true; }
             if (!Mathf.Approximately(importer.spritePixelsPerUnit, manifest != null ? manifest.pixelsPerUnit : 100)) { importer.spritePixelsPerUnit = manifest != null ? manifest.pixelsPerUnit : 100; changed = true; }
             if (importer.filterMode != filter) { importer.filterMode = filter; changed = true; }
-            if (importer.textureCompression != TextureImporterCompression.Uncompressed) { importer.textureCompression = TextureImporterCompression.Uncompressed; changed = true; }
+            // High-quality compression (BC7 on desktop): visually lossless for this art, ~4× smaller builds (D-187).
+            if (importer.textureCompression != TextureImporterCompression.CompressedHQ) { importer.textureCompression = TextureImporterCompression.CompressedHQ; changed = true; }
             if (importer.mipmapEnabled) { importer.mipmapEnabled = false; changed = true; }
             if (!importer.alphaIsTransparency) { importer.alphaIsTransparency = true; changed = true; }
             if (importer.npotScale != TextureImporterNPOTScale.None) { importer.npotScale = TextureImporterNPOTScale.None; changed = true; }

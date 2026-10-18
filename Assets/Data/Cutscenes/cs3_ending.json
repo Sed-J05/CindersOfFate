@@ -21,7 +21,7 @@
     ] },
 
     // 2.
-    { "type": "text", "voices": ["vo_cs3_01"], "speaker": "Zulmat", "style": "boss", "lines": ["Look at me. You know my face."] },
+    { "type": "text", "speaker": "Zulmat", "style": "boss", "lines": ["Look at me. You know my face."] },
 
     // 3. Face to face, mirroring each other
     { "type": "spawn", "id": "hero", "character": "Protagonist_P2", "recolor": false, "anim": "Idle", "pos": [-2.6, -4.6] },
@@ -30,7 +30,7 @@
       { "type": "move", "id": "hero",   "to": [-2.0, -4.6], "time": 1.2, "ease": "InOutQuad" },
       { "type": "move", "id": "zulmat", "to": [2.0, -4.6],  "time": 1.2, "ease": "InOutQuad" }
     ] },
-    { "type": "text", "voices": ["vo_cs3_02"], "style": "inner", "lines": ["He is… me."] },
+    { "type": "text", "style": "inner", "lines": ["He is… me."] },
 
     // 4. Memory flashes: a god, whole — then cut in two
     { "type": "parallel", "beats": [
@@ -46,7 +46,7 @@
       ] },
       { "type": "sequence", "beats": [
         { "type": "wait", "time": 0.5 },
-        { "type": "text", "voices": ["vo_cs3_03", "vo_cs3_04", "vo_cs3_05"], "style": "inner", "lines": [
+        { "type": "text", "style": "inner", "lines": [
           "I was a god.",
           "I tore out my cruelty, and it became him.",
           "I tore out my mercy, and it became me."

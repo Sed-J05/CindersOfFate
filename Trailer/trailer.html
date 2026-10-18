@@ -1,0 +1,491 @@
+<title>Cinders of Fate Trailer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one fixed 1920×1080 stage scaled to the window (letterboxed); scenes are absolutely placed layers
+   that fade in/out on the score's clock. Single dark look: a shadow theatre at night. */
+:root {
+  --night: #0a090b;
+  --soot: #16131a;
+  --paper: #eadfc6;
+  --smoke: #8d867c;
+  --ember: #e2682a;
+  --blood: #c8232c;
+  --frost: #a9c6ee;
+  --display: "IM Fell English SC", "Book Antiqua", Palatino, Georgia, serif;
+  --serif: "IM Fell English", "Book Antiqua", Palatino, Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+html, body { height: 100%; }
+body { background: var(--night); color: var(--paper); overflow: hidden; font-family: var(--serif); }
+
+#viewport { position: fixed; inset: 0; display: grid; place-items: center; background: var(--night); }
+#stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 0 0;
+  overflow: hidden; background: var(--night); }
+
+.scene { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.layer { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.px { image-rendering: pixelated; }
+.layer.strip { background-size: auto 100%; background-repeat: repeat-x; background-position: 0 0; }
+
+/* type */
+.card { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: 28px; padding: 0 240px; }
+.eyebrow { font-family: var(--display); font-size: 34px; letter-spacing: 0.32em; color: var(--ember); text-transform: uppercase; }
+.headline { font-family: var(--display); font-size: 112px; line-height: 1.02; letter-spacing: 0.02em; text-wrap: balance; }
+.quote { font-family: var(--serif); font-style: italic; font-size: 72px; line-height: 1.15; text-wrap: balance; }
+.quote.inner { color: var(--frost); }
+.quote.boss { color: var(--blood); font-style: normal; font-family: var(--display); letter-spacing: 0.04em; }
+.small { font-family: var(--serif); font-size: 40px; color: var(--smoke); }
+.lower { position: absolute; left: 120px; bottom: 96px; display: grid; gap: 10px; }
+.lower .eyebrow { font-size: 28px; }
+.lower .label { font-family: var(--display); font-size: 64px; }
+
+/* pillar slides */
+.pillar { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+  background: linear-gradient(90deg, rgba(10,9,11,0.88) 0%, rgba(10,9,11,0.7) 38%, rgba(10,9,11,0) 62%); }
+.pillar .copy { padding: 0 80px 0 160px; display: grid; gap: 30px; }
+.pillar .copy .headline { font-size: 96px; text-align: left; }
+.pillar .copy p { font-size: 44px; line-height: 1.3; color: var(--paper); margin: 0; max-width: 24ch; }
+.pillar .copy ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; font-size: 40px; color: var(--paper); }
+.pillar .copy li::before { content: "✦"; color: var(--ember); margin-right: 18px; font-size: 28px; vertical-align: 6px; }
+.pillar .art { position: relative; height: 100%; display: grid; place-items: center; }
+.glow { position: absolute; width: 900px; height: 900px; background: url(assets/FlameGlow.png) center / contain no-repeat; mix-blend-mode: screen; }
+
+/* roster */
+.roster { position: absolute; left: 0; right: 0; bottom: 210px; display: flex; justify-content: center; align-items: flex-end; gap: 36px; }
+.roster figure { margin: 0; display: grid; justify-items: center; gap: 14px; }
+.roster figcaption { font-family: var(--display); font-size: 30px; letter-spacing: 0.08em; color: var(--paper); }
+
+/* clips + placeholders */
+.clip video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--night); }
+/* Stopgap for the recorder watermark across the top of the current clips: zoom 8 % from the bottom edge so the top
+   strip falls outside the frame. Delete this rule once the clips are re-recorded without a watermark. */
+.clip video { transform: scale(1.08); transform-origin: 50% 100%; }
+.placeholder { position: absolute; inset: 70px; border: 4px dashed var(--ember); background:
+  repeating-linear-gradient(135deg, rgba(226,104,42,0.06) 0 24px, rgba(0,0,0,0) 24px 48px), var(--soot);
+  display: grid; align-content: center; gap: 22px; padding: 0 110px; font-family: var(--mono); }
+.placeholder .tag { font-size: 30px; color: var(--ember); letter-spacing: 0.16em; font-weight: 600; }
+.placeholder .ttl { font-size: 64px; color: var(--paper); font-family: var(--display); }
+.placeholder dl { display: grid; grid-template-columns: 220px 1fr; gap: 12px 28px; margin: 0; font-size: 28px; line-height: 1.4; }
+.placeholder dt { color: var(--smoke); }
+.placeholder dd { margin: 0; color: var(--paper); }
+.placeholder .count { position: absolute; right: 40px; bottom: 30px; font-size: 64px; color: var(--ember); font-variant-numeric: tabular-nums; }
+
+/* overlays */
+#embers { position: absolute; inset: 0; pointer-events: none; }
+#flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+#frame { position: absolute; inset: 0; background: url(assets/ParchmentFrame.png) center / 100% 100% no-repeat; opacity: 0.35; pointer-events: none; }
+#guide { position: absolute; left: 24px; top: 20px; font-family: var(--mono); font-size: 26px; color: var(--ember);
+  background: rgba(0,0,0,0.6); padding: 6px 14px; display: none; }
+#stage.guides #guide { display: block; }
+
+/* player chrome (outside the stage, not recorded when hidden) */
+#start { position: fixed; inset: 0; display: grid; place-content: center; justify-items: center; gap: 22px; text-align: center;
+  background: radial-gradient(circle at 50% 45%, rgba(226,104,42,0.18), rgba(10,9,11,0.96) 60%);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+#start h1 { font-family: var(--display); font-weight: 400; font-size: clamp(36px, 6vw, 72px); margin: 0; letter-spacing: 0.04em; }
+#start p { margin: 0; color: var(--smoke); font-size: clamp(15px, 1.8vw, 20px); max-width: 52ch; line-height: 1.5; }
+#start kbd, #help kbd { font-family: var(--mono); font-size: 0.85em; border: 1px solid var(--smoke); padding: 1px 6px; border-radius: 3px; color: var(--paper); }
+button { font: inherit; cursor: pointer; }
+#play { font-family: var(--display); font-size: clamp(20px, 2.6vw, 30px); letter-spacing: 0.12em; color: var(--night);
+  background: var(--ember); border: 0; padding: 14px 40px; border-radius: 2px; }
+#play:focus-visible, #bar button:focus-visible, #scrub:focus-visible { outline: 3px solid var(--frost); outline-offset: 3px; }
+#bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding-block: 10px calc(10px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  background: linear-gradient(to top, rgba(10,9,11,0.95), rgba(10,9,11,0)); font-family: var(--mono); font-size: 14px;
+  transition: opacity 0.3s; }
+#bar.hidden { opacity: 0; pointer-events: none; }
+#bar button { background: transparent; color: var(--paper); border: 1px solid var(--smoke); padding: 6px 12px; border-radius: 2px; }
+#bar button[aria-pressed="true"] { border-color: var(--ember); color: var(--ember); }
+#time { font-variant-numeric: tabular-nums; color: var(--paper); min-width: 11ch; }
+#scrub { flex: 1 1 200px; min-width: 0; accent-color: var(--ember); }
+#scene-name { color: var(--smoke); flex-basis: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { #bar { transition: none; } }
+</style>
+
+<div id="viewport">
+  <div id="stage" aria-label="Trailer stage">
+    <canvas id="embers" width="1920" height="1080"></canvas>
+    <div id="frame"></div>
+    <div id="flash"></div>
+    <div id="guide"></div>
+  </div>
+</div>
+
+<div id="start">
+  <h1>Cinders of Fate — Trailer</h1>
+  <p>2:48 with an original score. Orange dashed boxes are gameplay-clip slots: drop <kbd>clip01.mp4</kbd> … <kbd>clip07.mp4</kbd> into <kbd>Trailer/clips/</kbd> and they play in place. See <kbd>Trailer/SHOT_LIST.md</kbd>.</p>
+  <button id="play" type="button">▶ Play trailer</button>
+  <p id="help"><kbd>Space</kbd> play/pause · <kbd>←</kbd><kbd>→</kbd> ±5 s · <kbd>R</kbd> restart · <kbd>G</kbd> timecode guide · <kbd>F</kbd> fullscreen · <kbd>H</kbd> hide controls</p>
+</div>
+
+<div id="bar" class="hidden">
+  <button id="toggle" type="button" aria-label="Play or pause">⏸</button>
+  <button id="restart" type="button">Restart</button>
+  <input id="scrub" type="range" min="0" max="168" step="0.1" value="0" aria-label="Trailer position">
+  <span id="time">0:00.0 / 2:48</span>
+  <button id="guides" type="button" aria-pressed="false">Guide</button>
+  <button id="fs" type="button">Fullscreen</button>
+  <span id="scene-name"></span>
+</div>
+
+<audio id="score" src="music/cinders_trailer_score.wav" preload="auto"></audio>
+
+<script>
+(() => {
+  const LENGTH = 168;
+  const A = "assets/";
+  const stage = document.getElementById("stage");
+  const audio = document.getElementById("score");
+
+  // ---------------------------------------------------------------- helpers
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const ease = u => u * u * (3 - 2 * u);
+  const frames = (name, anim, n) => Array.from({ length: n }, (_, i) => `${A}${name}_${anim}_${String(i).padStart(2, "0")}.png`);
+  const layer = (src, extra = "") => { const d = el("div", "layer " + extra); d.style.backgroundImage = `url(${src})`; return d; };
+
+  /** Pixel sprite that cycles frames on the trailer clock. */
+  function sprite(list, size, fps) {
+    const img = el("img", "px");
+    img.src = list[0]; img.width = size; img.height = size; img.alt = "";
+    list.forEach(s => { const p = new Image(); p.src = s; });
+    return { node: img, tick(t) { img.src = list[Math.floor(t * fps) % list.length]; } };
+  }
+
+  // ---------------------------------------------------------------- scenes
+  // start/end in seconds on the score; fi/fo = fade in/out. Times match Trailer/tools/make_score.py.
+  const SCENES = [];
+  function scene(name, start, end, build, opts = {}) {
+    const node = el("div", "scene");
+    const s = { name, start, end, fi: opts.fi ?? 0.6, fo: opts.fo ?? 0.6, node, update: () => {}, enter: () => {}, exit: () => {} };
+    Object.assign(s, build(node, s) || {});
+    stage.insertBefore(node, document.getElementById("embers"));
+    SCENES.push(s);
+  }
+
+  function textCard(name, start, end, html, opts) {
+    scene(name, start, end, node => { node.appendChild(el("div", "card", html)); return { update(t, u) {
+      node.firstChild.style.transform = `scale(${1 + 0.04 * u})`; } }; }, opts);
+  }
+
+  // 1 · 0:00 cold open
+  textCard("Cold open", 1, 8, `<div class="quote">Every shadow is cast by a flame.</div>`, { fi: 1.5, fo: 1.2 });
+
+  // 2 · 0:08 studio
+  textCard("Studio card", 8.4, 13.8, `<div class="eyebrow">Team Cinders of Fate</div><div class="small">presents</div>`, { fi: 1, fo: 0.8 });
+
+  // 3–4 · 0:14 village + the shadows move
+  scene("Village", 14, 30, node => {
+    const far = layer(A + "CS1_Village_Far.png"), mid = layer(A + "CS1_Village_Mid.png"), near = layer(A + "CS1_Village_Near.png");
+    [far, mid, near].forEach(l => { l.style.width = "2400px"; l.style.backgroundSize = "2400px 1080px"; node.appendChild(l); });
+    const crawler = sprite(frames("Crawler", "Walk", 6), 220, 10), lunger = sprite(frames("Lunger", "Walk", 6), 280, 9);
+    const walkers = el("div"); walkers.style.cssText = "position:absolute;left:0;bottom:118px;display:flex;gap:120px;align-items:flex-end;opacity:0";
+    walkers.append(crawler.node, lunger.node); node.appendChild(walkers);
+    const line = el("div", "lower", `<div class="quote" style="font-size:56px;max-width:30ch;text-align:left"></div>`);
+    node.appendChild(line);
+    const q = line.querySelector(".quote");
+    return { update(t) {
+      far.style.transform = `translateX(${-t * 6}px)`; mid.style.transform = `translateX(${-t * 14}px)`; near.style.transform = `translateX(${-t * 26}px)`;
+      q.textContent = t < 8 ? "Our village slept beneath the mountain's shadow." : "Then the shadows began to move.";
+      q.style.opacity = t < 8 ? clamp(Math.min(t - 0.6, 7.6 - t), 0, 1) : clamp(Math.min(t - 8.4, 15.6 - t), 0, 1);
+      walkers.style.opacity = clamp((t - 8) / 0.8, 0, 1);
+      walkers.style.transform = `translateX(${-420 + (t - 8) * 230}px)`;
+      crawler.tick(t); lunger.tick(t);
+    } };
+  }, { fi: 1.2, fo: 0.3 });
+
+  // 5 · 0:30 title tease
+  scene("Title tease", 30, 35.6, node => {
+    const logo = el("img"); logo.src = A + "Title_Logo.png"; logo.alt = "Cinders of Fate";
+    logo.style.cssText = "position:absolute;left:50%;top:50%;width:1500px;transform:translate(-50%,-50%)";
+    node.appendChild(logo);
+    return { enter() { flash(0.9, 0.5, 30); }, update(t) { logo.style.transform = `translate(-50%,-50%) scale(${1.12 - 0.08 * ease(clamp(t / 5, 0, 1))})`; } };
+  }, { fi: 0.05, fo: 0.4 });
+
+  // 6 · 0:36 world pillar
+  scene("Pillar: world", 36, 44, node => {
+    node.appendChild(layer(A + "Parchment_Beige.png"));
+    const cave = layer(A + "BG_Cave_Far.png", "strip"); cave.style.opacity = 0.7; node.appendChild(cave);
+    const p = el("div", "pillar");
+    p.innerHTML = `<div class="copy"><div class="eyebrow">A shadow-puppet platformer</div>
+      <div class="headline">A world of paper and flame</div>
+      <p>Every creature is a cut-paper puppet. Every shadow is cast by the living flame behind the screen.</p></div>
+      <div class="art"><div class="glow"></div></div>`;
+    node.appendChild(p);
+    const hero = sprite(frames("Protagonist", "Run", 8), 560, 12);
+    hero.node.style.position = "relative"; p.querySelector(".art").appendChild(hero.node);
+    return { update(t) { hero.tick(t); cave.style.backgroundPositionX = `${-t * 20}px`; } };
+  }, { fi: 0.4 });
+
+  // clip slots
+  const CLIPS = [
+    { n: 1, start: 44, end: 52, label: "Phase I — The Cave", scene: "Phase1_Cave · rooms P1_A0 Cave Mouth → P1_A1 The First Crawlers",
+      show: "Running right, jumping ledges and one-way platforms, flame glow on the paper. No fighting.", tip: "F1 god mode so nothing interrupts the run." },
+    { n: 2, start: 58, end: 68, label: "Combat", scene: "Phase1_Cave · P1_A4 Two Tiers or P1_B1 Paper Wings",
+      show: "Side + up slashes on Crawlers, Lungers and Shadow Kites; hit sparks, soul filling, finish with a heal.", tip: "F2 refills soul for the heal." },
+    { n: 3, start: 76, end: 84, label: "Boss — The Kage Warden", scene: "Phase1_Cave · P1_MB1 The Warden Gate",
+      show: "Red telegraph, dodge, punish, a blocked hit (clink), then a combo.", tip: "F6 jumps to the current boss arena." },
+    { n: 4, start: 84, end: 90, label: "Boss — The Kage Caller", scene: "Phase1_Cave · P1_MB2 The Caller Hall",
+      show: "Black-slash projectiles flying, a summon, end on a clean hit.", tip: "Beat the Warden first or use F6 after F3." },
+    { n: 5, start: 118, end: 126, label: "Phase II — The Castle", scene: "Phase2_Castle · P2_C1 Chandelier Hall → P2_C2 The Tower Climb",
+      show: "Time Slip dash (L) through an enemy, Flamecall fireball (K) into a Knight or Bat, fast climbing.", tip: "Open Phase2_Castle directly, or F4 from Phase 1." },
+    { n: 6, start: 126, end: 132, label: "Boss — The Iron Colossus", scene: "Phase2_Castle · P2_MB The Colossus Hall",
+      show: "Jump-slam shockwave, shield clink, the player dashing over it.", tip: "F6 in Phase 2 goes straight to the arena." },
+    { n: 7, start: 140, end: 152, label: "Zulmat", scene: "Phase2_Castle · P2_THRONE The Throne of Zulmat",
+      show: "Three 4-second moments: vines + giant swipe, shrink & reposition, lava + the final hits.", tip: "Cut the three moments into one 12 s file." },
+  ];
+  CLIPS.forEach(c => {
+    const dur = c.end - c.start;
+    scene(`Clip ${String(c.n).padStart(2, "0")} — ${c.label}`, c.start, c.end, node => {
+      node.classList.add("clip");
+      const ph = el("div", "placeholder", `<div class="tag">GAMEPLAY CLIP ${String(c.n).padStart(2, "0")} · ${dur} SECONDS</div>
+        <div class="ttl">${c.label}</div>
+        <dl><dt>Record in</dt><dd>${c.scene}</dd><dt>Show</dt><dd>${c.show}</dd><dt>Tip</dt><dd>${c.tip}</dd>
+        <dt>File</dt><dd>Trailer/clips/clip${String(c.n).padStart(2, "0")}.mp4 · 1920×1080 · ${dur} s · no audio needed</dd></dl>
+        <div class="count"></div>`);
+      const video = el("video"); video.muted = true; video.playsInline = true; video.preload = "auto";
+      let ok = false;
+      video.addEventListener("loadeddata", () => { ok = true; ph.hidden = true; });
+      video.addEventListener("error", () => { ok = false; video.hidden = true; ph.hidden = false; });
+      video.src = `clips/clip${String(c.n).padStart(2, "0")}.mp4`;
+      node.append(video, ph);
+      const lower = el("div", "lower", `<div class="eyebrow">${c.n <= 4 ? "Phase I" : "Phase II"}</div><div class="label">${c.label}</div>`);
+      lower.style.cssText += ";text-shadow:0 2px 12px #000"; node.appendChild(lower);
+      const count = ph.querySelector(".count");
+      return {
+        enter(t) { if (ok) { video.currentTime = clamp(t, 0, dur); if (playing) video.play().catch(() => {}); } },
+        exit() { video.pause(); },
+        update(t) {
+          count.textContent = (dur - t).toFixed(1);
+          lower.style.opacity = clamp(Math.min(t - 0.3, 2.8 - t) / 0.4, 0, 1);
+          if (ok && Math.abs(video.currentTime - t) > 0.25) video.currentTime = clamp(t, 0, dur);
+          if (ok && playing && video.paused) video.play().catch(() => {});
+          if (ok && !playing && !video.paused) video.pause();
+        },
+      };
+    }, { fi: 0.25, fo: 0.25 });
+  });
+
+  // 8 · 0:52 combat pillar
+  scene("Pillar: combat", 52, 58, node => {
+    node.appendChild(layer(A + "Parchment_Beige.png"));
+    const p = el("div", "pillar");
+    p.innerHTML = `<div class="copy"><div class="eyebrow">Hollow-Knight-style combat</div>
+      <div class="headline">Read it. Dodge it. Cut through it.</div>
+      <ul><li>Tight sword combat and jumps</li><li>Soul-powered healing</li><li>Every enemy attack is telegraphed</li></ul></div>
+      <div class="art"><div class="glow"></div></div>`;
+    node.appendChild(p);
+    const hero = sprite(frames("Protagonist", "Attack_Side_A", 4), 560, 8);
+    hero.node.style.position = "relative"; p.querySelector(".art").appendChild(hero.node);
+    return { update(t) { hero.tick(t); } };
+  }, { fi: 0.3 });
+
+  // 10 · 1:08 roster
+  scene("Roster: Phase I", 68, 76, node => {
+    node.appendChild(layer(A + "BG_Cave_Mid.png"));
+    node.appendChild(el("div", "card", `<div class="eyebrow">The cave is not empty</div>`)).style.alignContent = "start";
+    node.lastChild.style.paddingTop = "120px";
+    const row = el("div", "roster");
+    const list = [["Crawler", "Walk", 6, 200, 10], ["Lunger", "Walk", 6, 260, 9], ["ShadowKite", "Fly", 6, 220, 12], ["KageCaller", "Idle", 6, 400, 8], ["KageWarden", "Idle", 6, 420, 8]];
+    const sprites = list.map(([n, a, f, s, fps], i) => {
+      const sp = sprite(frames(n, a, f), s, fps); const fig = el("figure"); fig.appendChild(sp.node);
+      fig.appendChild(el("figcaption", null, n.replace(/([a-z])([A-Z])/g, "$1 $2")));
+      fig.style.opacity = 0; row.appendChild(fig); sp.fig = fig; sp.i = i; return sp; });
+    node.appendChild(row);
+    return { update(t) { sprites.forEach(sp => { sp.tick(t); const u = clamp((t - 0.4 - sp.i * 0.7) / 0.5, 0, 1); sp.fig.style.opacity = u; sp.fig.style.transform = `translateY(${(1 - u) * 30}px)`; }); } };
+  }, { fi: 0.4 });
+
+  // 13 · 1:30 memory montage
+  scene("Memories", 90, 104, node => {
+    const imgs = [1, 2, 3, 4, 5, 6].map(i => { const l = layer(`${A}CS2_Memory_0${i}.png`); l.style.opacity = 0; node.appendChild(l); return l; });
+    const cap = el("div", "card", `<div class="quote inner"></div>`); node.appendChild(cap);
+    const q = cap.querySelector(".quote");
+    return { update(t) {
+      const k = Math.min(5, Math.floor(t / 1.6));
+      imgs.forEach((l, i) => { const on = i === k && t < 10; l.style.opacity = on ? 1 : 0; l.style.transform = `scale(${1.04 + 0.03 * ((t / 1.6) % 1)})`; });
+      q.textContent = t < 5 ? "I remember… a throne of light." : t < 10 ? "I remember… something I cast away." : "…";
+      q.style.opacity = t < 10 ? clamp(Math.min((t % 5) - 0.3, 4.7 - (t % 5)) / 0.4, 0, 1) : 0;
+      if (t >= 10) { const u = (t - 10) / 4; node.style.background = `radial-gradient(circle at 50% 50%, rgba(170,210,255,${0.9 * u}), rgba(10,9,11,1) ${30 + 60 * u}%)`; }
+      else node.style.background = "var(--night)";
+    } };
+  }, { fi: 0.2, fo: 0.05 });
+
+  // 15 · 1:44 inversion
+  scene("Inversion", 104, 112, node => {
+    node.appendChild(layer(A + "Parchment_Beige.png"));
+    const castle = layer(A + "BG_Castle_Far.png", "strip"); node.appendChild(castle);
+    const p = el("div", "pillar");
+    p.innerHTML = `<div class="copy"><div class="eyebrow">Phase II</div><div class="headline">The light changed.</div>
+      <p>So did everything on the screen. Return as your other half.</p></div><div class="art"><div class="glow"></div></div>`;
+    node.appendChild(p);
+    const hero = sprite(frames("Protagonist_P2", "Idle", 6), 560, 8);
+    hero.node.style.position = "relative"; p.querySelector(".art").appendChild(hero.node);
+    node.firstChild.style.filter = "invert(1) hue-rotate(180deg) brightness(0.9)";
+    return { enter() { flash(1, 0.9, 104); }, update(t) { hero.tick(t); castle.style.backgroundPositionX = `${-t * 16}px`; } };
+  }, { fi: 0.05 });
+
+  // 16 · 1:52 powers
+  scene("Powers", 112, 118, node => {
+    node.appendChild(layer(A + "BG_Castle_Mid.png"));
+    const c = el("div", "card", `<div class="eyebrow">New powers</div>
+      <div style="display:flex;gap:140px;justify-content:center;align-items:center">
+        <figure style="margin:0;display:grid;justify-items:center;gap:18px"><img class="px" src="${A}Ability_Icon_Dash.png" width="220" height="220" alt="">
+          <div class="headline" style="font-size:72px">Time Slip</div><div class="small">Dash through danger</div></figure>
+        <figure style="margin:0;display:grid;justify-items:center;gap:18px"><img class="px" src="${A}Ability_Icon_Fireball.png" width="220" height="220" alt="">
+          <div class="headline" style="font-size:72px">Flamecall</div><div class="small">Hurl a blue flame</div></figure>
+      </div>`);
+    node.appendChild(c);
+    const figs = c.querySelectorAll("figure");
+    return { update(t) { figs.forEach((f, i) => { const u = clamp((t - 0.3 - i * 0.6) / 0.5, 0, 1); f.style.opacity = u; f.style.transform = `scale(${0.9 + 0.1 * u})`; }); } };
+  }, { fi: 0.3 });
+
+  // 19 · 2:12 Zulmat wakes
+  scene("Zulmat wakes", 132, 140, node => {
+    const eyes = layer(A + "CS2_Zulmat_Eyes.png"); node.appendChild(eyes);
+    const cap = el("div", "card", `<div class="quote boss" style="margin-top:520px">…You remember. Then I am awake.</div>`); node.appendChild(cap);
+    const q = cap.querySelector(".quote");
+    return { update(t) {
+      eyes.style.opacity = t < 4 ? 0.15 : 1; eyes.style.transform = `scale(${1 + 0.06 * t / 8})`;
+      q.style.opacity = clamp((t - 4.6) / 0.5, 0, 1);
+    } };
+  }, { fi: 0.4, fo: 0.15 });
+
+  // 21 · 2:32 the reveal
+  textCard("He is… me.", 152.2, 157.6, `<div class="quote inner">He is… me.</div>`, { fi: 1.2, fo: 0.6 });
+
+  // 22 · 2:38 end card
+  scene("End card", 158, 168, node => {
+    const logo = el("img"); logo.src = A + "Title_Logo.png"; logo.alt = "Cinders of Fate";
+    logo.style.cssText = "position:absolute;left:50%;top:40%;width:1400px;transform:translate(-50%,-50%)";
+    const tag = el("div", "card", `<div style="height:420px"></div><div class="quote" style="font-size:60px">Two halves. One flame.</div>
+      <div class="eyebrow" style="font-size:30px">Windows PC</div>`);
+    const credit = el("div", null, "Original score");
+    credit.style.cssText = "position:absolute;right:80px;bottom:60px;font-family:var(--mono);font-size:22px;color:var(--smoke)";
+    node.append(logo, tag, credit);
+    return { enter() { flash(0.9, 0.6, 158); }, update(t) {
+      logo.style.transform = `translate(-50%,-50%) scale(${1.06 - 0.06 * ease(clamp(t / 8, 0, 1))})`;
+      tag.style.opacity = clamp((t - 1.5) / 1, 0, 1);
+    } };
+  }, { fi: 0.05, fo: 1.5 });
+
+  // ---------------------------------------------------------------- flash + embers
+  const flashEl = document.getElementById("flash");
+  let flashT = -1, flashA = 0, flashD = 0.5;
+  function flash(a, d, at) { flashT = at ?? now(); flashA = a; flashD = d; }
+
+  const ctx = document.getElementById("embers").getContext("2d");
+  const embers = Array.from({ length: 70 }, (_, i) => ({ x: Math.random() * 1920, y: Math.random() * 1080, s: 1.5 + Math.random() * 3, v: 20 + Math.random() * 50, p: Math.random() * 6 }));
+  function drawEmbers(t, strength) {
+    ctx.clearRect(0, 0, 1920, 1080);
+    if (strength <= 0) return;
+    for (const e of embers) {
+      const y = (e.y - t * e.v) % 1080; const yy = y < 0 ? y + 1080 : y;
+      const x = e.x + Math.sin(t * 0.8 + e.p) * 30;
+      ctx.globalAlpha = strength * (0.35 + 0.35 * Math.sin(t * 3 + e.p));
+      ctx.fillStyle = "#e2682a"; ctx.fillRect(x, yy, e.s, e.s);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // ---------------------------------------------------------------- clock + render
+  let playing = false, clockStart = 0, clockOffset = 0, useAudio = true;
+  audio.addEventListener("error", () => { useAudio = false; });
+  // Paused: the stored position. Playing: the score's own clock (so picture and music never drift), or a wall clock
+  // if the audio can't play.
+  function now() {
+    if (!playing) return clockOffset;
+    if (useAudio && !audio.paused && audio.readyState >= 2) return audio.currentTime;
+    return clockOffset + (performance.now() - clockStart) / 1000;
+  }
+  function seek(t) {
+    t = clamp(t, 0, LENGTH);
+    clockOffset = t; clockStart = performance.now();
+    if (useAudio) { try { audio.currentTime = t; } catch (e) { /* not loaded yet: play() applies clockOffset */ } }
+    SCENES.forEach(s => { if (s.active) { s.active = false; s.exit(); } });
+  }
+  function play() {
+    playing = true; clockStart = performance.now();
+    if (useAudio) {
+      try { audio.currentTime = clockOffset; } catch (e) { /* metadata not loaded yet */ }
+      audio.play().catch(() => { useAudio = false; });
+    }
+    toggleBtn.textContent = "⏸";
+  }
+  function pause() {
+    clockOffset = now(); playing = false; audio.pause(); toggleBtn.textContent = "▶";
+    showBar();
+  }
+
+  const guide = document.getElementById("guide"), timeEl = document.getElementById("time"), scrub = document.getElementById("scrub"), sceneName = document.getElementById("scene-name");
+  const fmt = t => `${Math.floor(t / 60)}:${(t % 60).toFixed(1).padStart(4, "0")}`;
+  function render() {
+    let t = now();
+    if (t >= LENGTH - 0.02 && playing) { pause(); t = LENGTH; }
+    let names = [], inClip = false;
+    for (const s of SCENES) {
+      const inside = t >= s.start - 0.001 && t < s.end;
+      if (inside && !s.active) { s.active = true; s.enter(t - s.start); }
+      if (!inside && s.active) { s.active = false; s.exit(); }
+      if (!inside) { s.node.style.opacity = 0; continue; }
+      const lt = t - s.start, dur = s.end - s.start;
+      const a = Math.min(s.fi > 0 ? lt / s.fi : 1, s.fo > 0 ? (dur - lt) / s.fo : 1);
+      s.node.style.opacity = clamp(a, 0, 1);
+      s.update(lt, lt / dur);
+      names.push(s.name);
+      if (s.node.classList.contains("clip")) inClip = true;
+    }
+    const ft = t - flashT;
+    flashEl.style.opacity = flashT >= 0 && ft >= 0 && ft < flashD ? flashA * (1 - ft / flashD) : 0;
+    const emberStrength = inClip ? 0.15 : t < 36 ? 0.8 : (t > 132 && t < 140) || (t > 152 && t < 158) ? 0.2 : 0.55;
+    drawEmbers(t, emberStrength);
+    guide.textContent = `${fmt(t)} · ${names.join(" + ") || "—"}`;
+    timeEl.textContent = `${fmt(t)} / 2:48`;
+    if (!scrubbing) scrub.value = t.toFixed(1);
+    sceneName.textContent = names.join(" + ");
+    requestAnimationFrame(render);
+  }
+
+  // ---------------------------------------------------------------- stage scaling + controls
+  function fit() {
+    const s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    stage.style.transform = `scale(${s}) translate(-50%, -50%)`;
+    stage.style.transformOrigin = "0 0";
+  }
+  window.addEventListener("resize", fit); fit();
+
+  const bar = document.getElementById("bar"), toggleBtn = document.getElementById("toggle"), startEl = document.getElementById("start");
+  let hideTimer = 0, scrubbing = false, barLocked = false;
+  function showBar() { if (barLocked) return; bar.classList.remove("hidden"); clearTimeout(hideTimer); if (playing) hideTimer = setTimeout(() => bar.classList.add("hidden"), 1800); }
+  document.addEventListener("mousemove", () => { if (startEl.hidden) showBar(); });
+
+  document.getElementById("play").addEventListener("click", () => { startEl.hidden = true; seek(0); play(); showBar(); });
+  toggleBtn.addEventListener("click", () => (playing ? pause() : play()));
+  document.getElementById("restart").addEventListener("click", () => { seek(0); play(); });
+  scrub.addEventListener("input", () => { scrubbing = true; seek(parseFloat(scrub.value)); });
+  scrub.addEventListener("change", () => { scrubbing = false; });
+  const guidesBtn = document.getElementById("guides");
+  guidesBtn.addEventListener("click", () => { const on = stage.classList.toggle("guides"); guidesBtn.setAttribute("aria-pressed", on); });
+  function fullscreen() { const v = document.getElementById("viewport"); (document.fullscreenElement ? document.exitFullscreen() : v.requestFullscreen?.())?.catch?.(() => {}); }
+  document.getElementById("fs").addEventListener("click", fullscreen);
+  document.addEventListener("keydown", e => {
+    if (startEl.hidden === false && (e.key === " " || e.key === "Enter")) { e.preventDefault(); document.getElementById("play").click(); return; }
+    if (e.target === scrub && (e.key === "ArrowLeft" || e.key === "ArrowRight")) return;
+    if (e.key === " ") { e.preventDefault(); playing ? pause() : play(); }
+    else if (e.key === "ArrowRight") seek(now() + 5);
+    else if (e.key === "ArrowLeft") seek(now() - 5);
+    else if (e.key === "r" || e.key === "R") { seek(0); play(); }
+    else if (e.key === "g" || e.key === "G") guidesBtn.click();
+    else if (e.key === "f" || e.key === "F") fullscreen();
+    else if (e.key === "h" || e.key === "H") { barLocked = !barLocked; bar.classList.toggle("hidden", barLocked); }
+  });
+
+  // Rest frame (thumbnail / before Play): the end card. A link ending in #t95 opens paused at 95 s instead.
+  const m = /^#t(\d+)$/.exec(location.hash);
+  if (m) { startEl.hidden = true; seek(parseInt(m[1], 10)); showBar(); } else seek(160);
+  requestAnimationFrame(render);
+})();
+</script>
