@@ -291,11 +291,16 @@ namespace Shatranj.Cutscenes
             if (lines.Count == 0 && b.Has("line")) lines.Add(b.Str("line"));
             string speaker = b.Str("speaker", "");
             string style = b.Str("style", "narration");
+            // Optional voice acting (Docs/AUDIO_AND_VOICE.md): "voices" holds one clip id per line ("voice" for a single line).
+            List<string> voices = b.Strings("voices");
+            if (voices.Count == 0 && b.Has("voice")) voices.Add(b.Str("voice"));
             advanceQueued = false;
-            foreach (string line in lines)
+            for (int i = 0; i < lines.Count; i++)
             {
                 if (skipping) break;
-                yield return ui.ShowLine(Expand(speaker), Expand(line), style, ConsumeAdvance, IsSkipping);
+                if (i < voices.Count) AudioManager.PlayVoice(voices[i]);
+                yield return ui.ShowLine(Expand(speaker), Expand(lines[i]), style, ConsumeAdvance, IsSkipping);
+                AudioManager.StopVoice();   // advancing early cuts the line off
             }
             if (!b.Bool("keep", false) || skipping) ui.HideCaption();
         }

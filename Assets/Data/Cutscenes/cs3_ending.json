@@ -21,7 +21,7 @@
     ] },
 
     // 2.
-    { "type": "text", "speaker": "Zulmat", "style": "boss", "lines": ["Look at me. You know my face."] },
+    { "type": "text", "voices": ["vo_cs3_01"], "speaker": "Zulmat", "style": "boss", "lines": ["Look at me. You know my face."] },
 
     // 3. Face to face, mirroring each other
     { "type": "spawn", "id": "hero", "character": "Protagonist_P2", "recolor": false, "anim": "Idle", "pos": [-2.6, -4.6] },
@@ -30,7 +30,7 @@
       { "type": "move", "id": "hero",   "to": [-2.0, -4.6], "time": 1.2, "ease": "InOutQuad" },
       { "type": "move", "id": "zulmat", "to": [2.0, -4.6],  "time": 1.2, "ease": "InOutQuad" }
     ] },
-    { "type": "text", "style": "inner", "lines": ["He is… me."] },
+    { "type": "text", "voices": ["vo_cs3_02"], "style": "inner", "lines": ["He is… me."] },
 
     // 4. Memory flashes: a god, whole — then cut in two
     { "type": "parallel", "beats": [
@@ -46,7 +46,7 @@
       ] },
       { "type": "sequence", "beats": [
         { "type": "wait", "time": 0.5 },
-        { "type": "text", "style": "inner", "lines": [
+        { "type": "text", "voices": ["vo_cs3_03", "vo_cs3_04", "vo_cs3_05"], "style": "inner", "lines": [
           "I was a god.",
           "I tore out my cruelty, and it became him.",
           "I tore out my mercy, and it became me."
@@ -92,7 +92,7 @@
       { "type": "shake", "amp": 0.5, "time": 0.6 },
       { "type": "flash", "colour": "#C1272D", "time": 0.5 }
     ] },
-    { "type": "text", "speaker": "The Gods", "style": "boss", "lines": ["Whole, you are too much.", "Be halved again."] },
+    { "type": "text", "voices": ["vo_cs3_06", "vo_cs3_07"], "speaker": "The Gods", "style": "boss", "lines": ["Whole, you are too much.", "Be halved again."] },
 
     // 7. The figure splits into light and dark; the memory fades to black
     { "type": "image", "id": "split", "sprite": "CS3_Split", "layer": "Foreground", "fade": 0.4, "kenburns": { "from": [1.06, 0, 0], "to": [1.0, 0, 0], "time": 5.0 } },
@@ -103,7 +103,7 @@
       { "type": "remove", "id": "godC", "fade": 0.4 },
       { "type": "remove", "id": "whole", "fade": 0.4 }
     ] },
-    { "type": "text", "style": "narration", "lines": ["Two halves, each too weak to resist. Their memories locked away."] },
+    { "type": "text", "voices": ["vo_cs3_08"], "style": "narration", "lines": ["Two halves, each too weak to resist. Their memories locked away."] },
     { "type": "fade", "to": "black", "time": 1.5 },
     { "type": "remove", "id": "split" },
 

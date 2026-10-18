@@ -14,7 +14,7 @@
     { "type": "fade", "to": "clear", "time": 1.5 },
     { "type": "wait", "time": 2.5 },
     { "type": "remove", "id": "logo", "fade": 0.8 },
-    { "type": "text", "style": "narration", "lines": ["…again."], "minCycle": 2 },
+    { "type": "text", "voices": ["vo_cs1_01"], "style": "narration", "lines": ["…again."], "minCycle": 2 },
 
     // 2. Village (3 parallax layers), slow pan right, flame flickers behind
     { "type": "parallel", "beats": [
@@ -25,7 +25,7 @@
     ] },
 
     // 3.
-    { "type": "text", "style": "narration", "lines": ["Our village slept beneath the mountain's shadow."] },
+    { "type": "text", "voices": ["vo_cs1_02"], "style": "narration", "lines": ["Our village slept beneath the mountain's shadow."] },
 
     // 4–5. Crawler / Lunger puppets cross the village; small shake; flame flares
     { "type": "spawn", "id": "crawler", "character": "Crawler", "anim": "Walk", "pos": [-11.5, -4.4], "scale": 1.3, "layer": "Enemies" },
@@ -37,7 +37,7 @@
       { "type": "flame", "intensity": 1.5, "time": 0.3 },
       { "type": "sequence", "beats": [
         { "type": "wait", "time": 1.2 },
-        { "type": "text", "style": "narration", "lines": ["Then the shadows began to move."] }
+        { "type": "text", "voices": ["vo_cs1_03"], "style": "narration", "lines": ["Then the shadows began to move."] }
       ] }
     ] },
     { "type": "remove", "id": "crawler" },
@@ -46,7 +46,7 @@
     // 6. The protagonist looks toward the mountain
     { "type": "spawn", "id": "hero", "character": "Protagonist", "anim": "Idle", "pos": [-4.0, -4.6], "scale": 1.0 },
     { "type": "wait", "time": 0.6 },
-    { "type": "text", "style": "inner", "lines": ["The source of this lies in the cave."] },
+    { "type": "text", "voices": ["vo_cs1_04"], "style": "inner", "lines": ["The source of this lies in the cave."] },
 
     // 7. Runs right; the background slides to the cave mouth
     { "type": "anim", "id": "hero", "anim": "Run" },

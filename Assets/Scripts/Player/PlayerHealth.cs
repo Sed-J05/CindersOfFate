@@ -237,6 +237,7 @@ namespace Shatranj.Player
             {
                 yield return wipe.BurnClose(transform.position, config.deathFadeTime);
                 // Docs/08 §7: "You were extinguished" for ~1.2 s on black.
+                AudioManager.PlayVoice("vo_extinguished");
                 yield return UI.ScreenCard.Show(this, "You were extinguished", "", 0f, 0.3f, 0.6f, new Color(0.91f, 0.85f, 0.71f));
                 Respawn();
                 yield return null;

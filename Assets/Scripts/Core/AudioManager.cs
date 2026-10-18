@@ -27,7 +27,7 @@ namespace Shatranj.Core
         public static bool Has(string id) => !string.IsNullOrEmpty(id) && clips.ContainsKey(id);
 
         /// <summary>Drop-in clips (Docs/AUDIO_HOOKS.md): Resources/Audio/&lt;id&gt; for sfx, Resources/Audio/Music/&lt;id&gt; for music.</summary>
-        public const string SfxFolder = "Audio/", MusicFolder = "Audio/Music/";
+        public const string SfxFolder = "Audio/", MusicFolder = "Audio/Music/", VoiceFolder = "Audio/Voice/";
 
         private static readonly HashSet<string> notInResources = new HashSet<string>();
 
@@ -70,6 +70,28 @@ namespace Shatranj.Core
             Runner.PlayMusic(clip, Mathf.Clamp01(volume) * MasterVolume, loop);
         }
 
+        /// <summary>
+        /// Plays a voice line (Resources/Audio/Voice/&lt;id&gt;, Docs/AUDIO_AND_VOICE.md) on its own channel: a new line
+        /// cuts the previous one off. No-op if missing.
+        /// </summary>
+        public static void PlayVoice(string id, float volume = 1f)
+        {
+            if (string.IsNullOrEmpty(id)) return;
+            AudioClip clip = Find(id, VoiceFolder);
+            if (clip == null)
+            {
+                NoteMissing(id);
+                return;
+            }
+            if (!Application.isPlaying) return;
+            Runner.PlayVoice(clip, Mathf.Clamp01(volume) * MasterVolume);
+        }
+
+        public static void StopVoice()
+        {
+            if (runner != null) runner.StopVoice();
+        }
+
         public static void StopMusic()
         {
             if (runner != null) runner.StopMusic();
@@ -106,6 +128,7 @@ namespace Shatranj.Core
         {
             private AudioSource sfx;
             private AudioSource music;
+            private AudioSource voice;
             private float musicBaseVolume = 1f;
 
             private void Awake()
@@ -115,6 +138,8 @@ namespace Shatranj.Core
                 music = gameObject.AddComponent<AudioSource>();
                 music.playOnAwake = false;
                 music.loop = true;
+                voice = gameObject.AddComponent<AudioSource>();
+                voice.playOnAwake = false;
             }
 
             public void PlayOneShot(AudioClip clip, float volume) => sfx.PlayOneShot(clip, volume);
@@ -129,6 +154,16 @@ namespace Shatranj.Core
             }
 
             public void StopMusic() => music.Stop();
+
+            public void PlayVoice(AudioClip clip, float volume)
+            {
+                voice.Stop();
+                voice.clip = clip;
+                voice.volume = volume;
+                voice.Play();
+            }
+
+            public void StopVoice() => voice.Stop();
 
             public void ApplyMusicVolume(float master) => music.volume = musicBaseVolume * master;
 

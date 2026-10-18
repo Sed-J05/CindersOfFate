@@ -43,7 +43,7 @@
       ] },
       { "type": "sequence", "beats": [
         { "type": "wait", "time": 0.6 },
-        { "type": "text", "style": "inner", "lines": [
+        { "type": "text", "voices": ["vo_cs2_01", "vo_cs2_02", "vo_cs2_03"], "style": "inner", "lines": [
           "I remember… a throne of light.",
           "I remember… something I cast away.",
           "Its home is the castle beyond the cave."
@@ -61,7 +61,7 @@
     { "type": "parallel", "beats": [
       { "type": "shake", "amp": 0.6, "time": 0.8 },
       { "type": "flame", "intensity": 1.6, "time": 0.4 },
-      { "type": "text", "speaker": "???", "style": "boss", "lines": ["…You remember. Then I am awake."] }
+      { "type": "text", "voices": ["vo_cs2_04"], "speaker": "???", "style": "boss", "lines": ["…You remember. Then I am awake."] }
     ] },
     { "type": "parallel", "beats": [
       { "type": "remove", "id": "castle", "fade": 0.6 },
@@ -74,7 +74,7 @@
     { "type": "invertWipe", "time": 1.5, "theme": "Phase2_Inverted", "flameT": 0 },
 
     // 7.
-    { "type": "text", "style": "narration", "lines": ["The light behind the screen changed. So did everything on it."] },
+    { "type": "text", "voices": ["vo_cs2_05"], "style": "narration", "lines": ["The light behind the screen changed. So did everything on it."] },
 
     // 8. Powers return; Phase 2 (7 hearts, dash + fireball)
     { "type": "flash", "colour": "#CFEAFF", "time": 0.4 },

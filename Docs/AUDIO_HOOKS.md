@@ -2,6 +2,7 @@
 
 Every sound the game asks for. Drop a clip named exactly like the id into `Assets/Resources/Audio/` (sfx) or
 `Assets/Resources/Audio/Music/` (music) and it plays — missing clips are silent no-ops (`AudioManager`).
+Voice lines and a "what it should sound like" note for every id: `Docs/AUDIO_AND_VOICE.md`.
 Gamepad rumble and shake are separate (`Assets/Resources/FeelConfig.asset`).
 
 **87 ids.**
