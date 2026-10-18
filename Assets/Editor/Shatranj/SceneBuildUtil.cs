@@ -167,7 +167,7 @@ namespace Shatranj.EditorTools
             var text = textGo.AddComponent<Text>();
             text.font = BuiltinFont();
             text.fontSize = 22;
-            text.color = new Color(0.1f, 0.1f, 0.12f);
+            text.color = new Color(0.96f, 0.96f, 0.94f);
             text.raycastTarget = false;
             text.horizontalOverflow = HorizontalWrapMode.Overflow;
             text.verticalOverflow = VerticalWrapMode.Overflow;

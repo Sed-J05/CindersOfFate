@@ -22,8 +22,9 @@ Open issues after Prompt 18 (QA & build). Severity: **High** = blocks a playthro
 | 14 | Low | Sandbox | Killing Zulmat in the Sandbox doesn't play the ending (intentional, D-169). | Use Phase2_Castle (Shift+F6, F6 ×2, Shift+F5) to test the ending. |
 
 ## Fixed during QA (Prompt 18)
+- Enemy sword slashes were hard to see (thin blade, no trail) → every blade attack (Kage Warden, Kage Caller, Knight, Iron Colossus, Zulmat) has a sweep trail over the hit area (crimson in Phase 1 / Zulmat, blue-white in Phase 2); overhead cuts end low toward the floor; over-long blades shortened in the art (hit reach unchanged).
 - Player attacks showed a white box: PlayerFxPools' real-sprite slots (slash, hit spark, soul orb, fireball, impact) were never filled → PlayerFactory wires them from Assets/Art/FX; slashes are fitted to the hitbox.
-- Sign / interact prompts and the ability popup used dark text, unreadable on the new dark stone button art → light text (HUD prefab).
+- Dark text was unreadable on the new dark stone UI art → all text is light: interact/sign prompts, ability popup, boss intro card, menu buttons, menu hint, cutscene captions/cards/skip label (UIFactory.Ink is now near-white; inner-voice and boss lines use light blue / light red).
 - Dying in a boss arena locked the player out: the arena re-engaged on the body during the death slow-mo/wipe (gates shut, fresh boss spawned) before the respawn moved the player outside → BossArena never engages while the player is dead.
 - Running a builder menu item (e.g. Build All Scenes) during Play mode threw `InvalidOperationException: This cannot be used during play mode` → every asset/scene builder is greyed out in Play mode (`PlayModeMenuGuards`).
 - A boss destroyed during its slow-mo death (player died on the killing blow) left `Time.timeScale` at 0.25 → `TimeScaleGuard`: slow-mo owners are released on destroy, scene loads restore normal speed, a watchdog resets a stuck time scale; resuming from pause keeps a running slow-mo.

@@ -131,10 +131,10 @@ namespace Shatranj.EditorTools
             RectTransform cardSlider = Rect("Slider", cardRoot, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
             TextMeshProUGUI cardName = Text("Name", cardSlider, "BOSS", 72, TextAlignmentOptions.Center, new Vector2(0f, 0.5f), new Vector2(1f, 1f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
             cardName.fontStyle = FontStyles.Bold;
-            cardName.color = new Color(0.12f, 0.1f, 0.1f);
+            cardName.color = new Color(0.96f, 0.96f, 0.94f);
             TextMeshProUGUI cardEpithet = Text("Epithet", cardSlider, "— epithet", 34, TextAlignmentOptions.Center, new Vector2(0f, 0f), new Vector2(1f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
             cardEpithet.fontStyle = FontStyles.Italic;
-            cardEpithet.color = new Color(0.45f, 0.15f, 0.15f);
+            cardEpithet.color = new Color(1f, 0.55f, 0.5f);
             var cardUi = cardRoot.gameObject.AddComponent<BossIntroCardUI>();
             SceneBuildUtil.SetReference(cardUi, "group", cardGroup);
             SceneBuildUtil.SetReference(cardUi, "slider", cardSlider);

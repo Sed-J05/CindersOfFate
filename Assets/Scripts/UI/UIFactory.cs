@@ -16,7 +16,7 @@ namespace Shatranj.UI
     /// </summary>
     public static class UIFactory
     {
-        public static readonly Color Ink = new Color(0.13f, 0.11f, 0.10f);
+        public static readonly Color Ink = new Color(0.96f, 0.96f, 0.94f);   // text colour: light, reads on the dark stone UI art and dark scenes
         public static readonly Color Paper = new Color(0.91f, 0.85f, 0.71f);
 
         public static RectTransform Canvas(string name, Transform parent, int sortingOrder)

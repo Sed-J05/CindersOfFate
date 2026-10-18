@@ -1,6 +1,6 @@
 """Animations for every humanoid enemy and boss."""
 import math
-from rig import P, frames, Skeleton
+from rig import P, frames, Skeleton, interp
 from humanoid import render
 from enemies import make, DK, LT, ZU
 from anims import idle_keys, walk_keys, run_keys, hurt_keys, crouch, death_keys, dissolve, flash, glow_orb, aura, speed_lines, ghost
@@ -60,6 +60,53 @@ def swing(b, frm, to, n_extra=0, lean=8, x=2):
             dict(b, lean=lean, x=x, **to), dict(b, lean=lean * 0.4, x=x * 0.5, ua_f=to["ua_f"] * 0.7, la_f=to["la_f"] * 0.7, wpn=to["wpn"] * 0.85)]
 
 
+def smear(B, img, frm, to, ln, u0, u1, col, core, alpha=1.0, steps=10):
+    """Sword trail: fills the area the blade sweeps between poses frm and to (fractions u0..u1 of the swing),
+    so a fast slash reads as a bright crescent instead of a thin line."""
+    def sweep(outer):
+        hs, ts = [], []
+        for k in range(steps + 1):
+            u = u0 + (u1 - u0) * k / steps
+            p = interp(frm, to, u)
+            sk = B.skel(p)
+            hs.append(sk.along(sk.hand_f, p["wpn"], ln * 0.35))
+            ts.append(sk.along(sk.hand_f, p["wpn"], ln * outer))
+        return hs, ts
+
+    def fits(pts):
+        return all(1 <= x <= B.W - 2 and 1 <= y <= B.H - 2 for x, y in pts)
+
+    outer = 0.95                    # shrink the trail until it stays inside the canvas
+    hands, tips = sweep(outer)
+    while not fits(tips) and outer > 0.5:
+        outer -= 0.05
+        hands, tips = sweep(outer)
+    L = Layer(B.W, B.H)
+    L.poly(tips + hands[::-1], (col[0], col[1], col[2], int(150 * alpha)))
+    mid = [((t[0] * 3 + h[0]) / 4, (t[1] * 3 + h[1]) / 4) for t, h in zip(tips, hands)]
+    L.poly(tips + mid[::-1], (core[0], core[1], core[2], int(230 * alpha)))
+    for a_, b_ in zip(tips, tips[1:]):
+        L.line(a_, b_, (255, 235, 225, int(255 * alpha)), 1)
+    out = img.copy()
+    out.alpha_composite(L.img)
+    return out
+
+
+def slash_with_smear(B, frm, to, ln, col, core, tail=None, **swing_kw):
+    """Slash with a sword trail: windup, mid-swing (half trail), strike (full trail), recovery (fading trail),
+    plus an optional settle pose. Used by every enemy that swings a blade so all slashes read the same way."""
+    keys = swing(B.base, frm, to, **swing_kw) + ([tail] if tail else [])
+    out = B.seq(keys, len(keys), False)
+    f, t = dict(B.base, **frm), dict(B.base, **to)
+    out[1] = smear(B, out[1], f, t, ln, 0.0, 0.5, col, core)
+    out[2] = smear(B, out[2], f, t, ln, 0.0, 1.0, col, core)
+    out[3] = smear(B, out[3], f, t, ln, 0.45, 1.0, col, core, alpha=0.45)
+    return out
+
+
+TRAIL_DK = (DK["accent"], hexc("FF6A5A"))     # Phase 1 blades: crimson
+TRAIL_LT = (LT["accent"], hexc("EAF6FF"))     # Phase 2 blades: blue-white
+
 # ------------------------------------------------------------------ Lunger
 def lunger():
     st = make(DK, 50, head="ninja", torso="slim", weapon="none", scarf=True)
@@ -76,14 +123,14 @@ def lunger():
 
 # ------------------------------------------------------------------ Kage Warden
 def warden():
-    st = make(DK, 120, head="straw_hat", torso="slim", weapon="longblade", scarf=False)
+    st = make(DK, 120, head="straw_hat", torso="slim", weapon="longblade", scarf=False, wlen=120 * 0.48)
     b = P(ua_f=30, la_f=70, ua_b=20, la_b=70, wpn=120, ul_f=14, ul_b=-14)
     B = Builder("KageWarden", st, b)
     A = {"Intro": B.intro(6), "Idle": B.idle(6), "Walk": B.walk(8, 0.8), "Death": B.death(10)}
     A["Slash_Telegraph"] = B.seq([dict(b, ua_f=130, la_f=165, wpn=175), dict(b, ua_f=175, la_f=205, wpn=195, lean=-5),
                                   dict(b, ua_f=200, la_f=225, wpn=205, lean=-8)], 3, False, tele=True)
-    A["Slash_A"] = B.seq(swing(b, dict(ua_f=200, la_f=225, wpn=205), dict(ua_f=95, la_f=100, wpn=100)), 4, False)
-    A["Slash_B"] = B.seq(swing(b, dict(ua_f=40, la_f=10, wpn=-40), dict(ua_f=140, la_f=160, wpn=160)), 4, False)
+    A["Slash_A"] = slash_with_smear(B, dict(ua_f=200, la_f=225, wpn=205), dict(ua_f=60, la_f=45, wpn=45), 120 * 0.48, *TRAIL_DK)
+    A["Slash_B"] = slash_with_smear(B, dict(ua_f=60, la_f=40, wpn=40), dict(ua_f=165, la_f=185, wpn=190), 120 * 0.48, *TRAIL_DK)
     guard = dict(b, ua_f=60, la_f=150, ua_b=50, la_b=150, wpn=175, lean=-3)
     A["Block_Start"] = B.seq([b, dict(guard, wpn=150), guard], 3, False)
     A["Block_Hold"] = [B.R(guard, 0), B.R(dict(guard, y=-0.5), 0.5)]
@@ -98,8 +145,8 @@ def caller():
     B = Builder("KageCaller", st, b)
     A = {"Intro": B.intro(6), "Idle": B.idle(6), "Walk": B.walk(8, 0.6), "Death": B.death(10)}
     A["Slash_Telegraph"] = B.seq([dict(b, ua_f=130, la_f=165, wpn=175), dict(b, ua_f=175, la_f=205, wpn=195), dict(b, ua_f=200, la_f=225, wpn=205)], 3, False, tele=True)
-    A["Slash_A"] = B.seq(swing(b, dict(ua_f=200, la_f=225, wpn=205), dict(ua_f=95, la_f=100, wpn=100)), 4, False)
-    A["Slash_B"] = B.seq(swing(b, dict(ua_f=40, la_f=10, wpn=-40), dict(ua_f=140, la_f=160, wpn=160)), 4, False)
+    A["Slash_A"] = slash_with_smear(B, dict(ua_f=200, la_f=225, wpn=205), dict(ua_f=60, la_f=45, wpn=45), 115 * 0.45, *TRAIL_DK)
+    A["Slash_B"] = slash_with_smear(B, dict(ua_f=60, la_f=40, wpn=40), dict(ua_f=165, la_f=185, wpn=190), 115 * 0.45, *TRAIL_DK)
 
     def glowing(p, r, i, n):
         img = B.R(p, i / n)
@@ -117,13 +164,13 @@ def caller():
 
 # ------------------------------------------------------------------ Castle Knight
 def knight():
-    st = make(LT, 95, head="knight", torso="armor", weapon="longsword", shield="kite_back")
+    st = make(LT, 95, head="knight", torso="armor", weapon="longsword", shield="kite_back", wlen=95 * 0.38)
     b = P(ua_f=30, la_f=70, ua_b=-10, la_b=10, wpn=125)
     B = Builder("Knight", st, b)
     A = {"Idle": B.idle(4), "Walk": B.walk(8, 0.8), "Hurt": B.hurt(2), "Death": B.death(8)}
     A["Telegraph"] = B.seq([dict(b, ua_f=130, la_f=165, wpn=175), dict(b, ua_f=175, la_f=205, wpn=195, lean=-4), dict(b, ua_f=200, la_f=225, wpn=205, lean=-6)], 3, False, tele=True)
-    A["Attack_A"] = B.seq(swing(b, dict(ua_f=200, la_f=225, wpn=205), dict(ua_f=92, la_f=95, wpn=95)), 4, False)
-    A["Attack_B"] = B.seq(swing(b, dict(ua_f=160, la_f=170, wpn=175), dict(ua_f=60, la_f=40, wpn=40)), 4, False)
+    A["Attack_A"] = slash_with_smear(B, dict(ua_f=200, la_f=225, wpn=205), dict(ua_f=92, la_f=95, wpn=95), 95 * 0.38, *TRAIL_LT)
+    A["Attack_B"] = slash_with_smear(B, dict(ua_f=160, la_f=170, wpn=175), dict(ua_f=60, la_f=40, wpn=40), 95 * 0.38, *TRAIL_LT)
     return A
 
 
@@ -164,14 +211,14 @@ def charger():
 
 # ------------------------------------------------------------------ Iron Colossus
 def colossus():
-    st = make(LT, 130, head="bucket", torso="bulky", weapon="greatsword", shield="tower", bulk=1.9)
+    st = make(LT, 130, head="bucket", torso="bulky", weapon="greatsword", shield="tower", bulk=1.9, wlen=130 * 0.6)
     b = P(ua_f=25, la_f=60, ua_b=10, la_b=40, wpn=150, ul_f=12, ul_b=-12)
     B = Builder("IronColossus", st, b)
     A = {"Intro": B.intro(6), "Idle": B.idle(6), "Walk": B.walk(8, 0.5), "Death": B.death(12)}
     A["Slash_Telegraph"] = B.seq([dict(b, ua_f=120, la_f=155, wpn=170), dict(b, ua_f=160, la_f=190, wpn=185), dict(b, ua_f=200, la_f=225, wpn=205, lean=-5),
                                   dict(b, ua_f=205, la_f=230, wpn=210, lean=-7)], 4, False, tele=True)
-    sw = swing(b, dict(ua_f=205, la_f=230, wpn=210), dict(ua_f=95, la_f=95, wpn=95), lean=10, x=3)
-    A["Slash"] = B.seq(sw + [dict(b, lean=3)], 5, False)
+    A["Slash"] = slash_with_smear(B, dict(ua_f=205, la_f=230, wpn=210), dict(ua_f=95, la_f=95, wpn=95), 130 * 0.6, *TRAIL_LT,
+                                  tail=dict(b, lean=3), lean=10, x=3)
     guard = dict(b, ua_b=70, la_b=90, lean=-2)
     A["Block_Start"] = B.seq([b, dict(guard, ua_b=40, la_b=60), guard], 3, False)
     A["Block_Hold"] = [B.R(guard, 0), B.R(dict(guard, y=-0.5), 0.5)]
@@ -189,13 +236,17 @@ def colossus():
 
 # ------------------------------------------------------------------ Zulmat
 def zulmat():
-    st = make(ZU, 160, head="zulmat", torso="robe", weapon="claw_blade", bulk=1.15)
+    st = make(ZU, 160, head="zulmat", torso="robe", weapon="claw_blade", bulk=1.15, wlen=160 * 0.45)
     b = P(ua_f=30, la_f=70, ua_b=-20, la_b=0, wpn=135, ul_f=10, ul_b=-10)
     B = Builder("Zulmat", st, b)
     A = {"Intro": B.intro(8), "Idle": B.idle(8), "Walk": B.walk(8, 0.6), "Death": B.death(14)}
     A["Slash_Telegraph"] = B.seq([dict(b, ua_f=130, la_f=165, wpn=175), dict(b, ua_f=175, la_f=205, wpn=195), dict(b, ua_f=200, la_f=225, wpn=205, lean=-6)], 3, False, tele=True)
-    A["Slash_A"] = B.seq(swing(b, dict(ua_f=200, la_f=225, wpn=205), dict(ua_f=95, la_f=98, wpn=98)), 4, False)
-    A["Slash_B"] = B.seq(swing(b, dict(ua_f=40, la_f=10, wpn=-40), dict(ua_f=140, la_f=160, wpn=160)), 4, False)
+    # Big readable arcs (playtest: the thin blade was hard to see): A cuts overhead down to the floor in front,
+    # B rises from the floor back over the head, each with a crimson trail over the area the hitbox covers.
+    zl = 160 * 0.5 * 0.86   # trail radius kept inside the 512 px canvas
+    trail, trail_core = ZU["accent"], hexc("FF6A5A")
+    A["Slash_A"] = slash_with_smear(B, dict(ua_f=200, la_f=225, wpn=205), dict(ua_f=55, la_f=40, wpn=35), zl, trail, trail_core)
+    A["Slash_B"] = slash_with_smear(B, dict(ua_f=60, la_f=40, wpn=40), dict(ua_f=165, la_f=185, wpn=190), zl, trail, trail_core)
     down = dict(b, ua_b=90, la_b=40, lean=18)
     A["Vine_Cast"] = B.seq([dict(b, ua_b=-150, la_b=-170), dict(b, ua_b=-90, la_b=-60), crouch(down, 0.6), crouch(down, 0.8), crouch(down, 0.5), b], 6, False)
     A["Vine_Cast"] = [aura(im, B.W * 0.65, B.H - 6, 10, 2, ZU["accent"], i / 6) if 2 <= i <= 4 else im for i, im in enumerate(A["Vine_Cast"])]

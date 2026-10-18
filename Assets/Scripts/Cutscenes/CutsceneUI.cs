@@ -61,7 +61,7 @@ namespace Shatranj.Cutscenes
             captionGroup.alpha = 0f;
             Sprite box = UIFactory.CatalogSprite("Button_Normal");
             UIFactory.Image("Box", cap, box, box != null ? new Color(1f, 1f, 1f, 0.94f) : new Color(0.91f, 0.85f, 0.71f, 0.94f));
-            speakerText = UIFactory.Text("Speaker", cap, "", 30, TextAlignmentOptions.TopLeft, new Color(0.45f, 0.15f, 0.15f));
+            speakerText = UIFactory.Text("Speaker", cap, "", 30, TextAlignmentOptions.TopLeft, new Color(1f, 0.55f, 0.5f));
             speakerText.fontStyle = FontStyles.Bold | FontStyles.SmallCaps;
             speakerText.rectTransform.offsetMin = new Vector2(48f, 20f);
             speakerText.rectTransform.offsetMax = new Vector2(-48f, -18f);
@@ -148,11 +148,11 @@ namespace Shatranj.Cutscenes
             {
                 case "inner":
                     lineText.fontStyle = FontStyles.Italic;
-                    lineText.color = new Color(0.12f, 0.29f, 0.55f);
+                    lineText.color = new Color(0.68f, 0.85f, 1f);
                     break;
                 case "boss":
                     lineText.fontStyle = FontStyles.Bold;
-                    lineText.color = new Color(0.62f, 0.07f, 0.1f);
+                    lineText.color = new Color(1f, 0.45f, 0.42f);
                     break;
                 default: // narration
                     lineText.fontStyle = FontStyles.Normal;

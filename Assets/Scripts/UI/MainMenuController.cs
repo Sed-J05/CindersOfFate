@@ -62,7 +62,7 @@ namespace Shatranj.UI
             EventSystem es = UIFactory.EnsureEventSystem();
             es.SetSelectedGameObject((hasSave ? continueButton : startButton).gameObject);
 
-            TextMeshProUGUI hint = UIFactory.Text("Hint", canvas, "W/S or arrows · Enter / Space · gamepad A", 22, TextAlignmentOptions.Bottom, new Color(0.13f, 0.11f, 0.10f, 0.6f));
+            TextMeshProUGUI hint = UIFactory.Text("Hint", canvas, "W/S or arrows · Enter / Space · gamepad A", 22, TextAlignmentOptions.Bottom, new Color(0.96f, 0.96f, 0.94f, 0.7f));
             hint.rectTransform.offsetMin = new Vector2(0f, 24f);
         }
 
