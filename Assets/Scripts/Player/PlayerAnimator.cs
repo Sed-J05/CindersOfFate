@@ -18,11 +18,14 @@ namespace Shatranj.Player
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private SpriteAnimator spriteAnimator;
         [SerializeField] private SpriteAnimationSet animationSet;
+        [Tooltip("Phase 2 look (black/red protagonist art). Falls back to the Phase 1 set + theme recolour if empty.")]
+        [SerializeField] private SpriteAnimationSet phase2Set;
         [SerializeField] private float landSquashTime = 0.08f;
         [SerializeField] private Vector3 landSquashScale = new Vector3(1.15f, 0.8f, 1f);
         [SerializeField] private Vector3 jumpStretchScale = new Vector3(0.9f, 1.12f, 1f);
 
         public const string ProtagonistSetName = "Protagonist";
+        public const string Phase2SetName = "Protagonist_P2";
 
         private PlayerCombat combat;
         private Vector3 baseScale = Vector3.one;
@@ -53,10 +56,11 @@ namespace Shatranj.Player
 
             if (animationSet == null) animationSet = SpriteAnimationSet.Load(ProtagonistSetName);
             if (animationSet == null || !animationSet.HasAnyFrames) return;
+            if (phase2Set == null) phase2Set = SpriteAnimationSet.Load(Phase2SetName);
 
             if (spriteAnimator == null) spriteAnimator = visualRoot.GetComponent<SpriteAnimator>();
             if (spriteAnimator == null) spriteAnimator = visualRoot.gameObject.AddComponent<SpriteAnimator>();
-            spriteAnimator.Set = animationSet;
+            spriteAnimator.Set = SetForPhase(GameManager.HasInstance ? GameManager.Instance.Phase : GameConstants.Phase1);
             spriteAnimator.OnClipFinished += HandleClipFinished;
 
             // Real sprites: 256×256 canvas at 100 PPU with a bottom pivot → scale 1, feet at the root.
@@ -77,6 +81,7 @@ namespace Shatranj.Player
                 controller.OnJumped += HandleJumped;
                 ApplyState(controller.State);
             }
+            GameEvents.OnPhaseChanged += HandlePhaseChanged;
         }
 
         private void OnDisable()
@@ -87,6 +92,23 @@ namespace Shatranj.Player
                 controller.OnLanded -= HandleLanded;
                 controller.OnJumped -= HandleJumped;
             }
+            GameEvents.OnPhaseChanged -= HandlePhaseChanged;
+        }
+
+        /// <summary>Phase 2 swaps to the black/red art when it exists (Phase 1 set otherwise).</summary>
+        private SpriteAnimationSet SetForPhase(int phase)
+        {
+            bool p2 = phase == GameConstants.Phase2 && phase2Set != null && phase2Set.HasAnyFrames;
+            return p2 ? phase2Set : animationSet;
+        }
+
+        private void HandlePhaseChanged(int phase)
+        {
+            if (!HasClips || spriteAnimator == null) return;
+            SpriteAnimationSet target = SetForPhase(phase);
+            if (spriteAnimator.Set == target) return;
+            spriteAnimator.Set = target;
+            if (controller != null) ApplyState(controller.State);
         }
 
         private void OnDestroy()

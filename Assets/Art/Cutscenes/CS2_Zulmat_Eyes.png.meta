@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CS2_Zulmat_Eyes_0: 4833210254621913447
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

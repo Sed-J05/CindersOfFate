@@ -70,7 +70,7 @@
     ] },
 
     // 6. Back on stage: the inversion wipe from the flame — blue flame, inverted theatre, flame arc restarts at t = 0
-    { "type": "spawn", "id": "hero", "character": "Protagonist", "anim": "Idle", "pos": [0, -4.6] },
+    { "type": "spawn", "id": "hero", "character": "Protagonist_P2", "recolor": false, "anim": "Idle", "pos": [0, -4.6] },
     { "type": "invertWipe", "time": 1.5, "theme": "Phase2_Inverted", "flameT": 0 },
 
     // 7.

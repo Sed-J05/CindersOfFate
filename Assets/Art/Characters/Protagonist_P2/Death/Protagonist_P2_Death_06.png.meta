@@ -1,0 +1,910 @@
+fileFormatVersion: 2
+guid: 51d57f43b24017e48b579de847c83f72
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8142780642596624195
+    second: Protagonist_P2_Death_06_0
+  - first:
+      213: 2670801082412950902
+    second: Protagonist_P2_Death_06_1
+  - first:
+      213: -1823916268643388346
+    second: Protagonist_P2_Death_06_2
+  - first:
+      213: 6574325733423280012
+    second: Protagonist_P2_Death_06_3
+  - first:
+      213: 6992594638051761311
+    second: Protagonist_P2_Death_06_4
+  - first:
+      213: 5694204654206315306
+    second: Protagonist_P2_Death_06_5
+  - first:
+      213: 8627183758114167746
+    second: Protagonist_P2_Death_06_6
+  - first:
+      213: -1368835645318238424
+    second: Protagonist_P2_Death_06_7
+  - first:
+      213: 3764119570663162341
+    second: Protagonist_P2_Death_06_8
+  - first:
+      213: -1964063037173871777
+    second: Protagonist_P2_Death_06_9
+  - first:
+      213: -7788886548382361307
+    second: Protagonist_P2_Death_06_10
+  - first:
+      213: 4713197358561421882
+    second: Protagonist_P2_Death_06_11
+  - first:
+      213: 5670183330308096109
+    second: Protagonist_P2_Death_06_12
+  - first:
+      213: 5401735989685479702
+    second: Protagonist_P2_Death_06_13
+  - first:
+      213: -1939456451053560298
+    second: Protagonist_P2_Death_06_14
+  - first:
+      213: -3198650395183307700
+    second: Protagonist_P2_Death_06_15
+  - first:
+      213: 2297555722277583792
+    second: Protagonist_P2_Death_06_16
+  - first:
+      213: 2905143010631591468
+    second: Protagonist_P2_Death_06_17
+  - first:
+      213: -4744680444822371402
+    second: Protagonist_P2_Death_06_18
+  - first:
+      213: 9050499113013300968
+    second: Protagonist_P2_Death_06_19
+  - first:
+      213: -6529405642957931114
+    second: Protagonist_P2_Death_06_20
+  - first:
+      213: -7695963147898633498
+    second: Protagonist_P2_Death_06_21
+  - first:
+      213: -5306468277823297652
+    second: Protagonist_P2_Death_06_22
+  - first:
+      213: 8066098529337687366
+    second: Protagonist_P2_Death_06_23
+  - first:
+      213: -518291621721450999
+    second: Protagonist_P2_Death_06_24
+  - first:
+      213: -8061201246470516808
+    second: Protagonist_P2_Death_06_25
+  - first:
+      213: 1915182913861319027
+    second: Protagonist_P2_Death_06_26
+  - first:
+      213: -7161670244771375832
+    second: Protagonist_P2_Death_06_27
+  - first:
+      213: 5928547641551814785
+    second: Protagonist_P2_Death_06_28
+  - first:
+      213: -5347493440283642184
+    second: Protagonist_P2_Death_06_29
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_0
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 99
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db8e91ad5280ffe80800000000000000
+      internalID: -8142780642596624195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_1
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 115
+        width: 12
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 675e3f61f67901520800000000000000
+      internalID: 2670801082412950902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_2
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 107
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 644747331d520b6e0800000000000000
+      internalID: -1823916268643388346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_3
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 91
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8f676a1c62bc3b50800000000000000
+      internalID: 6574325733423280012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_4
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 99
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9c506366cfaa0160800000000000000
+      internalID: 6992594638051761311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_5
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 95
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2be75cb6f0e50f40800000000000000
+      internalID: 5694204654206315306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_6
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 61
+        width: 44
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cb1a625be9e9b770800000000000000
+      internalID: 8627183758114167746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_7
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 67
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82fe9e4ab3be00de0800000000000000
+      internalID: -1368835645318238424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_8
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 71
+        width: 34
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e1497d6ec6dc3430800000000000000
+      internalID: 3764119570663162341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_9
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 51
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5bc6c0e21f3eb4e0800000000000000
+      internalID: -1964063037173871777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_10
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 59
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 529d9d793f058e390800000000000000
+      internalID: -7788886548382361307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_11
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 55
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3aec59a604a86140800000000000000
+      internalID: 4713197358561421882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_12
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 79
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d600b5e62b980be40800000000000000
+      internalID: 5670183330308096109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_13
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 87
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61965a35342d6fa40800000000000000
+      internalID: 5401735989685479702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_14
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 71
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61edc9922aaa515e0800000000000000
+      internalID: -1939456451053560298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_15
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 43
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c44af6aa96c1c93d0800000000000000
+      internalID: -3198650395183307700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_16
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 47
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bb7506a1ce82ef10800000000000000
+      internalID: 2297555722277583792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_17
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 51
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c26a7621d24215820800000000000000
+      internalID: 2905143010631591468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_18
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 45
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b3ce991642872eb0800000000000000
+      internalID: -4744680444822371402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_19
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 39
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ee452fddf4d99d70800000000000000
+      internalID: 9050499113013300968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_20
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 43
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69dbf097924e265a0800000000000000
+      internalID: -6529405642957931114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_21
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 39
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e2410dba42723590800000000000000
+      internalID: -7695963147898633498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_22
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 27
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c87a6785733ab56b0800000000000000
+      internalID: -5306468277823297652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_23
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 35
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64d397c50e980ff60800000000000000
+      internalID: 8066098529337687366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_24
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 27
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9065b3d1488aec8f0800000000000000
+      internalID: -518291621721450999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_25
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 23
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bf40392d2cd02090800000000000000
+      internalID: -8061201246470516808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_26
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 23
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 379f99c86b8149a10800000000000000
+      internalID: 1915182913861319027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_27
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 23
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 825dae54bd2ac9c90800000000000000
+      internalID: -7161670244771375832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_28
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 11
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1800da05bae664250800000000000000
+      internalID: 5928547641551814785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist_P2_Death_06_29
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 7
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b6792d5c03e9c5b0800000000000000
+      internalID: -5347493440283642184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Protagonist_P2_Death_06_0: -8142780642596624195
+      Protagonist_P2_Death_06_1: 2670801082412950902
+      Protagonist_P2_Death_06_10: -7788886548382361307
+      Protagonist_P2_Death_06_11: 4713197358561421882
+      Protagonist_P2_Death_06_12: 5670183330308096109
+      Protagonist_P2_Death_06_13: 5401735989685479702
+      Protagonist_P2_Death_06_14: -1939456451053560298
+      Protagonist_P2_Death_06_15: -3198650395183307700
+      Protagonist_P2_Death_06_16: 2297555722277583792
+      Protagonist_P2_Death_06_17: 2905143010631591468
+      Protagonist_P2_Death_06_18: -4744680444822371402
+      Protagonist_P2_Death_06_19: 9050499113013300968
+      Protagonist_P2_Death_06_2: -1823916268643388346
+      Protagonist_P2_Death_06_20: -6529405642957931114
+      Protagonist_P2_Death_06_21: -7695963147898633498
+      Protagonist_P2_Death_06_22: -5306468277823297652
+      Protagonist_P2_Death_06_23: 8066098529337687366
+      Protagonist_P2_Death_06_24: -518291621721450999
+      Protagonist_P2_Death_06_25: -8061201246470516808
+      Protagonist_P2_Death_06_26: 1915182913861319027
+      Protagonist_P2_Death_06_27: -7161670244771375832
+      Protagonist_P2_Death_06_28: 5928547641551814785
+      Protagonist_P2_Death_06_29: -5347493440283642184
+      Protagonist_P2_Death_06_3: 6574325733423280012
+      Protagonist_P2_Death_06_4: 6992594638051761311
+      Protagonist_P2_Death_06_5: 5694204654206315306
+      Protagonist_P2_Death_06_6: 8627183758114167746
+      Protagonist_P2_Death_06_7: -1368835645318238424
+      Protagonist_P2_Death_06_8: 3764119570663162341
+      Protagonist_P2_Death_06_9: -1964063037173871777
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

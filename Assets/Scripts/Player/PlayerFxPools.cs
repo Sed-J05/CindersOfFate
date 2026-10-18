@@ -22,6 +22,11 @@ namespace Shatranj.Player
         [SerializeField] private Sprite fireballSprite;
         [SerializeField] private Sprite fireballImpactSprite;
 
+        /// <summary>The crescent art's arc covers ~0.86–1.74 u from its pivot; this inset lines it up with the hitbox.</summary>
+        private const float SlashPivotInset = 0.2f;
+        /// <summary>Arc height (side) / width (up) relative to the hitbox, so the slash reads slightly bigger than the box.</summary>
+        private const float SlashArcSpan = 1.4f;
+
         private static readonly Color SlashColor = new Color(0.92f, 0.97f, 1f, 0.85f);
         private static readonly Color SparkColor = new Color(1f, 0.95f, 0.6f, 0.95f);
         private static readonly Color GhostColor = new Color(0.55f, 0.9f, 1f, 0.55f);
@@ -134,10 +139,26 @@ namespace Shatranj.Player
             SpriteFx fx = GetFx(GameLayers.Sorting.FX, 0);
             Sprite sprite = up ? slashUpSprite : slashSideSprite;
             Vector3 scale;
-            if (sprite != null) scale = new Vector3(up ? 1f : facing, alternate && !up ? -1f : 1f, 1f);
+            Vector2 pos = center;
+            if (sprite != null)
+            {
+                // Real crescents (Docs/06 §4): Slash_Side pivots left-centre, Slash_Up bottom-centre. Anchor the pivot
+                // just behind the near edge of the hitbox and squash the arc's width/height to the box.
+                Vector2 art = sprite.bounds.size;
+                if (up)
+                {
+                    pos = new Vector2(center.x, center.y - size.y * 0.5f - SlashPivotInset);
+                    scale = new Vector3(size.x * SlashArcSpan / art.x, 1f, 1f);
+                }
+                else
+                {
+                    pos = new Vector2(center.x - facing * (size.x * 0.5f + SlashPivotInset), center.y);
+                    scale = new Vector3(facing, (alternate ? -1f : 1f) * size.y * SlashArcSpan / art.y, 1f);
+                }
+            }
             else scale = new Vector3(size.x * (up ? 1f : facing), size.y * (alternate && !up ? -1f : 1f), 1f);
             Vector3 to = new Vector3(scale.x * 1.12f, scale.y * 1.12f, 1f);
-            fx.Play(sprite != null ? sprite : PlaceholderSprites.Square, center, scale, to, SlashColor, lifetime, fade: true);
+            fx.Play(sprite != null ? sprite : PlaceholderSprites.Square, pos, scale, to, SlashColor, lifetime, fade: true);
         }
 
         /// <summary>Small bright spark at the contact point.</summary>

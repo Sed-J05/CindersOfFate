@@ -133,6 +133,136 @@
             ]
         },
         {
+            "name": "Protagonist_P2",
+            "folder": "Characters",
+            "layout": "character",
+            "pivot": "bottom",
+            "style": "protagonist",
+            "width": 256,
+            "height": 256,
+            "anims": [
+                {
+                    "name": "Idle",
+                    "frames": 6,
+                    "fps": 8.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Run",
+                    "frames": 8,
+                    "fps": 14.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Jump_Rise",
+                    "frames": 2,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": true
+                },
+                {
+                    "name": "Jump_Fall",
+                    "frames": 2,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Land",
+                    "frames": 3,
+                    "fps": 16.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Attack_Side_A",
+                    "frames": 4,
+                    "fps": 20.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Attack_Side_B",
+                    "frames": 4,
+                    "fps": 20.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Attack_Up",
+                    "frames": 4,
+                    "fps": 20.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Cast",
+                    "frames": 5,
+                    "fps": 14.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Heal_Charge",
+                    "frames": 6,
+                    "fps": 10.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Heal_Release",
+                    "frames": 3,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Hurt",
+                    "frames": 2,
+                    "fps": 12.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Death",
+                    "frames": 8,
+                    "fps": 10.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Dash",
+                    "frames": 4,
+                    "fps": 20.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Rest",
+                    "frames": 4,
+                    "fps": 6.0,
+                    "loop": true,
+                    "holdLast": false
+                },
+                {
+                    "name": "Look_Up",
+                    "frames": 1,
+                    "fps": 1.0,
+                    "loop": false,
+                    "holdLast": false
+                },
+                {
+                    "name": "Look_Down",
+                    "frames": 1,
+                    "fps": 1.0,
+                    "loop": false,
+                    "holdLast": false
+                }
+            ]
+        },
+        {
             "name": "Crawler",
             "folder": "Characters",
             "layout": "character",

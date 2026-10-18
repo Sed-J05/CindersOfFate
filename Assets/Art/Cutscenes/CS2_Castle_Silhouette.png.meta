@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CS2_Castle_Silhouette_0: 7360136667909755155
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

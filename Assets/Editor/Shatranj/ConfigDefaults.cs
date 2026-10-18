@@ -257,9 +257,10 @@ namespace Shatranj.EditorTools
 
         /// <summary>
         /// Bump when theme defaults change: VisualRigFactory re-applies these defaults (colours and numbers only, never
-        /// sprite slots) to theme assets whose <c>defaultsRevision</c> is older. 2 = Phase 2 grey-blue paper + black/red protagonist.
+        /// sprite slots) to theme assets whose <c>defaultsRevision</c> is older. 2 = Phase 2 grey-blue paper + black/red protagonist. 3 = Phase 2 uses its own
+        /// Protagonist_P2 art, so the shader recolour and white outline are off.
         /// </summary>
-        public const int ThemeRevision = 2;
+        public const int ThemeRevision = 3;
 
         /// <summary>Phase 2 paper: the beige parchment texture multiplied by this tint reads grey-blue (≈ #7D8A9C).</summary>
         public static readonly Color Phase2ParchmentTint = ThemeConfig.Hex("#8AA2DB");
@@ -289,9 +290,10 @@ namespace Shatranj.EditorTools
             t.environmentDark = ThemeConfig.Hex("#D8DEE9"); t.environmentMid = ThemeConfig.Hex("#A7B0C4"); t.environmentAccent = ThemeConfig.Hex("#5E86A8");
             t.enemyBase = ThemeConfig.Hex("#F2F8FF"); t.enemyPrimary = ThemeConfig.Hex("#6EC1FF"); t.enemyAccent = ThemeConfig.Hex("#2C6FD1");
             t.protagonistWhite = ThemeConfig.Hex("#EAF6FF"); t.protagonistBlue = ThemeConfig.Hex("#4FA3FF"); t.protagonistDeepBlue = ThemeConfig.Hex("#1B4F9C");
-            t.protagonistOutline = true; t.protagonistOutlineColor = Color.white; t.protagonistGlowColor = new Color(0.4f, 1f, 1f, 0.6f);
-            // D-154: protagonist turns black/red in Phase 2 (painted white body → black, blue → red, deep blue → deep red).
-            t.protagonistRecolor = 1f;
+            t.protagonistOutline = false; t.protagonistOutlineColor = Color.white; t.protagonistGlowColor = new Color(0.4f, 1f, 1f, 0.6f);
+            // D-154 / D-181: the black/red Phase 2 look is now real art (Protagonist_P2); the recolour stays available
+            // (colours kept) but is off so it doesn't repaint that art.
+            t.protagonistRecolor = 0f;
             t.protagonistRecolorLight = ThemeConfig.Hex("#0D0809");
             t.protagonistRecolorMid = ThemeConfig.Hex("#C8232C");
             t.protagonistRecolorDark = ThemeConfig.Hex("#5A0D12");

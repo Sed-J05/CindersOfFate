@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArtStyleConfig
   m_EditorClassIdentifier: 
   pixelsPerUnit: 100
-  usePointFilter: 0
+  usePointFilter: 1
   generateMipMaps: 0
   dropShadows: 1
   shadowBlurCopy: 1

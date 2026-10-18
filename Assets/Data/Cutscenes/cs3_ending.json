@@ -24,7 +24,7 @@
     { "type": "text", "speaker": "Zulmat", "style": "boss", "lines": ["Look at me. You know my face."] },
 
     // 3. Face to face, mirroring each other
-    { "type": "spawn", "id": "hero", "character": "Protagonist", "anim": "Idle", "pos": [-2.6, -4.6] },
+    { "type": "spawn", "id": "hero", "character": "Protagonist_P2", "recolor": false, "anim": "Idle", "pos": [-2.6, -4.6] },
     { "type": "anim", "id": "zulmat", "anim": "Idle" },
     { "type": "parallel", "beats": [
       { "type": "move", "id": "hero",   "to": [-2.0, -4.6], "time": 1.2, "ease": "InOutQuad" },

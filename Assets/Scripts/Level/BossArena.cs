@@ -74,6 +74,9 @@ namespace Shatranj.Level
             if (!playerInRoom || engaged || IsDefeated || bossPrefab == null) return;
             if (player == null) player = Player.PlayerController.Active;   // static, no per-frame scene search (Prompt 17)
             if (player == null) return;
+            // The body lies in the arena during the death slow-mo / wipe: re-engaging then would close the gates
+            // and respawn the boss before the player is moved back outside, locking them out.
+            if (player.State == Player.PlayerState.Dead) return;
             if (PlayerIsInsideGates(player.Position)) Engage();
         }
 

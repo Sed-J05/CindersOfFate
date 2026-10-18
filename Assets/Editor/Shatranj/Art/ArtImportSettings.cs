@@ -40,7 +40,9 @@ namespace Shatranj.EditorTools.Art
             SpriteSetDef set = ManifestIO.FindSetForPath(manifest, assetPath);
             Vector2 pivot = set != null ? set.PivotVector : new Vector2(0.5f, 0.5f);
             bool repeat = set != null && (set.style == "parchment" || set.style == "parchment_inv" || set.style.StartsWith("bg_"));
-            FilterMode filter = UsePointFilter() ? FilterMode.Point : FilterMode.Bilinear;
+            // Pixel sprites go crisp with the point filter; painted backdrops, cutscene panels and glows stay smooth.
+            bool painted = set != null && (set.folder == "Backgrounds" || (set.folder == "Cutscenes" && set.style != "god") || set.style == "ui_soul_glow");
+            FilterMode filter = UsePointFilter() && !painted ? FilterMode.Point : FilterMode.Bilinear;
             int maxSize = Mathf.Max(importer.maxTextureSize, set != null ? Mathf.NextPowerOfTwo(Mathf.Max(set.width, set.height)) : 2048);
             maxSize = Mathf.Clamp(maxSize, 2048, 8192);
 

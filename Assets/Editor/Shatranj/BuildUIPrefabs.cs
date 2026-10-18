@@ -167,7 +167,7 @@ namespace Shatranj.EditorTools
             Image popupIcon = Img("Icon", popupRoot, UiSprite("Ability_Icon_Dash"), new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(60f, 0f), new Vector2(96f, 96f), Color.white);
             TextMeshProUGUI popupText = Text("Name", popupRoot, "ABILITY", 34, TextAlignmentOptions.Left, new Vector2(0f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0f, 0.5f), new Vector2(130f, 0f), new Vector2(-150f, 60f));
             popupText.fontStyle = FontStyles.Bold;
-            popupText.color = new Color(0.15f, 0.15f, 0.17f);
+            popupText.color = new Color(0.96f, 0.96f, 0.94f);   // light text on the dark stone backdrop
             var popupUi = popupRoot.gameObject.AddComponent<AbilityPopupUI>();
             SceneBuildUtil.SetReference(popupUi, "group", popupGroup);
             SceneBuildUtil.SetReference(popupUi, "icon", popupIcon);
@@ -189,7 +189,7 @@ namespace Shatranj.EditorTools
             promptGroup.alpha = 0f;
             Img("Backdrop", promptRoot, UiSprite("Button_Normal"), Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, new Color(1f, 1f, 1f, 0.8f));
             TextMeshProUGUI promptText = Text("Text", promptRoot, "W — Rest", 26, TextAlignmentOptions.Center, Vector2.zero, Vector2.one, new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
-            promptText.color = new Color(0.15f, 0.15f, 0.17f);
+            promptText.color = new Color(0.96f, 0.96f, 0.94f);   // light text on the dark stone button backdrop
             var promptUi = promptRoot.gameObject.AddComponent<InteractPromptUI>();
             SceneBuildUtil.SetReference(promptUi, "canvasRect", canvasRect);
             SceneBuildUtil.SetReference(promptUi, "promptRect", promptRoot);

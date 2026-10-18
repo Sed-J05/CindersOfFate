@@ -128,6 +128,8 @@ namespace Shatranj.EditorTools
             SceneBuildUtil.SetReference(animator, "spriteRenderer", sr);
             SceneBuildUtil.SetReference(animator, "spriteAnimator", spriteAnimator);
             if (hasClips) SceneBuildUtil.SetReference(animator, "animationSet", animSet);
+            var phase2Set = AssetDatabase.LoadAssetAtPath<SpriteAnimationSet>(Art.RebuildAnimations.SetPath(PlayerAnimator.Phase2SetName));
+            if (hasClips && phase2Set != null && phase2Set.HasAnyFrames) SceneBuildUtil.SetReference(animator, "phase2Set", phase2Set);
 
             SceneBuildUtil.SetInt(health, "maxHp", config.heartsPhase1);
             SceneBuildUtil.SetFloat(health, "invulnerabilityDuration", config.hurtInvulnerabilityTime);
@@ -137,7 +139,21 @@ namespace Shatranj.EditorTools
             SceneBuildUtil.SetReference(hurtboxComp, "owner", playerHealth);
             SceneBuildUtil.SetReference(dash, "ghostSource", sr);
 
+            // Real FX art (Docs/06 §4); PlayerFxPools falls back to placeholder shapes for any that are missing.
+            WireFxSprite(fxPools, "slashSideSprite", "Slash_Side/Slash_Side_01.png");
+            WireFxSprite(fxPools, "slashUpSprite", "Slash_Up/Slash_Up_01.png");
+            WireFxSprite(fxPools, "hitSparkSprite", "Hit_Spark/Hit_Spark_01.png");
+            WireFxSprite(fxPools, "soulOrbSprite", "SoulOrb/SoulOrb_00.png");
+            WireFxSprite(fxPools, "fireballSprite", "Fireball_Fly/Fireball_Fly_00.png");
+            WireFxSprite(fxPools, "fireballImpactSprite", "Fireball_Impact/Fireball_Impact_01.png");
+
             return root;
+        }
+
+        private static void WireFxSprite(PlayerFxPools pools, string field, string relativePath)
+        {
+            var fxSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Art/FX/" + relativePath);
+            if (fxSprite != null) SceneBuildUtil.SetReference(pools, field, fxSprite);
         }
     }
 }

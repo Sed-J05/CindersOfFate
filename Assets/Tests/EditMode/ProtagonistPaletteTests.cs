@@ -28,8 +28,11 @@ namespace Shatranj.Tests
         [Test]
         public void Phase2_PaintedPalette_BecomesBlackAndRed()
         {
+            // D-181: Phase 2 has its own black/red art, so the default recolour is 0; the shader path stays
+            // available for custom themes, so check its maths with it switched on.
             ThemeConfig t = Theme(ConfigDefaults.ThemePhase2Inverted);
-            Assert.AreEqual(1f, t.protagonistRecolor);
+            Assert.AreEqual(0f, t.protagonistRecolor);
+            t.protagonistRecolor = 1f;
             AssertColor(t.protagonistRecolorLight, ProtagonistPalette.Recolor(t.protagonistWhite, t), "white body -> black");
             AssertColor(t.protagonistRecolorMid, ProtagonistPalette.Recolor(t.protagonistBlue, t), "blue accent -> red");
             AssertColor(t.protagonistRecolorDark, ProtagonistPalette.Recolor(t.protagonistDeepBlue, t), "deep blue -> deep red");

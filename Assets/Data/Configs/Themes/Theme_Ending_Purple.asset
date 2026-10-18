@@ -36,10 +36,10 @@ MonoBehaviour:
   protagonistWhite: {r: 0.91764706, g: 0.9647059, b: 1, a: 1}
   protagonistBlue: {r: 0.30980393, g: 0.6392157, b: 1, a: 1}
   protagonistDeepBlue: {r: 0.105882354, g: 0.30980393, b: 0.6117647, a: 1}
-  protagonistOutline: 1
+  protagonistOutline: 0
   protagonistOutlineColor: {r: 1, g: 1, b: 1, a: 1}
   protagonistGlowColor: {r: 0.4, g: 1, b: 1, a: 0.6}
-  protagonistRecolor: 1
+  protagonistRecolor: 0
   protagonistRecolorDark: {r: 0.3529412, g: 0.050980393, b: 0.07058824, a: 1}
   protagonistRecolorMid: {r: 0.78431374, g: 0.13725491, b: 0.17254902, a: 1}
   protagonistRecolorLight: {r: 0.050980393, g: 0.03137255, b: 0.03529412, a: 1}
@@ -56,4 +56,4 @@ MonoBehaviour:
   volumeProfile: {fileID: 0}
   uiTint: {r: 1, g: 1, b: 1, a: 1}
   contrastBoost: 0.1
-  defaultsRevision: 2
+  defaultsRevision: 3

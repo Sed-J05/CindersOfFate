@@ -45,6 +45,12 @@ namespace Shatranj.EditorTools.Art
                 A("Land", 3, 16), A("Attack_Side_A", 4, 20), A("Attack_Side_B", 4, 20), A("Attack_Up", 4, 20),
                 A("Cast", 5, 14), A("Heal_Charge", 6, 10, true), A("Heal_Release", 3, 12), A("Hurt", 2, 12),
                 A("Death", 8, 10), A("Dash", 4, 20), A("Rest", 4, 6, true), A("Look_Up", 1, 1), A("Look_Down", 1, 1)));
+            // Phase 2 look (black/red, D-181): same clips, swapped in by PlayerAnimator on the phase change.
+            s.Add(Character("Protagonist_P2", ArtPivot.Bottom, "protagonist", 256, 256,
+                A("Idle", 6, 8, true), A("Run", 8, 14, true), A("Jump_Rise", 2, 10, false, true), A("Jump_Fall", 2, 10, true),
+                A("Land", 3, 16), A("Attack_Side_A", 4, 20), A("Attack_Side_B", 4, 20), A("Attack_Up", 4, 20),
+                A("Cast", 5, 14), A("Heal_Charge", 6, 10, true), A("Heal_Release", 3, 12), A("Hurt", 2, 12),
+                A("Death", 8, 10), A("Dash", 4, 20), A("Rest", 4, 6, true), A("Look_Up", 1, 1), A("Look_Down", 1, 1)));
 
             // ---------------- §3.2 Phase 1 enemies ----------------
             s.Add(Character("Crawler", ArtPivot.Bottom, "crawler", 128, 128,

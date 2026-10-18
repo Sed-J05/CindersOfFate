@@ -56,4 +56,4 @@ MonoBehaviour:
   volumeProfile: {fileID: 0}
   uiTint: {r: 1, g: 1, b: 1, a: 1}
   contrastBoost: 0
-  defaultsRevision: 2
+  defaultsRevision: 3
